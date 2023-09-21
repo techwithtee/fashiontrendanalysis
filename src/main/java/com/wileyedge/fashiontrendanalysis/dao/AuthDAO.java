@@ -1,4 +1,4 @@
 package com.wileyedge.fashiontrendanalysis.dao;
 
-public class ProductDaoImpl {
+public interface AuthDAO {
 }

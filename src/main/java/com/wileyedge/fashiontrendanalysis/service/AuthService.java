@@ -1,4 +1,4 @@
 package com.wileyedge.fashiontrendanalysis.service;
 
-public class FavouriteService {
+public class AuthService {
 }

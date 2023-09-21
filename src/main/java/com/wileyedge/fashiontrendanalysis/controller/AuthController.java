@@ -1,4 +1,4 @@
 package com.wileyedge.fashiontrendanalysis.controller;
 
-public class ProductController {
+public class AuthController {
 }

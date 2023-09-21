@@ -1,4 +1,4 @@
 package com.wileyedge.fashiontrendanalysis.model;
 
-public class ProductDTO {
+public class User {
 }
