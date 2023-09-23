@@ -1,10 +1,27 @@
 package com.wileyedge.fashiontrendanalysis.dao;
 
 import com.wileyedge.fashiontrendanalysis.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public class ProductDaoImpl implements ProductDAO{
+@Repository
+public class ProductDaoImpl implements ProductDAO {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    /**
+     * Constructor to autowire the JdbcTemplate dependency.
+     *
+     * @param jdbcTemplate Object to interact with the database.
+     */
+    @Autowired
+    public ProductDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     /**
      * Retrieves all products from the database.
      *
