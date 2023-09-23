@@ -1,4 +1,4 @@
 package com.wileyedge.fashiontrendanalysis.model;
 
-public class Designer {
+public class BrandCompany {
 }

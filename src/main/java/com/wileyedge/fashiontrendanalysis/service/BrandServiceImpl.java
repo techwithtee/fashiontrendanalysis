@@ -1,4 +1,4 @@
 package com.wileyedge.fashiontrendanalysis.service;
 
-public class DesignerService {
+public class BrandServiceImpl {
 }
