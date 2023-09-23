@@ -5,15 +5,13 @@ import com.wileyedge.fashiontrendanalysis.model.Category;
 import java.util.List;
 
 public class CategoryDaoImpl implements CategoryDAO {
-
     /**
      * Retrieves all categories from the database.
      *
-     * @return a list of all fashion trend categories, or an empty list if no categories exist
+     * @return a list of all categories, or an empty list if none are found
      */
     @Override
     public List<Category> getAllCategories() {
-        // Implementation goes here
         return null;
     }
 
@@ -25,44 +23,61 @@ public class CategoryDaoImpl implements CategoryDAO {
      */
     @Override
     public Category getCategoryById(Long categoryId) {
-        // Implementation goes here
         return null;
     }
 
     /**
      * Adds a new category to the database.
      *
-     * @param category the category to add
-     * @return the ID of the newly created category, or null if the addition failed
+     * @param category the category to be added
+     * @return the ID of the newly added category, or null if the operation failed
      */
     @Override
     public Long addCategory(Category category) {
-        // Implementation goes here
         return null;
     }
 
     /**
-     * Updates an existing category in the database by its ID.
+     * Updates an existing category in the database.
      *
-     * @param categoryId the ID of the category to update
-     * @param category the category object with updated details
-     * @return true if the category was updated successfully, false otherwise
+     * @param category the category with updated details
+     * @return true if the update was successful, false otherwise
      */
     @Override
-    public boolean updateCategory(Long categoryId, Category category) {
-        // Implementation goes here
+    public boolean updateCategory(Category category) {
         return false;
     }
 
     /**
-     * Removes a specific category by its ID from the database.
+     * Deletes a specific category from the database using its ID.
      *
      * @param categoryId the ID of the category to delete
-     * @return true if the category was deleted successfully, false otherwise
+     * @return true if the deletion was successful, false otherwise
      */
     @Override
     public boolean deleteCategory(Long categoryId) {
-        // Implementation goes here
         return false;
+    }
+
+    /**
+     * Retrieves categories associated with a specific trend.
+     *
+     * @param trendId the ID of the trend
+     * @return a list of categories associated with the specified trend, or an empty list if none are found
+     */
+    @Override
+    public List<Category> getCategoriesByTrend(Long trendId) {
+        return null;
+    }
+
+    /**
+     * Retrieves categories associated with a specific product.
+     *
+     * @param productId the ID of the product
+     * @return a list of categories associated with the specified product, or an empty list if none are found
+     */
+    @Override
+    public List<Category> getCategoriesByProduct(Long productId) {
+        return null;
     }
 }
