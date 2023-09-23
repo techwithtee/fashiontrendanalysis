@@ -35,7 +35,7 @@ public interface CategoryDAO {
      * @param categoryId the category with updated details
      * @return true if the update was successful, false otherwise
      */
-    boolean updateCategory(Category categoryId, Category category);
+    boolean updateCategory(Long categoryId, Category category);
 
     /**
      * Deletes a specific category from the database using its ID.

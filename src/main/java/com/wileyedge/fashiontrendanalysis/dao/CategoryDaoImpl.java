@@ -5,6 +5,7 @@ import com.wileyedge.fashiontrendanalysis.model.Category;
 import java.util.List;
 
 public class CategoryDaoImpl implements CategoryDAO {
+
     /**
      * Retrieves all categories from the database.
      *
@@ -41,10 +42,11 @@ public class CategoryDaoImpl implements CategoryDAO {
      * Updates an existing category in the database.
      *
      * @param categoryId the category with updated details
+     * @param category
      * @return true if the update was successful, false otherwise
      */
     @Override
-    public boolean updateCategory(Category categoryId, Category category) {
+    public boolean updateCategory(Long categoryId, Category category) {
         return false;
     }
 
