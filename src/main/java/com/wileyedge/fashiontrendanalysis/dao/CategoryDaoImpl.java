@@ -40,11 +40,11 @@ public class CategoryDaoImpl implements CategoryDAO {
     /**
      * Updates an existing category in the database.
      *
-     * @param category the category with updated details
+     * @param categoryId the category with updated details
      * @return true if the update was successful, false otherwise
      */
     @Override
-    public boolean updateCategory(Category category) {
+    public boolean updateCategory(Category categoryId, Category category) {
         return false;
     }
 
