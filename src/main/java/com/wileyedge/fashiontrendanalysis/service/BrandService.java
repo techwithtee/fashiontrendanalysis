@@ -1,4 +1,4 @@
 package com.wileyedge.fashiontrendanalysis.service;
 
-public class AuthService {
+public class BrandService {
 }
