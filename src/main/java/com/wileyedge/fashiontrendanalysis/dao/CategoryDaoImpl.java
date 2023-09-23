@@ -1,10 +1,49 @@
 package com.wileyedge.fashiontrendanalysis.dao;
 
 import com.wileyedge.fashiontrendanalysis.model.Category;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
+/**
+ * Implementation of the CategoryDAO interface, providing CRUD operations
+ * for the Category entity using JDBC.
+ */
+@Repository
 public class CategoryDaoImpl implements CategoryDAO {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    /**
+     * Constructor that takes a JdbcTemplate as a parameter.
+     *
+     * @param jdbcTemplate the JdbcTemplate to be used for JDBC operations
+     */
+    @Autowired
+    public CategoryDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    /**
+     * RowMapper implementation for the Category entity.
+     * This mapper maps a row of the result set to a Category object.
+     *
+     * @param rs the result set from which the current row will be mapped
+     * @param rowNum the number of the current row being mapped
+     * @return a Category object with its fields set to the values from the current row of the result set
+     */
+    private final RowMapper<Category> categoryRowMapper = (rs, rowNum) -> {
+        Category category = new Category();
+        category.setCategoryId(rs.getLong("category_id"));
+        category.setCategoryName(rs.getString("category_name"));
+        return category;
+    };
 
     /**
      * Retrieves all categories from the database.
@@ -13,7 +52,8 @@ public class CategoryDaoImpl implements CategoryDAO {
      */
     @Override
     public List<Category> getAllCategories() {
-        return null;
+        String sql = "SELECT * FROM category";
+        return jdbcTemplate.query(sql, categoryRowMapper);
     }
 
     /**
@@ -24,7 +64,8 @@ public class CategoryDaoImpl implements CategoryDAO {
      */
     @Override
     public Category getCategoryById(Long categoryId) {
-        return null;
+        String sql = "SELECT * FROM category WHERE category_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{categoryId}, categoryRowMapper);
     }
 
     /**
@@ -35,7 +76,14 @@ public class CategoryDaoImpl implements CategoryDAO {
      */
     @Override
     public Long addCategory(Category category) {
-        return null;
+        String sql = "INSERT INTO category (category_name) VALUES (?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"category_id"});
+            ps.setString(1, category.getCategoryName());
+            return ps;
+        }, keyHolder);
+        return (Long) keyHolder.getKey();
     }
 
     /**
@@ -47,7 +95,9 @@ public class CategoryDaoImpl implements CategoryDAO {
      */
     @Override
     public boolean updateCategory(Long categoryId, Category category) {
-        return false;
+        String sql = "UPDATE category SET category_name = ? WHERE category_id = ?";
+        int updated = jdbcTemplate.update(sql, category.getCategoryName(), categoryId);
+        return updated > 0;
     }
 
     /**
@@ -58,8 +108,11 @@ public class CategoryDaoImpl implements CategoryDAO {
      */
     @Override
     public boolean deleteCategory(Long categoryId) {
-        return false;
+        String sql = "DELETE FROM category WHERE category_id = ?";
+        int deleted = jdbcTemplate.update(sql, categoryId);
+        return deleted > 0;
     }
+
 
     /**
      * Retrieves categories associated with a specific trend.
@@ -69,7 +122,10 @@ public class CategoryDaoImpl implements CategoryDAO {
      */
     @Override
     public List<Category> getCategoriesByTrend(Long trendId) {
-        return null;
+        String sql = "SELECT c.* FROM category c " +
+                "JOIN trend_category tc ON c.category_id = tc.category_id " +
+                "WHERE tc.trend_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{trendId}, categoryRowMapper);
     }
 
     /**
@@ -80,6 +136,9 @@ public class CategoryDaoImpl implements CategoryDAO {
      */
     @Override
     public List<Category> getCategoriesByProduct(Long productId) {
-        return null;
+        String sql = "SELECT c.* FROM category c " +
+                "JOIN product p ON c.category_id = p.category_id " +
+                "WHERE p.product_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{productId}, categoryRowMapper);
     }
 }
