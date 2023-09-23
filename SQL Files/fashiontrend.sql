@@ -1,3 +1,6 @@
+-- Drop the database if it  exists
+DROP DATABASE IF EXISTS fashion_trend_db;
+
 -- Create the database if it doesn't exist
 CREATE DATABASE IF NOT EXISTS fashion_trend_db;
 
@@ -14,7 +17,7 @@ CREATE TABLE category (
 CREATE TABLE designer (
     designer_id INT PRIMARY KEY,
     designer_name VARCHAR(255) NOT NULL,
-    designer_loccation VARCHAR(255)
+    designer_location VARCHAR(255)
 );
 
 -- Create the trend table
