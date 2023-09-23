@@ -23,17 +23,17 @@ CREATE TABLE trend (
     trend_id INT PRIMARY KEY,
     trend_name VARCHAR(255) NOT NULL,
     trend_desc TEXT,
-    start_date DATE,
-    end_date DATE,
     category_id INT,
     designer_id INT,
     location VARCHAR(255),
-    season VARCHAR(255),
+    season VARCHAR(255));
+    /**
+    
     colours JSON,    -- Store colors as JSON array
     fabrics JSON,   -- Store fabrics as JSON array
     styles JSON,    -- Store styles as JSON array
     themes JSON     -- Store themes as JSON array
-);
+    */
 
 -- Create the product table
 CREATE TABLE product (
@@ -41,12 +41,12 @@ CREATE TABLE product (
     product_name VARCHAR(255) NOT NULL,
     category_id INT,
     designer_id INT,
-    product_description TEXT,
-    price DECIMAL(10, 2),  -- Adjust precision and scale as needed
+    product_description TEXT);
+    
+    /**price DECIMAL(10, 2)-- Adjust precision and scale as needed
     colour VARCHAR(255),
     fabric VARCHAR(255),
-    style VARCHAR(255)
-);
+    style VARCHAR(255)*/
 
 -- Create the user table
 CREATE TABLE fashion_user (
