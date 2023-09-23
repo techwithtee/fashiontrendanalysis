@@ -1,6 +1,6 @@
 -- Insert data into the designer table
-INSERT INTO designer (designer_id, designer_name) VALUES 
-(1, 'Burberry');
+INSERT INTO designer (designer_id, designer_name, designer_loccation) VALUES 
+(1, 'Burberry', 'London');
 
 -- Insert data into the category table
 INSERT INTO category (category_id, category_name) VALUES 

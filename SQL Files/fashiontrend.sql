@@ -14,8 +14,7 @@ CREATE TABLE category (
 CREATE TABLE designer (
     designer_id INT PRIMARY KEY,
     designer_name VARCHAR(255) NOT NULL,
-    designer_country VARCHAR(255),
-    designer_desc TEXT
+    designer_loccation VARCHAR(255)
 );
 
 -- Create the trend table
