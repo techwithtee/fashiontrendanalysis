@@ -4,6 +4,8 @@ import com.wileyedge.fashiontrendanalysis.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.RowMapper;
+
 
 import java.util.List;
 
@@ -23,13 +25,32 @@ public class ProductDaoImpl implements ProductDAO {
     }
 
     /**
+     * RowMapper implementation for the Product entity.
+     * This mapper maps a row of the result set to a Product object.
+     *
+     * @param rs the result set from which the current row will be mapped
+     * @param rowNum the number of the current row being mapped
+     * @return a Product object with its fields set to the values from the current row of the result set
+     */
+    private final RowMapper<Product> productRowMapper = (rs, rowNum) -> {
+        return new Product(
+                rs.getLong("product_id"),
+                rs.getString("product_name"),
+                rs.getLong("category_id"),
+                rs.getLong("designer_id"),
+                rs.getString("product_description")
+        );
+    };
+
+    /**
      * Retrieves all products from the database.
      *
      * @return a list of all products, or an empty list if no products exist
      */
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        String sql = "SELECT * FROM product";
+        return jdbcTemplate.query(sql, productRowMapper);
     }
 
     /**
@@ -40,7 +61,8 @@ public class ProductDaoImpl implements ProductDAO {
      */
     @Override
     public Product getProductById(Long productId) {
-        return null;
+        String sql = "SELECT * FROM product WHERE product_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{productId}, productRowMapper);
     }
 
     /**
@@ -51,7 +73,10 @@ public class ProductDaoImpl implements ProductDAO {
      */
     @Override
     public Long addProduct(Product product) {
-        return null;
+        String sql = "INSERT INTO product (product_name, category_id, designer_id, product_description) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, product.getProductName(), product.getCategoryId(), product.getDesignerId(), product.getProductDescription());
+        // Assuming auto-increment primary key, retrieve the last inserted ID.
+        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Long.class);
     }
 
     /**
@@ -63,7 +88,9 @@ public class ProductDaoImpl implements ProductDAO {
      */
     @Override
     public boolean updateProduct(Long productId, Product product) {
-        return false;
+        String sql = "UPDATE product SET product_name = ?, category_id = ?, designer_id = ?, product_description = ? WHERE product_id = ?";
+        int updated = jdbcTemplate.update(sql, product.getProductName(), product.getCategoryId(), product.getDesignerId(), product.getProductDescription(), productId);
+        return updated > 0;
     }
 
     /**
@@ -74,7 +101,9 @@ public class ProductDaoImpl implements ProductDAO {
      */
     @Override
     public boolean deleteProduct(Long productId) {
-        return false;
+        String sql = "DELETE FROM product WHERE product_id = ?";
+        int deleted = jdbcTemplate.update(sql, productId);
+        return deleted > 0;
     }
 
     /**
@@ -85,7 +114,8 @@ public class ProductDaoImpl implements ProductDAO {
      */
     @Override
     public List<Product> getProductsByDesigner(Long designerId) {
-        return null;
+        String sql = "SELECT * FROM product WHERE designer_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{designerId}, productRowMapper);
     }
 
     /**
@@ -96,6 +126,7 @@ public class ProductDaoImpl implements ProductDAO {
      */
     @Override
     public List<Product> getProductsByCategory(Long categoryId) {
-        return null;
+        String sql = "SELECT * FROM product WHERE category_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{categoryId}, productRowMapper);
     }
 }
