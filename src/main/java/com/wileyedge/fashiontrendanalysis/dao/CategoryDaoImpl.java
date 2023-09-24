@@ -16,7 +16,7 @@ import java.util.List;
  * for the Category entity using JDBC.
  */
 @Repository
-public class CategoryDaoImpl implements CategoryDAO {
+public class CategoryDaoImpl implements CategoryDao {
 
     private final JdbcTemplate jdbcTemplate;
 

@@ -4,7 +4,7 @@ import com.wileyedge.fashiontrendanalysis.model.Product;
 
 import java.util.List;
 
-public interface ProductDAO {
+public interface ProductDao {
 
     /**
      * Retrieves all products from the database.

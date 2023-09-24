@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.util.List;
 
 @Repository
-public class ProductDaoImpl implements ProductDAO {
+public class ProductDaoImpl implements ProductDao {
 
     private final JdbcTemplate jdbcTemplate;
 
