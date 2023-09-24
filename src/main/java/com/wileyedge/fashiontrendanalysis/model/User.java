@@ -1,6 +1,17 @@
 package com.wileyedge.fashiontrendanalysis.model;
 
+import lombok.Data;
+
+/**
+ * Represents a user in the system.
+ * Contains fields that map to the 'fashion_user' table in the database.
+ *
+ * @author Your Name
+ * @version 1.0
+ */
+
 public class User {
+
     private Long userId;
     private String username;
     private String email;
@@ -9,17 +20,25 @@ public class User {
     private String address;
     private String phone;
 
-    // Constructors
-
-    public User() {
-        // Default constructor
-    }
-
-    public User(Long userId, String username, String email, String passwordHash) {
+    /**
+     * Constructs a new user instance with specified details.
+     *
+     * @param userId Unique identifier of the user.
+     * @param username Username of the user.
+     * @param email Email address of the user.
+     * @param passwordHash Hashed password of the user.
+     * @param designerName Designer name associated with the user (if any).
+     * @param address Address of the user.
+     * @param phone Contact phone number of the user.
+     */
+    public User(Long userId, String username, String email, String passwordHash, String designerName, String address, String phone) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
+        this.designerName = designerName;
+        this.address = address;
+        this.phone = phone;
     }
 
     // Getters and Setters for all fields
