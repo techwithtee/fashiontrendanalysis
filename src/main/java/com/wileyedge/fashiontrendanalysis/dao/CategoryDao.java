@@ -4,7 +4,7 @@ import com.wileyedge.fashiontrendanalysis.model.Category;
 
 import java.util.List;
 
-public interface CategoryDAO {
+public interface CategoryDao {
 
     /**
      * Retrieves all categories from the database.
