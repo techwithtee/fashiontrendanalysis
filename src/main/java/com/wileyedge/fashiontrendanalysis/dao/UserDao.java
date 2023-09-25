@@ -3,6 +3,8 @@ package com.wileyedge.fashiontrendanalysis.dao;
 import com.wileyedge.fashiontrendanalysis.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 
 /**
@@ -60,5 +62,7 @@ public interface UserDao {
      * @return the User if found, null otherwise
      */
     User findById(Long userId);
+
+    List<User> findAll();
 }
 

@@ -19,6 +19,7 @@ public class User {
     private String designerName;
     private String address;
     private String phone;
+    private String role;
 
     /**
      * Constructs a new user instance with specified details.
@@ -98,4 +99,14 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    // Add getters and setters for the role
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 }

@@ -1,5 +1,5 @@
 -- Insert data into the designer table
-INSERT INTO designer (designer_id, designer_name, designer_loccation) VALUES 
+INSERT INTO designer (designer_id, designer_name, designer_location) VALUES 
 (1, 'Burberry', 'London');
 
 -- Insert data into the category table
@@ -15,5 +15,6 @@ INSERT INTO product (product_id, product_name, category_id, designer_id, product
 (1, 'Checkered Tranch Coat', 1, 1, 'Classic Burberry checkered trench coat');
 
 -- Insert data into the user table
-INSERT INTO fashion_user (user_id, username, email, password_hash, designer_name, address, phone) VALUES 
-(1001, 'ASOSUser', 'user@asos.com', 'hashedASOSpassword2023', 'ASOS', '123 Fashion St, London, UK', '+44123456789');
+INSERT INTO fashion_user (user_id, username, email, password_hash, role, designer_name, address, phone) VALUES 
+(1001, 'ASOSUser', 'user@asos.com', 'hashedASOSpassword2023', 'USER', 'ASOS', '123 Fashion St, London, UK', '+44123456789');
+

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Provides a JDBC-based implementation for user-related database operations.
@@ -113,5 +114,11 @@ public class UserDaoImpl implements UserDao {
     public User findById(Long userId) {
         String sql = "SELECT * FROM fashion_user WHERE user_id = ?";
         return jdbcTemplate.queryForObject(sql, userRowMapper, userId);
+    }
+
+    @Override
+    public List<User> findAll() {
+        String sql = "SELECT * FROM fashion_user";
+        return jdbcTemplate.query(sql, userRowMapper);
     }
 }
