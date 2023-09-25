@@ -84,4 +84,16 @@ public class TrendDaoImpl implements TrendDao {
         String query = "SELECT * FROM trend WHERE season=?";
         return jdbcTemplate.query(query, rowMapper, season);
     }
+
+    @Override
+    public boolean associateTrendWithCategory(Long trendId, Long categoryId) {
+        String query = "INSERT INTO trend_category (trend_id, category_id) VALUES (?, ?)";
+        return jdbcTemplate.update(query, trendId, categoryId) > 0;
+    }
+
+    @Override
+    public boolean dissociateTrendFromCategory(Long trendId, Long categoryId) {
+        String query = "DELETE FROM trend_category WHERE trend_id=? AND category_id=?";
+        return jdbcTemplate.update(query, trendId, categoryId) > 0;
+    }
 }

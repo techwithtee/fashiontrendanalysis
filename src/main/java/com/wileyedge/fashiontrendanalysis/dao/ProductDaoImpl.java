@@ -1,5 +1,6 @@
 package com.wileyedge.fashiontrendanalysis.dao;
 
+import com.wileyedge.fashiontrendanalysis.model.Designer;
 import com.wileyedge.fashiontrendanalysis.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,6 +41,17 @@ public class ProductDaoImpl implements ProductDao {
                 rs.getLong("designer_id"),
                 rs.getString("product_description")
         );
+    };
+
+    // RowMapper for Designer
+    private final RowMapper<Designer> designerRowMapper = (rs, rowNum) -> {
+        Designer designer = new Designer();
+        designer.setDesignerId(rs.getLong("designer_id"));
+        designer.setDesignerName(rs.getString("designer_name"));
+        designer.setDesignerLocation(rs.getString("designer_location"));
+        designer.setTrendCount(rs.getInt("trend_count"));
+        designer.setPopularityScore(rs.getInt("popularity_score"));
+        return designer;
     };
 
     /**
@@ -128,5 +140,23 @@ public class ProductDaoImpl implements ProductDao {
     public List<Product> getProductsByCategory(Long categoryId) {
         String sql = "SELECT * FROM product WHERE category_id = ?";
         return jdbcTemplate.query(sql, new Object[]{categoryId}, productRowMapper);
+    }
+
+    @Override
+    public void associateDesignerWithProduct(Long designerId, Long productId) {
+        String query = "INSERT INTO product_designer_association (product_id, designer_id) VALUES (?, ?)";
+        jdbcTemplate.update(query, productId, designerId);
+    }
+
+    @Override
+    public void dissociateDesignerFromProduct(Long designerId, Long productId) {
+        String query = "DELETE FROM product_designer_association WHERE product_id=? AND designer_id=?";
+        jdbcTemplate.update(query, productId, designerId);
+    }
+
+    @Override
+    public List<Designer> getDesignersForProduct(Long productId) {
+        String query = "SELECT * FROM designers WHERE designer_id IN (SELECT designer_id FROM product_designer_association WHERE product_id=?)";
+        return jdbcTemplate.query(query, designerRowMapper, productId);
     }
 }

@@ -61,4 +61,14 @@ public class TrendServiceImpl implements TrendService {
     public List<Trend> getTrendsBySeason(String season) {
         return trendDao.getTrendsBySeason(season);
     }
+
+    @Override
+    public boolean associateTrendWithCategory(Long trendId, Long categoryId) {
+        return trendDao.associateTrendWithCategory(trendId, categoryId);
+    }
+
+    @Override
+    public boolean dissociateTrendFromCategory(Long trendId, Long categoryId) {
+        return trendDao.dissociateTrendFromCategory(trendId, categoryId);
+    }
 }

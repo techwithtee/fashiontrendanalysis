@@ -16,6 +16,10 @@ public interface TrendDao {
 
     boolean deleteTrend(Long trendId);
 
+    boolean associateTrendWithCategory(Long trendId, Long categoryId);
+
+    boolean dissociateTrendFromCategory(Long trendId, Long categoryId);
+
     List<Trend> getTrendsByCategory(Long categoryId);
 
     List<Trend> getTrendsByDesigner(Long designerId);
@@ -23,4 +27,6 @@ public interface TrendDao {
     List<Trend> getTrendsByLocation(String location);
 
     List<Trend> getTrendsBySeason(String season);
+
+
 }

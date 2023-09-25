@@ -16,6 +16,10 @@ public interface TrendService {
 
     boolean deleteTrend(Long trendId);
 
+    boolean associateTrendWithCategory(Long trendId, Long categoryId);
+
+    boolean dissociateTrendFromCategory(Long trendId, Long categoryId);
+
     List<Trend> getTrendsByCategory(Long categoryId);
 
     List<Trend> getTrendsByDesigner(Long designerId);

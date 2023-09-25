@@ -1,5 +1,6 @@
 package com.wileyedge.fashiontrendanalysis.service;
 
+import com.wileyedge.fashiontrendanalysis.model.Designer;
 import com.wileyedge.fashiontrendanalysis.model.Product;
 import java.util.List;
 
@@ -63,4 +64,10 @@ public interface ProductService {
      * @return List of products associated with the provided category ID.
      */
     List<Product> getProductsByCategory(Long categoryId);
+
+    void associateDesignerWithProduct(Long designerId, Long productId);
+
+    void dissociateDesignerFromProduct(Long designerId, Long productId);
+
+    List<Designer> getDesignersForProduct(Long productId);
 }
