@@ -62,8 +62,8 @@ public class ProductDaoImplTest {
     public void testAddProduct() {
         Product product = new Product(null, "Shirt", 1L, 1L, "Cotton shirt");
 
-        when(jdbcTemplate.update(anyString(), product.getProductName(), product.getCategoryId(), product.getDesignerId(), product.getProductDescription())).thenReturn(1);
-        when(jdbcTemplate.queryForObject(anyString(), Long.class)).thenReturn(1L);
+        when(jdbcTemplate.update(anyString(), eq(product.getProductName()), eq(product.getCategoryId()), eq(product.getDesignerId()), eq(product.getProductDescription()))).thenReturn(1);
+        when(jdbcTemplate.queryForObject(anyString(), eq(Long.class))).thenReturn(1L);
 
         Long returnedId = productDao.addProduct(product);
 
