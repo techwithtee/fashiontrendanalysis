@@ -86,6 +86,22 @@ public class TrendController {
         return new ResponseEntity<>(trends, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/popularityScore")
+    public ResponseEntity<Integer> getTrendPopularityScore(@PathVariable Long id) {
+        Integer popularityScore = trendService.getTrendPopularityScore(id);
+        if (popularityScore != null) {
+            return new ResponseEntity<>(popularityScore, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/{id}/recordPopularityScore")
+    public ResponseEntity<Void> recordPopularityScore(@PathVariable Long id, @RequestParam int popularityScore) {
+        trendService.recordPopularityScore(id, popularityScore);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @PostMapping("/{trendId}/categories/{categoryId}")
     public ResponseEntity<Void> associateTrendWithCategory(@PathVariable Long trendId, @PathVariable Long categoryId) {
         boolean associated = trendService.associateTrendWithCategory(trendId, categoryId);
@@ -105,4 +121,5 @@ public class TrendController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
 }

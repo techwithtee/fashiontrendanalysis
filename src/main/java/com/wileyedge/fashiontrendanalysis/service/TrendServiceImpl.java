@@ -63,6 +63,20 @@ public class TrendServiceImpl implements TrendService {
     }
 
     @Override
+
+    public Integer getTrendPopularityScore(Long trendId) {
+        return trendDao.getTrendPopularityScore(trendId);
+    }
+
+    @Override
+    public void recordPopularityScore(Long trendId, int popularityScore) {
+        trendDao.recordPopularityScore(trendId, popularityScore);
+    }
+
+    @Override
+    public double calculateTrendPopularityScore(Long trendId) {
+        return trendDao.calculatePopularityScore(trendId);
+
     public boolean associateTrendWithCategory(Long trendId, Long categoryId) {
         return trendDao.associateTrendWithCategory(trendId, categoryId);
     }
@@ -70,5 +84,7 @@ public class TrendServiceImpl implements TrendService {
     @Override
     public boolean dissociateTrendFromCategory(Long trendId, Long categoryId) {
         return trendDao.dissociateTrendFromCategory(trendId, categoryId);
+
     }
 }
+
