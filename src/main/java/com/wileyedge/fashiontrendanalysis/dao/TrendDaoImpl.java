@@ -30,7 +30,6 @@ public class TrendDaoImpl implements TrendDao {
             return trend;
         };
     }
-
     @Override
     public List<Trend> getAllTrends() {
         String query = "SELECT * FROM trend";
@@ -120,7 +119,9 @@ public class TrendDaoImpl implements TrendDao {
     public void recordPopularityScore(Long trendId, int popularityScore) {
         String insertQuery = "INSERT INTO trend_popularity (trend_id, popularity_score) VALUES (?, ?)";
         jdbcTemplate.update(insertQuery, trendId, popularityScore);
+    }
 
+    @Override
     public boolean associateTrendWithCategory(Long trendId, Long categoryId) {
         String query = "INSERT INTO trend_category (trend_id, category_id) VALUES (?, ?)";
         return jdbcTemplate.update(query, trendId, categoryId) > 0;
@@ -130,6 +131,5 @@ public class TrendDaoImpl implements TrendDao {
     public boolean dissociateTrendFromCategory(Long trendId, Long categoryId) {
         String query = "DELETE FROM trend_category WHERE trend_id=? AND category_id=?";
         return jdbcTemplate.update(query, trendId, categoryId) > 0;
-
     }
 }
