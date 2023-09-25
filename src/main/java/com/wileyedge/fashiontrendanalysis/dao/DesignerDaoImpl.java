@@ -1,6 +1,7 @@
 package com.wileyedge.fashiontrendanalysis.dao;
 
 import com.wileyedge.fashiontrendanalysis.model.Designer;
+import com.wileyedge.fashiontrendanalysis.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,6 +14,7 @@ public class DesignerDaoImpl implements DesignerDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final RowMapper<Designer> rowMapper;
+   private final RowMapper<Product> productRowMapper;
 
     @Autowired
     public DesignerDaoImpl(JdbcTemplate jdbcTemplate) {
@@ -25,6 +27,13 @@ public class DesignerDaoImpl implements DesignerDao {
             designer.setTrendCount(rs.getInt("trend_count"));
             designer.setPopularityScore(rs.getInt("popularity_score"));
             return designer;
+        };
+        this.productRowMapper = (rs, rowNum) -> {
+            Product product = new Product();
+            product.setProductId(rs.getLong("product_id"));
+            product.setProductName(rs.getString("product_name"));
+            // ... set other product fields here
+            return product;
         };
     }
 
@@ -75,5 +84,11 @@ public class DesignerDaoImpl implements DesignerDao {
     public Integer getDesignerPopularityScore(Long designerId) {
         String query = "SELECT popularity_score FROM designer WHERE designer_id=?";
         return jdbcTemplate.queryForObject(query, Integer.class, designerId);
+    }
+
+    @Override
+    public List<Product> getProductsForDesigner(Long designerId) {
+        String query = "SELECT * FROM products WHERE product_id IN (SELECT product_id FROM product_designer_association WHERE designer_id=?)";
+        return jdbcTemplate.query(query, productRowMapper, designerId);
     }
 }

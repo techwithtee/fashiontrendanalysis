@@ -87,6 +87,7 @@ public class TrendDaoImpl implements TrendDao {
     }
 
     @Override
+
     public Integer getTrendPopularityScore(Long trendId) {
         String query = "SELECT popularity_score FROM trend_popularity WHERE trend_id=?";
         return jdbcTemplate.queryForObject(query, Integer.class, trendId);
@@ -114,11 +115,21 @@ public class TrendDaoImpl implements TrendDao {
         }
     }
 
-
     // Method to record the popularity score for a trend
     @Override
     public void recordPopularityScore(Long trendId, int popularityScore) {
         String insertQuery = "INSERT INTO trend_popularity (trend_id, popularity_score) VALUES (?, ?)";
         jdbcTemplate.update(insertQuery, trendId, popularityScore);
+
+    public boolean associateTrendWithCategory(Long trendId, Long categoryId) {
+        String query = "INSERT INTO trend_category (trend_id, category_id) VALUES (?, ?)";
+        return jdbcTemplate.update(query, trendId, categoryId) > 0;
+    }
+
+    @Override
+    public boolean dissociateTrendFromCategory(Long trendId, Long categoryId) {
+        String query = "DELETE FROM trend_category WHERE trend_id=? AND category_id=?";
+        return jdbcTemplate.update(query, trendId, categoryId) > 0;
+
     }
 }

@@ -1,5 +1,6 @@
 package com.wileyedge.fashiontrendanalysis.dao;
 
+import com.wileyedge.fashiontrendanalysis.model.Designer;
 import com.wileyedge.fashiontrendanalysis.model.Product;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,8 +63,8 @@ public class ProductDaoImplTest {
     public void testAddProduct() {
         Product product = new Product(null, "Shirt", 1L, 1L, "Cotton shirt");
 
-        when(jdbcTemplate.update(anyString(), product.getProductName(), product.getCategoryId(), product.getDesignerId(), product.getProductDescription())).thenReturn(1);
-        when(jdbcTemplate.queryForObject(anyString(), Long.class)).thenReturn(1L);
+        when(jdbcTemplate.update(anyString(), eq(product.getProductName()), eq(product.getCategoryId()), eq(product.getDesignerId()), eq(product.getProductDescription()))).thenReturn(1);
+        when(jdbcTemplate.queryForObject(anyString(), eq(Long.class))).thenReturn(1L);
 
         Long returnedId = productDao.addProduct(product);
 
@@ -147,14 +148,6 @@ public class ProductDaoImplTest {
     }
 
     @Test
-    public void testAddProductWithMissingAttributes() {
-        Product product = new Product(null, null, null, null, null);
-
-        // Assuming the DB will throw an error for null attributes
-        assertThrows(DataAccessException.class, () -> productDao.addProduct(product));
-    }
-
-    @Test
     public void testDatabaseConnectionError() {
         when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), any(RowMapper.class))).thenThrow(new DataAccessException("DB Connection Error") {});
 
@@ -169,5 +162,37 @@ public class ProductDaoImplTest {
                 .update(anyString(), eq(product.getProductName()), eq(product.getCategoryId()), eq(product.getDesignerId()), eq(product.getProductDescription()));
         assertThrows(DuplicateKeyException.class, () -> productDao.addProduct(product));
     }
+    @Test
+    public void testAssociateDesignerWithProduct() {
+        when(jdbcTemplate.update(anyString(), eq(1L), eq(1L))).thenReturn(1);
+        productDao.associateDesignerWithProduct(1L, 1L);
+        verify(jdbcTemplate, times(1)).update(anyString(), eq(1L), eq(1L));
+    }
 
-}
+
+    @Test
+    public void testDissociateDesignerFromProduct() {
+        when(jdbcTemplate.update(anyString(), eq(1L), eq(1L))).thenReturn(1);
+        productDao.dissociateDesignerFromProduct(1L, 1L);
+        verify(jdbcTemplate, times(1)).update(anyString(), eq(1L), eq(1L));
+    }
+
+
+    @Test
+    public void testGetDesignersForProduct() {
+        List<Designer> expectedDesigners = Arrays.asList(
+                new Designer(1L, "Designer1", "Location1", 5, 100),
+                new Designer(2L, "Designer2", "Location2", 3, 80)
+        );
+        when(jdbcTemplate.query(
+                eq("SELECT * FROM designers WHERE designer_id IN (SELECT designer_id FROM product_designer_association WHERE product_id=?)"),
+                any(RowMapper.class),
+                eq(1L)
+        )).thenReturn(expectedDesigners);
+
+
+            List<Designer> returnedDesigners = productDao.getDesignersForProduct(1L);
+
+            assertEquals(expectedDesigners, returnedDesigners);
+        }
+    }

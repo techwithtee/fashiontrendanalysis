@@ -2,6 +2,7 @@ package com.wileyedge.fashiontrendanalysis.service;
 
 import com.wileyedge.fashiontrendanalysis.dao.DesignerDao;
 import com.wileyedge.fashiontrendanalysis.model.Designer;
+import com.wileyedge.fashiontrendanalysis.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +56,10 @@ public class DesignerServiceImpl implements DesignerService {
     @Override
     public Integer getDesignerPopularityScore(Long designerId) {
         return designerDao.getDesignerPopularityScore(designerId);
+    }
+
+    @Override
+    public List<Product> getProductsForDesigner(Long designerId) {
+        return designerDao.getProductsForDesigner(designerId);
     }
 }

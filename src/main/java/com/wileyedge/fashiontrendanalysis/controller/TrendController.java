@@ -102,5 +102,24 @@ public class TrendController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/{trendId}/categories/{categoryId}")
+    public ResponseEntity<Void> associateTrendWithCategory(@PathVariable Long trendId, @PathVariable Long categoryId) {
+        boolean associated = trendService.associateTrendWithCategory(trendId, categoryId);
+        if (associated) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/{trendId}/categories/{categoryId}")
+    public ResponseEntity<Void> dissociateTrendFromCategory(@PathVariable Long trendId, @PathVariable Long categoryId) {
+        boolean dissociated = trendService.dissociateTrendFromCategory(trendId, categoryId);
+        if (dissociated) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

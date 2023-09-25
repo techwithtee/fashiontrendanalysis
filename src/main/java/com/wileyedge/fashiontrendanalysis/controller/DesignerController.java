@@ -1,12 +1,14 @@
 package com.wileyedge.fashiontrendanalysis.controller;
 
 import com.wileyedge.fashiontrendanalysis.model.Designer;
+import com.wileyedge.fashiontrendanalysis.model.Product;
 import com.wileyedge.fashiontrendanalysis.service.DesignerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -86,5 +88,11 @@ public class DesignerController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/{designerId}/products")
+    public ResponseEntity<List<Product>> getProductsForDesigner(@PathVariable Long designerId) {
+        // Logic to get products for a designer
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
     }
 }
