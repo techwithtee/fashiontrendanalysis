@@ -35,6 +35,11 @@ public class UserController {
         return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<String> loginPage() {
+        return new ResponseEntity<>("Please authenticate.", HttpStatus.UNAUTHORIZED);
+    }
+
     /**
      * Authenticate a user based on provided credentials.
      *
