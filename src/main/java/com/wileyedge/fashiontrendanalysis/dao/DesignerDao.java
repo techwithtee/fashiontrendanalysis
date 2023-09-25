@@ -17,4 +17,8 @@ public interface DesignerDao {
     boolean deleteDesigner(Long designerId);
 
     List<Designer> getDesignersByLocation(String location);
+
+    Integer getDesignerTrendCount(Long designerId);
+
+    Integer getDesignerPopularityScore(Long designerId);
 }

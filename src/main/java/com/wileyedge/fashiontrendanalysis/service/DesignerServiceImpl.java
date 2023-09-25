@@ -46,4 +46,14 @@ public class DesignerServiceImpl implements DesignerService {
     public List<Designer> getDesignersByLocation(String location) {
         return designerDao.getDesignersByLocation(location);
     }
+
+    @Override
+    public Integer getDesignerTrendCount(Long designerId) {
+        return designerDao.getDesignerTrendCount(designerId);
+    }
+
+    @Override
+    public Integer getDesignerPopularityScore(Long designerId) {
+        return designerDao.getDesignerPopularityScore(designerId);
+    }
 }
