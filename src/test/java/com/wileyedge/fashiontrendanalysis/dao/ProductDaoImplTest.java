@@ -74,7 +74,7 @@ public class ProductDaoImplTest {
     public void testUpdateProduct() {
         Product product = new Product(1L, "Shirt", 1L, 1L, "Updated Cotton shirt");
 
-        when(jdbcTemplate.update(anyString(), product.getProductName(), product.getCategoryId(), product.getDesignerId(), product.getProductDescription(), product.getProductId())).thenReturn(1);
+        when(jdbcTemplate.update(anyString(), eq(product.getProductName()), eq(product.getCategoryId()), eq(product.getDesignerId()), eq(product.getProductDescription()), eq(product.getProductId()))).thenReturn(1);
 
         boolean result = productDao.updateProduct(1L, product);
 
@@ -166,8 +166,7 @@ public class ProductDaoImplTest {
         Product product = new Product(null, "DuplicateProduct", 1L, 1L, "Description");
         doThrow(new DuplicateKeyException("Duplicate entry 'DuplicateProduct'"))
                 .when(jdbcTemplate)
-                .update(anyString(), product.getProductName(), product.getCategoryId(), product.getDesignerId(), product.getProductDescription());
-
+                .update(anyString(), eq(product.getProductName()), eq(product.getCategoryId()), eq(product.getDesignerId()), eq(product.getProductDescription()));
         assertThrows(DuplicateKeyException.class, () -> productDao.addProduct(product));
     }
 
