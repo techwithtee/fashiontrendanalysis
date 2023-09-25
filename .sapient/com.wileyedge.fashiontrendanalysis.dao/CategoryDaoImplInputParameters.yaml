@@ -1,0 +1,2121 @@
+---
+modelFingerprint: "5B7154356257160A8DC50FEDC5CBFC72"
+methods:
+- method:
+    name: "getAllCategories"
+    returnType: "java.util.List"
+    signature: "getAllCategories() : java.util.List<com.wileyedge.fashiontrendanalysis.model.Category>"
+    instructionFingerprint: "06317C7D6C73DF9CED5CB185B843EC9D"
+    parametersTypes: []
+  paths:
+  - pathId: "path1"
+    pathIdForUser: "path1"
+    testPathName: "getAllCategoriesTest"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "BD5080B73AF9B7FAF64D70ADDF4077BD"
+    problemWasSolvedByProver: true
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "60E439C74180F5624EE7691B272F60D1"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "query"
+        parameters:
+        - name: "sql"
+          value:
+            sapientType: "BASIC"
+            content: !<regular>
+              value: "SELECT * FROM category"
+            valueType: "java.lang.String"
+            uuid: "getAllCategories_string1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "rowMapper"
+          value:
+            sapientType: "MOCK"
+            valueType: "org.springframework.jdbc.core.RowMapper"
+            genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+            uuid: "<init>_rowMapper1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "query(String,RowMapper): List throws org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "COLLECTION"
+          content: !<collection>
+            parameters: []
+            values: []
+          valueType: "java.util.List"
+          genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+          uuid: "getAllCategories_list1"
+          fixed: false
+          equalsMethodPresent: true
+          explicitCastNeeded: false
+        access: 1
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "B438C39026374CBB2B930C6C1831C907"
+      index: 3
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "COLLECTION"
+        content: !<collection>
+          parameters: []
+          values: []
+        valueType: "java.util.List"
+        genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "getAllCategories_list1"
+        fixed: false
+        equalsMethodPresent: true
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "00f8330e-88e6-3dbc-9093-2cbd1f57d381"
+    deleted: false
+    disabled: false
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
+- method:
+    name: "getCategoryById"
+    returnType: "com.wileyedge.fashiontrendanalysis.model.Category"
+    signature: "getCategoryById(java.lang.Long) : com.wileyedge.fashiontrendanalysis.model.Category"
+    instructionFingerprint: "38386B189356D5B90CC35523FCACBE19"
+    parametersTypes:
+    - "java.lang.Long"
+  paths:
+  - pathId: "path1"
+    pathIdForUser: "path1"
+    testPathName: "getCategoryByIdTest"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "793B2E76BC896FD788D8E4DD903389AA"
+    problemWasSolvedByProver: true
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "categoryId"
+      modelFingerprint: "47A1C339ED14591045DFC778F74765D3"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: 0
+        valueType: "java.lang.Long"
+        uuid: "getCategoryById_long1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "3C4552323F26EDBE5414D187102795B4"
+      index: 3
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "queryForObject"
+        parameters:
+        - name: "sql"
+          value:
+            sapientType: "BASIC"
+            content: !<regular>
+              value: "SELECT * FROM category WHERE category_id = ?"
+            valueType: "java.lang.String"
+            uuid: "getCategoryById_string1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "args"
+          value:
+            sapientType: "ARRAY"
+            content: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  content: !<regular>
+                    value: 0
+                  valueType: "java.lang.Long"
+                  uuid: "getCategoryById_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            suggestedContent: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  valueType: "java.lang.Long"
+                  uuid: "getCategoryById_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            valueType: "java.lang.Object[]"
+            uuid: "getCategoryById_object[]1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "rowMapper"
+          value:
+            sapientType: "MOCK"
+            valueType: "org.springframework.jdbc.core.RowMapper"
+            genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+            uuid: "<init>_rowMapper1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "queryForObject(String,Object[],RowMapper): Object throws org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "MOCK"
+          valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+          uuid: "getCategoryById_object1"
+          fixed: false
+          equalsMethodPresent: true
+          explicitCastNeeded: true
+        access: 131073
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "DE8FBEB42083EE2B77EEB24AFB0EE6FA"
+      index: 4
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "MOCK"
+        valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "getCategoryById_object1"
+        fixed: false
+        equalsMethodPresent: true
+        explicitCastNeeded: true
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "6077c7b2-fe7a-38ac-9eb5-2460b49a66f1"
+    deleted: false
+    disabled: false
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
+- method:
+    name: "addCategory"
+    returnType: "java.lang.Long"
+    signature: "addCategory(com.wileyedge.fashiontrendanalysis.model.Category) : java.lang.Long"
+    tryCatchBlocks:
+    - id: 1
+      catchExceptions:
+      - "org.springframework.dao.DataAccessException"
+    instructionFingerprint: "4C59E9429D97570AD2E9415521510186"
+    parametersTypes:
+    - "com.wileyedge.fashiontrendanalysis.model.Category"
+  paths:
+  - pathId: "path1"
+    pathIdForUser: "path1"
+    testPathName: "addCategoryTest"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "D73AEB82BF7E2DCBAB959669B4361D1F"
+    problemWasSolvedByProver: false
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "category"
+      modelFingerprint: "186CD3F8D076D3DA444FFD5F1A992FBE"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "categoryName1"
+              valueType: "java.lang.String"
+              uuid: "lambda$addCategory$1_string1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        suggestedContent: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              valueType: "java.lang.String"
+              uuid: "lambda$addCategory$1_string1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "addCategory_category1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "LOCAL_VARIABLE"
+      name: "category"
+      modelFingerprint: "7A9B79DDC9A8154FDFBA3030428AB90F"
+      index: 3
+      ignored: false
+      nestedInLoop: true
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "categoryName1"
+              valueType: "java.lang.String"
+              uuid: "lambda$addCategory$1_string1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        suggestedContent: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              valueType: "java.lang.String"
+              uuid: "lambda$addCategory$1_string1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "addCategory_category1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "category"
+        name: "getCategoryName"
+        parameters: []
+        signature: "getCategoryName(): String"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: "categoryName1"
+          valueType: "java.lang.String"
+          uuid: "lambda$addCategory$1_string1"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 1
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "10926AF073D036D26595988DF6C70FEE"
+      index: 4
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      idsTryCatchBlockSurrounding:
+      - 1
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "update"
+        parameters:
+        - name: "psc"
+          value:
+            sapientType: "PRIVATE_INNER_CLASS"
+            valueType: "org.springframework.jdbc.core.PreparedStatementCreator"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "generatedKeyHolder"
+          value:
+            sapientType: "OBJECT"
+            content: !<new>
+              target: "org.springframework.jdbc.support.GeneratedKeyHolder"
+              parameters: []
+              privateConstructor: false
+              createdByTargetCode: true
+            suggestedContent: !<new>
+              target: "org.springframework.jdbc.support.GeneratedKeyHolder"
+              parameters: []
+              privateConstructor: false
+              createdByTargetCode: true
+            valueType: "org.springframework.jdbc.support.GeneratedKeyHolder"
+            uuid: "addCategory_generatedKeyHolder1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "update(PreparedStatementCreator,GeneratedKeyHolder): int throws\
+          \ org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: 0
+          valueType: "int"
+          uuid: "addCategory_int1"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 1
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "LOCAL_VARIABLE"
+      name: "keyHolder"
+      modelFingerprint: "8F4BCD812C433C947EB60E6139CBA21D"
+      index: 5
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "org.springframework.jdbc.support.GeneratedKeyHolder"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: true
+        suggestedContent: !<new>
+          target: "org.springframework.jdbc.support.GeneratedKeyHolder"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: true
+        valueType: "org.springframework.jdbc.support.GeneratedKeyHolder"
+        uuid: "addCategory_generatedKeyHolder1"
+        fixed: true
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "keyHolder"
+        name: "getKey"
+        parameters: []
+        throwsExceptions:
+        - "org.springframework.dao.InvalidDataAccessApiUsageException"
+        signature: "getKey(): Number throws org.springframework.dao.InvalidDataAccessApiUsageException"
+        returnValue:
+          sapientType: "NULL"
+          valueType: "java.lang.Long"
+          uuid: "addCategory_number1"
+          fixed: false
+          equalsMethodPresent: true
+          explicitCastNeeded: true
+        access: 1025
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "3605E5F03168330C6487CC58ABD5F307"
+      index: 6
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "NULL"
+        valueType: "java.lang.Long"
+        uuid: "addCategory_number1"
+        fixed: false
+        equalsMethodPresent: true
+        explicitCastNeeded: true
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "697cb2ee-a3b5-332f-93e2-08b86a1a81cd"
+    deleted: false
+    disabled: true
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
+  - pathId: "path2"
+    pathIdForUser: "path2"
+    testPathName: "addCategoryWhenCaughtDataAccessExceptionThrowsCustomUncheckedException"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "B30F950A30D4DE18FF3F4822776E13F2"
+    problemWasSolvedByProver: false
+    catchBlockExercised:
+      id: 1
+      catchExceptions:
+      - "org.springframework.dao.DataAccessException"
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "category"
+      modelFingerprint: "186CD3F8D076D3DA444FFD5F1A992FBE"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "categoryName1"
+              valueType: "java.lang.String"
+              uuid: "lambda$addCategory$1_string1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        suggestedContent: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              valueType: "java.lang.String"
+              uuid: "lambda$addCategory$1_string1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "addCategory_category1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "LOCAL_VARIABLE"
+      name: "category"
+      modelFingerprint: "7A9B79DDC9A8154FDFBA3030428AB90F"
+      index: 3
+      ignored: false
+      nestedInLoop: true
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "categoryName1"
+              valueType: "java.lang.String"
+              uuid: "lambda$addCategory$1_string1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        suggestedContent: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              valueType: "java.lang.String"
+              uuid: "lambda$addCategory$1_string1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "addCategory_category1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "category"
+        name: "getCategoryName"
+        parameters: []
+        signature: "getCategoryName(): String"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: "categoryName1"
+          valueType: "java.lang.String"
+          uuid: "lambda$addCategory$1_string1"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 1
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "10926AF073D036D26595988DF6C70FEE"
+      index: 4
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      idsTryCatchBlockSurrounding:
+      - 1
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "update"
+        parameters:
+        - name: "psc"
+          value:
+            sapientType: "PRIVATE_INNER_CLASS"
+            valueType: "org.springframework.jdbc.core.PreparedStatementCreator"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "generatedKeyHolder"
+          value:
+            sapientType: "OBJECT"
+            content: !<new>
+              target: "org.springframework.jdbc.support.GeneratedKeyHolder"
+              parameters: []
+              privateConstructor: false
+              createdByTargetCode: true
+            suggestedContent: !<new>
+              target: "org.springframework.jdbc.support.GeneratedKeyHolder"
+              parameters: []
+              privateConstructor: false
+              createdByTargetCode: true
+            valueType: "org.springframework.jdbc.support.GeneratedKeyHolder"
+            uuid: "addCategory_generatedKeyHolder1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "update(PreparedStatementCreator,GeneratedKeyHolder): int throws\
+          \ org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: 0
+          valueType: "int"
+          uuid: "addCategory_int1"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 1
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "2A95BED61315484C0D71F8EA778610EA"
+      index: 5
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "EXCEPTION"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.exceptions.CustomUncheckedException"
+          parameters:
+          - name: "message"
+            value:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "Failed to add category"
+              valueType: "java.lang.String"
+              fixed: true
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          - name: "cause"
+            value:
+              sapientType: "MOCK"
+              valueType: "org.springframework.dao.DataAccessException"
+              uuid: "addCategory_dataAccessException1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: true
+        suggestedContent: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.exceptions.CustomUncheckedException"
+          parameters:
+          - name: "message"
+            value:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "Failed to add category"
+              valueType: "java.lang.String"
+              fixed: true
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          - name: "cause"
+            value:
+              sapientType: "UNKNOWN"
+              valueType: "org.springframework.dao.DataAccessException"
+              uuid: "addCategory_dataAccessException1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: true
+        valueType: "com.wileyedge.fashiontrendanalysis.exceptions.CustomUncheckedException"
+        uuid: "addCategory_customUncheckedException1"
+        fixed: true
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "5469ea3f-4271-3cce-ab20-8c84a27c7533"
+    deleted: false
+    disabled: true
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
+- method:
+    name: "updateCategory"
+    returnType: "boolean"
+    signature: "updateCategory(java.lang.Long,com.wileyedge.fashiontrendanalysis.model.Category)\
+      \ : boolean"
+    instructionFingerprint: "7934DCF1C80EE5BB7A50C28610A58F11"
+    parametersTypes:
+    - "java.lang.Long"
+    - "com.wileyedge.fashiontrendanalysis.model.Category"
+  paths:
+  - pathId: "path1"
+    pathIdForUser: "path1"
+    testPathName: "updateCategoryWhenUpdatedGreaterThan0"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "9ED58B6893099F4A0D9B0169E667492C"
+    problemWasSolvedByProver: true
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "categoryId"
+      modelFingerprint: "47A1C339ED14591045DFC778F74765D3"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: 0
+        valueType: "java.lang.Long"
+        uuid: "updateCategory_long1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "category"
+      modelFingerprint: "186CD3F8D076D3DA444FFD5F1A992FBE"
+      index: 3
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "categoryName1"
+              valueType: "java.lang.String"
+              uuid: "updateCategory_string2"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        suggestedContent: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              valueType: "java.lang.String"
+              uuid: "updateCategory_string2"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "updateCategory_category1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "LOCAL_VARIABLE"
+      name: "category"
+      modelFingerprint: "7A9B79DDC9A8154FDFBA3030428AB90F"
+      index: 4
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "categoryName1"
+              valueType: "java.lang.String"
+              uuid: "updateCategory_string2"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        suggestedContent: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              valueType: "java.lang.String"
+              uuid: "updateCategory_string2"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "updateCategory_category1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "category"
+        name: "getCategoryName"
+        parameters: []
+        signature: "getCategoryName(): String"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: "categoryName1"
+          valueType: "java.lang.String"
+          uuid: "updateCategory_string2"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 1
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "E08CF439BC24E9B842D3D1430979A634"
+      index: 5
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "update"
+        parameters:
+        - name: "sql"
+          value:
+            sapientType: "BASIC"
+            content: !<regular>
+              value: "UPDATE category SET category_name = ? WHERE category_id = ?"
+            valueType: "java.lang.String"
+            uuid: "updateCategory_string1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "args"
+          value:
+            sapientType: "ARRAY"
+            content: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  content: !<regular>
+                    value: "categoryName1"
+                  valueType: "java.lang.String"
+                  uuid: "updateCategory_string2"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+                1:
+                  sapientType: "BASIC"
+                  content: !<regular>
+                    value: 0
+                  valueType: "java.lang.Long"
+                  uuid: "updateCategory_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            suggestedContent: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  valueType: "java.lang.String"
+                  uuid: "updateCategory_string2"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+                1:
+                  sapientType: "BASIC"
+                  valueType: "java.lang.Long"
+                  uuid: "updateCategory_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            valueType: "java.lang.Object[]"
+            uuid: "updateCategory_object[]1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "update(String,Object[]): int throws org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: 1
+          suggestedContent: !<regular>
+            value: 1
+          valueType: "int"
+          uuid: "updateCategory_int1"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 129
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "8383DF6F1D02800B0E90FD4143032B37"
+      index: 6
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: true
+        valueType: "boolean"
+        fixed: true
+        equalsMethodPresent: true
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "d0d677e8-e439-3da7-b16c-3b26ce74a233"
+    deleted: false
+    disabled: false
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
+  - pathId: "path2"
+    pathIdForUser: "path2"
+    testPathName: "updateCategoryWhenUpdatedNotGreaterThan0"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "37D914FED4FAA90530306BFEACB3954B"
+    problemWasSolvedByProver: true
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "categoryId"
+      modelFingerprint: "47A1C339ED14591045DFC778F74765D3"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: 0
+        valueType: "java.lang.Long"
+        uuid: "updateCategory_long1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "category"
+      modelFingerprint: "186CD3F8D076D3DA444FFD5F1A992FBE"
+      index: 3
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "categoryName1"
+              valueType: "java.lang.String"
+              uuid: "updateCategory_string2"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        suggestedContent: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              valueType: "java.lang.String"
+              uuid: "updateCategory_string2"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "updateCategory_category1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "LOCAL_VARIABLE"
+      name: "category"
+      modelFingerprint: "7A9B79DDC9A8154FDFBA3030428AB90F"
+      index: 4
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              content: !<regular>
+                value: "categoryName1"
+              valueType: "java.lang.String"
+              uuid: "updateCategory_string2"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        suggestedContent: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.model.Category"
+          parameters: []
+          privateConstructor: false
+          createdByTargetCode: false
+          propertiesMap:
+            categoryName:
+              sapientType: "BASIC"
+              valueType: "java.lang.String"
+              uuid: "updateCategory_string2"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+        valueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "updateCategory_category1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "category"
+        name: "getCategoryName"
+        parameters: []
+        signature: "getCategoryName(): String"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: "categoryName1"
+          valueType: "java.lang.String"
+          uuid: "updateCategory_string2"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 1
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "E08CF439BC24E9B842D3D1430979A634"
+      index: 5
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "update"
+        parameters:
+        - name: "sql"
+          value:
+            sapientType: "BASIC"
+            content: !<regular>
+              value: "UPDATE category SET category_name = ? WHERE category_id = ?"
+            valueType: "java.lang.String"
+            uuid: "updateCategory_string1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "args"
+          value:
+            sapientType: "ARRAY"
+            content: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  content: !<regular>
+                    value: "categoryName1"
+                  valueType: "java.lang.String"
+                  uuid: "updateCategory_string2"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+                1:
+                  sapientType: "BASIC"
+                  content: !<regular>
+                    value: 0
+                  valueType: "java.lang.Long"
+                  uuid: "updateCategory_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            suggestedContent: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  valueType: "java.lang.String"
+                  uuid: "updateCategory_string2"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+                1:
+                  sapientType: "BASIC"
+                  valueType: "java.lang.Long"
+                  uuid: "updateCategory_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            valueType: "java.lang.Object[]"
+            uuid: "updateCategory_object[]1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "update(String,Object[]): int throws org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: 0
+          suggestedContent: !<regular>
+            value: 0
+          valueType: "int"
+          uuid: "updateCategory_int1"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 129
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "5633A2B0C967879105766C98D64A3959"
+      index: 6
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: false
+        valueType: "boolean"
+        fixed: true
+        equalsMethodPresent: true
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "8ab97ce1-32b5-3012-a71c-cada5b63f8f6"
+    deleted: false
+    disabled: false
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
+- method:
+    name: "deleteCategory"
+    returnType: "boolean"
+    signature: "deleteCategory(java.lang.Long) : boolean"
+    instructionFingerprint: "4DD653A5D91315ADC6DA62E968DA114D"
+    parametersTypes:
+    - "java.lang.Long"
+  paths:
+  - pathId: "path1"
+    pathIdForUser: "path1"
+    testPathName: "deleteCategoryWhenDeletedGreaterThan0"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "DA67D55390468709931590F04B4A9EC8"
+    problemWasSolvedByProver: true
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "categoryId"
+      modelFingerprint: "47A1C339ED14591045DFC778F74765D3"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: 0
+        valueType: "java.lang.Long"
+        uuid: "deleteCategory_long1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "F644EEE70F006B64513496A95B6E0484"
+      index: 3
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "update"
+        parameters:
+        - name: "sql"
+          value:
+            sapientType: "BASIC"
+            content: !<regular>
+              value: "DELETE FROM category WHERE category_id = ?"
+            valueType: "java.lang.String"
+            uuid: "deleteCategory_string1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "args"
+          value:
+            sapientType: "ARRAY"
+            content: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  content: !<regular>
+                    value: 0
+                  valueType: "java.lang.Long"
+                  uuid: "deleteCategory_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            suggestedContent: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  valueType: "java.lang.Long"
+                  uuid: "deleteCategory_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            valueType: "java.lang.Object[]"
+            uuid: "deleteCategory_object[]1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "update(String,Object[]): int throws org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: 1
+          suggestedContent: !<regular>
+            value: 1
+          valueType: "int"
+          uuid: "deleteCategory_int1"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 129
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "8383DF6F1D02800B0E90FD4143032B37"
+      index: 4
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: true
+        valueType: "boolean"
+        fixed: true
+        equalsMethodPresent: true
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "6ad6eaca-3dc3-3495-a334-c050846b926f"
+    deleted: false
+    disabled: false
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
+  - pathId: "path2"
+    pathIdForUser: "path2"
+    testPathName: "deleteCategoryWhenDeletedNotGreaterThan0"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "07D4755DBC85C4CC1EAFDF29F02AA689"
+    problemWasSolvedByProver: true
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "categoryId"
+      modelFingerprint: "47A1C339ED14591045DFC778F74765D3"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: 0
+        valueType: "java.lang.Long"
+        uuid: "deleteCategory_long1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "F644EEE70F006B64513496A95B6E0484"
+      index: 3
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "update"
+        parameters:
+        - name: "sql"
+          value:
+            sapientType: "BASIC"
+            content: !<regular>
+              value: "DELETE FROM category WHERE category_id = ?"
+            valueType: "java.lang.String"
+            uuid: "deleteCategory_string1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "args"
+          value:
+            sapientType: "ARRAY"
+            content: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  content: !<regular>
+                    value: 0
+                  valueType: "java.lang.Long"
+                  uuid: "deleteCategory_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            suggestedContent: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  valueType: "java.lang.Long"
+                  uuid: "deleteCategory_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            valueType: "java.lang.Object[]"
+            uuid: "deleteCategory_object[]1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "update(String,Object[]): int throws org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "BASIC"
+          content: !<regular>
+            value: 0
+          suggestedContent: !<regular>
+            value: 0
+          valueType: "int"
+          uuid: "deleteCategory_int1"
+          fixed: false
+          equalsMethodPresent: false
+          explicitCastNeeded: false
+        access: 129
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "5633A2B0C967879105766C98D64A3959"
+      index: 4
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: false
+        valueType: "boolean"
+        fixed: true
+        equalsMethodPresent: true
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "ed74db85-7744-3da7-a8e8-f191674bd687"
+    deleted: false
+    disabled: false
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
+- method:
+    name: "getCategoriesByTrend"
+    returnType: "java.util.List"
+    signature: "getCategoriesByTrend(java.lang.Long) : java.util.List<com.wileyedge.fashiontrendanalysis.model.Category>"
+    instructionFingerprint: "7F526EDACB5532A629DDCF6F9A8EA002"
+    parametersTypes:
+    - "java.lang.Long"
+  paths:
+  - pathId: "path1"
+    pathIdForUser: "path1"
+    testPathName: "getCategoriesByTrendTest"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "49026D6985444AC6ABA66F55412C7154"
+    problemWasSolvedByProver: true
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "trendId"
+      modelFingerprint: "6DD59BA36070070BFFFD2000EE658656"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: 0
+        valueType: "java.lang.Long"
+        uuid: "getCategoriesByTrend_long1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "01AD341AE254DC5649C5BF4B241BDBAE"
+      index: 3
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "query"
+        parameters:
+        - name: "sql"
+          value:
+            sapientType: "BASIC"
+            content: !<regular>
+              value: "SELECT c.* FROM category c JOIN trend_category tc ON c.category_id\
+                \ = tc.category_id WHERE tc.trend_id = ?"
+            valueType: "java.lang.String"
+            uuid: "getCategoriesByTrend_string1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "args"
+          value:
+            sapientType: "ARRAY"
+            content: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  content: !<regular>
+                    value: 0
+                  valueType: "java.lang.Long"
+                  uuid: "getCategoriesByTrend_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            suggestedContent: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  valueType: "java.lang.Long"
+                  uuid: "getCategoriesByTrend_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            valueType: "java.lang.Object[]"
+            uuid: "getCategoriesByTrend_object[]1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "rowMapper"
+          value:
+            sapientType: "MOCK"
+            valueType: "org.springframework.jdbc.core.RowMapper"
+            genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+            uuid: "<init>_rowMapper1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "query(String,Object[],RowMapper): List throws org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "COLLECTION"
+          content: !<collection>
+            parameters: []
+            values: []
+          valueType: "java.util.List"
+          genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+          uuid: "getCategoriesByTrend_list1"
+          fixed: false
+          equalsMethodPresent: true
+          explicitCastNeeded: false
+        access: 131073
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "B438C39026374CBB2B930C6C1831C907"
+      index: 4
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "COLLECTION"
+        content: !<collection>
+          parameters: []
+          values: []
+        valueType: "java.util.List"
+        genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "getCategoriesByTrend_list1"
+        fixed: false
+        equalsMethodPresent: true
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "88066dbd-7d90-30a3-81d9-e01ca7bafea8"
+    deleted: false
+    disabled: false
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
+- method:
+    name: "getCategoriesByProduct"
+    returnType: "java.util.List"
+    signature: "getCategoriesByProduct(java.lang.Long) : java.util.List<com.wileyedge.fashiontrendanalysis.model.Category>"
+    instructionFingerprint: "7D55BBED8C853110EEE452F6DABB1C2B"
+    parametersTypes:
+    - "java.lang.Long"
+  paths:
+  - pathId: "path1"
+    pathIdForUser: "path1"
+    testPathName: "getCategoriesByProductTest"
+    nameDefinedByUser: false
+    constructorSignature: "<init>(org.springframework.jdbc.core.JdbcTemplate) : void"
+    priorityDefinedByUser: false
+    filledByUser: false
+    priority: "LOW"
+    modelFingerprint: "1B9F5F7AC23A32D3C08E082E56F0076A"
+    problemWasSolvedByProver: true
+    truncated: false
+    inputParameters:
+    - type: "CONSTRUCTOR"
+      modelFingerprint: "90060CF7A2EBF186CCEC7F3B0F1CC961"
+      index: 1
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "OBJECT"
+        content: !<new>
+          target: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+          parameters:
+          - name: "jdbcTemplate"
+            value:
+              sapientType: "MOCK"
+              suggestedContent: !<unknown_object>
+                target: "org.springframework.jdbc.core.JdbcTemplate"
+                onlyPojoFunctions: false
+              valueType: "org.springframework.jdbc.core.JdbcTemplate"
+              uuid: "<init>_jdbcTemplate1"
+              fixed: false
+              equalsMethodPresent: false
+              explicitCastNeeded: false
+          privateConstructor: false
+          createdByTargetCode: false
+        valueType: "com.wileyedge.fashiontrendanalysis.dao.CategoryDaoImpl"
+        uuid: "target"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "INPUT"
+      name: "productId"
+      modelFingerprint: "FD3B07A3BD76D6BACDE66435673CE529"
+      index: 2
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "BASIC"
+        content: !<regular>
+          value: 0
+        valueType: "java.lang.Long"
+        uuid: "getCategoriesByProduct_long1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "FIELD"
+      name: "jdbcTemplate"
+      modelFingerprint: "1CEF993CE2440C2CD9FF70D53C646802"
+      index: 3
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "MOCK"
+        suggestedContent: !<unknown_object>
+          target: "org.springframework.jdbc.core.JdbcTemplate"
+          onlyPojoFunctions: false
+        valueType: "org.springframework.jdbc.core.JdbcTemplate"
+        uuid: "<init>_jdbcTemplate1"
+        fixed: false
+        equalsMethodPresent: false
+        explicitCastNeeded: false
+      methodExercised:
+        target: "this.jdbcTemplate"
+        name: "query"
+        parameters:
+        - name: "sql"
+          value:
+            sapientType: "BASIC"
+            content: !<regular>
+              value: "SELECT c.* FROM category c JOIN product p ON c.category_id =\
+                \ p.category_id WHERE p.product_id = ?"
+            valueType: "java.lang.String"
+            uuid: "getCategoriesByProduct_string1"
+            fixed: true
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "args"
+          value:
+            sapientType: "ARRAY"
+            content: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  content: !<regular>
+                    value: 0
+                  valueType: "java.lang.Long"
+                  uuid: "getCategoriesByProduct_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            suggestedContent: !<array>
+              values:
+                0:
+                  sapientType: "BASIC"
+                  valueType: "java.lang.Long"
+                  uuid: "getCategoriesByProduct_long1"
+                  fixed: false
+                  equalsMethodPresent: false
+                  explicitCastNeeded: false
+            valueType: "java.lang.Object[]"
+            uuid: "getCategoriesByProduct_object[]1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        - name: "rowMapper"
+          value:
+            sapientType: "MOCK"
+            valueType: "org.springframework.jdbc.core.RowMapper"
+            genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+            uuid: "<init>_rowMapper1"
+            fixed: false
+            equalsMethodPresent: false
+            explicitCastNeeded: false
+        throwsExceptions:
+        - "org.springframework.dao.DataAccessException"
+        signature: "query(String,Object[],RowMapper): List throws org.springframework.dao.DataAccessException"
+        returnValue:
+          sapientType: "COLLECTION"
+          content: !<collection>
+            parameters: []
+            values: []
+          valueType: "java.util.List"
+          genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+          uuid: "getCategoriesByProduct_list1"
+          fixed: false
+          equalsMethodPresent: true
+          explicitCastNeeded: false
+        access: 131073
+      staticReadMethodForField: false
+      filledByUser: false
+    - type: "RESULT"
+      name: "result"
+      modelFingerprint: "B438C39026374CBB2B930C6C1831C907"
+      index: 4
+      ignored: false
+      nestedInLoop: false
+      nestedInRecursion: false
+      value:
+        sapientType: "COLLECTION"
+        content: !<collection>
+          parameters: []
+          values: []
+        valueType: "java.util.List"
+        genericValueType: "com.wileyedge.fashiontrendanalysis.model.Category"
+        uuid: "getCategoriesByProduct_list1"
+        fixed: false
+        equalsMethodPresent: true
+        explicitCastNeeded: false
+      staticReadMethodForField: false
+      filledByUser: false
+    uuid: "d4bd2cc2-a130-311d-882d-525cc732bedd"
+    deleted: false
+    disabled: false
+    ignoredBySystem: false
+    disabledStatusUpdatedByUser: false
