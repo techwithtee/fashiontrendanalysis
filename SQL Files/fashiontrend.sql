@@ -60,6 +60,7 @@ CREATE TABLE fashion_user (
     address TEXT,
     phone VARCHAR(20)
 );
+ALTER TABLE fashion_user ADD COLUMN role VARCHAR(50) DEFAULT 'USER';
 
 -- Create the trend_category bridge table
 CREATE TABLE trend_category (
