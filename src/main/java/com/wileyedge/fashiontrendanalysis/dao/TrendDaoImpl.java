@@ -2,6 +2,7 @@ package com.wileyedge.fashiontrendanalysis.dao;
 
 import com.wileyedge.fashiontrendanalysis.model.Trend;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -83,5 +84,41 @@ public class TrendDaoImpl implements TrendDao {
     public List<Trend> getTrendsBySeason(String season) {
         String query = "SELECT * FROM trend WHERE season=?";
         return jdbcTemplate.query(query, rowMapper, season);
+    }
+
+    @Override
+    public Integer getTrendPopularityScore(Long trendId) {
+        String query = "SELECT popularity_score FROM trend_popularity WHERE trend_id=?";
+        return jdbcTemplate.queryForObject(query, Integer.class, trendId);
+    }
+
+    @Override
+    public double calculatePopularityScore(Long trendId) {
+        // Query to get the popularity score for the specified trend from the trend_popularity table
+        String query = "SELECT popularity_score FROM trend_popularity WHERE trend_id = ?";
+
+        try {
+            // Execute the query and retrieve the popularity score as a Double
+            Double popularityScore = jdbcTemplate.queryForObject(query, Double.class, trendId);
+
+            if (popularityScore != null) {
+                return popularityScore; // Return the retrieved popularity score
+            } else {
+                return 0.0; // Return 0 if no popularity score is found
+            }
+        } catch (DataAccessException e) {
+            // Handle any exceptions that may occur during database query
+            // You can log the error or throw a custom exception as needed
+            e.printStackTrace();
+            return 0.0; // Return 0 in case of an error
+        }
+    }
+
+
+    // Method to record the popularity score for a trend
+    @Override
+    public void recordPopularityScore(Long trendId, int popularityScore) {
+        String insertQuery = "INSERT INTO trend_popularity (trend_id, popularity_score) VALUES (?, ?)";
+        jdbcTemplate.update(insertQuery, trendId, popularityScore);
     }
 }

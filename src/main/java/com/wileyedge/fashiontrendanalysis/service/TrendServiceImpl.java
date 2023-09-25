@@ -61,4 +61,20 @@ public class TrendServiceImpl implements TrendService {
     public List<Trend> getTrendsBySeason(String season) {
         return trendDao.getTrendsBySeason(season);
     }
+
+    @Override
+    public Integer getTrendPopularityScore(Long trendId) {
+        return trendDao.getTrendPopularityScore(trendId);
+    }
+
+    @Override
+    public void recordPopularityScore(Long trendId, int popularityScore) {
+        trendDao.recordPopularityScore(trendId, popularityScore);
+    }
+
+    @Override
+    public double calculateTrendPopularityScore(Long trendId) {
+        return trendDao.calculatePopularityScore(trendId);
+    }
 }
+
