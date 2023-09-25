@@ -1,7 +1,9 @@
 package com.wileyedge.fashiontrendanalysis.dao;
 
+import com.wileyedge.fashiontrendanalysis.exceptions.CustomUncheckedException;
 import com.wileyedge.fashiontrendanalysis.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -9,6 +11,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -78,11 +81,15 @@ public class CategoryDaoImpl implements CategoryDao {
     public Long addCategory(Category category) {
         String sql = "INSERT INTO category (category_name) VALUES (?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"category_id"});
-            ps.setString(1, category.getCategoryName());
-            return ps;
-        }, keyHolder);
+        try {
+            jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection.prepareStatement(sql, new String[]{"category_id"});
+                ps.setString(1, category.getCategoryName());
+                return ps;
+            }, keyHolder);
+        } catch (DataAccessException e) {
+            throw new CustomUncheckedException("Failed to add category", e);
+        }
         return (Long) keyHolder.getKey();
     }
 
