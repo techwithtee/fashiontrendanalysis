@@ -67,4 +67,24 @@ public class DesignerController {
         List<Designer> designers = designerService.getDesignersByLocation(location);
         return new ResponseEntity<>(designers, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/trendCount")
+    public ResponseEntity<Integer> getDesignerTrendCount(@PathVariable Long id) {
+        Integer trendCount = designerService.getDesignerTrendCount(id);
+        if (trendCount != null) {
+            return new ResponseEntity<>(trendCount, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{id}/popularityScore")
+    public ResponseEntity<Integer> getDesignerPopularityScore(@PathVariable Long id) {
+        Integer popularityScore = designerService.getDesignerPopularityScore(id);
+        if (popularityScore != null) {
+            return new ResponseEntity<>(popularityScore, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
