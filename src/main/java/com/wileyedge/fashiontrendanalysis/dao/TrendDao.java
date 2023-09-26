@@ -16,6 +16,10 @@ public interface TrendDao {
 
     boolean deleteTrend(Long trendId);
 
+    boolean associateTrendWithCategory(Long trendId, Long categoryId);
+
+    boolean dissociateTrendFromCategory(Long trendId, Long categoryId);
+
     List<Trend> getTrendsByCategory(Long categoryId);
 
     List<Trend> getTrendsByDesigner(Long designerId);
@@ -23,7 +27,7 @@ public interface TrendDao {
     List<Trend> getTrendsByLocation(String location);
 
     List<Trend> getTrendsBySeason(String season);
-
+  
     Integer getTrendPopularityScore(Long trendId);
 
     // Add method to calculate popularity score for a trend
@@ -31,4 +35,5 @@ public interface TrendDao {
 
     // Method to record the popularity score for a trend
     void recordPopularityScore(Long trendId, int popularityScore);
+
 }

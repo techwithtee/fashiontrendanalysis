@@ -1,6 +1,7 @@
 package com.wileyedge.fashiontrendanalysis.dao;
 
 import com.wileyedge.fashiontrendanalysis.model.Designer;
+import com.wileyedge.fashiontrendanalysis.model.Product;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface DesignerDao {
     Integer getDesignerTrendCount(Long designerId);
 
     Integer getDesignerPopularityScore(Long designerId);
+
+    List<Product> getProductsForDesigner(Long designerId);
 }

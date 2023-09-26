@@ -1,6 +1,7 @@
 package com.wileyedge.fashiontrendanalysis.service.impl;
 
 import com.wileyedge.fashiontrendanalysis.dao.ProductDao;
+import com.wileyedge.fashiontrendanalysis.model.Designer;
 import com.wileyedge.fashiontrendanalysis.model.Product;
 import com.wileyedge.fashiontrendanalysis.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +103,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductsByCategory(Long categoryId) {
         return productDao.getProductsByCategory(categoryId);
+    }
+
+    @Override
+    public void associateDesignerWithProduct(Long designerId, Long productId) {
+        productDao.associateDesignerWithProduct(designerId, productId);
+    }
+
+    @Override
+    public void dissociateDesignerFromProduct(Long designerId, Long productId) {
+        productDao.dissociateDesignerFromProduct(designerId, productId);
+    }
+
+    @Override
+    public List<Designer> getDesignersForProduct(Long productId) {
+        return productDao.getDesignersForProduct(productId);
     }
 }

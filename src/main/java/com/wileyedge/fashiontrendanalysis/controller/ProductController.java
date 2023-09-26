@@ -1,11 +1,14 @@
 package com.wileyedge.fashiontrendanalysis.controller;
 
+import com.wileyedge.fashiontrendanalysis.model.Designer;
 import com.wileyedge.fashiontrendanalysis.model.Product;
 import com.wileyedge.fashiontrendanalysis.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -125,4 +128,23 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable Long categoryId) {
         return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
+
+    @PostMapping("/{productId}/associateDesigner/{designerId}")
+    public ResponseEntity<Void> associateDesignerWithProduct(@PathVariable Long designerId, @PathVariable Long productId) {
+        // Logic to associate designer with product
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{productId}/dissociateDesigner/{designerId}")
+    public ResponseEntity<Void> dissociateDesignerFromProduct(@PathVariable Long designerId, @PathVariable Long productId) {
+        // Logic to dissociate designer from product
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{productId}/designers")
+    public ResponseEntity<List<Designer>> getDesignersForProduct(@PathVariable Long productId) {
+        // Logic to get designers for a product
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+    }
+
 }

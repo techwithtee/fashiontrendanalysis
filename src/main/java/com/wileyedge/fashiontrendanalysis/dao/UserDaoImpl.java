@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     private RowMapper<User> userRowMapper = new RowMapper<User>() {
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new User(
+            User user = new User(
                     rs.getLong("user_id"),
                     rs.getString("username"),
                     rs.getString("email"),
@@ -38,6 +38,8 @@ public class UserDaoImpl implements UserDao {
                     rs.getString("address"),
                     rs.getString("phone")
             );
+            user.setRole(rs.getString("role"));  // Setting the role attribute
+            return user;
         }
     };
 
@@ -73,8 +75,8 @@ public class UserDaoImpl implements UserDao {
      */
     @Override
     public Long createUser(User user) {
-        String sql = "INSERT INTO fashion_user (username, email, password_hash, designer_name, address, phone) VALUES (?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, user.getUsername(), user.getEmail(), user.getPasswordHash(), user.getDesignerName(), user.getAddress(), user.getPhone());
+        String sql = "INSERT INTO fashion_user (username, email, password_hash, designer_name, address, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, user.getUsername(), user.getEmail(), user.getPasswordHash(), user.getDesignerName(), user.getAddress(), user.getPhone(), user.getRole());
         return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Long.class);
     }
 
@@ -86,8 +88,8 @@ public class UserDaoImpl implements UserDao {
      */
     @Override
     public User updateUser(User user) {
-        String sql = "UPDATE fashion_user SET username = ?, email = ?, password_hash = ?, designer_name = ?, address = ?, phone = ? WHERE user_id = ?";
-        jdbcTemplate.update(sql, user.getUsername(), user.getEmail(), user.getPasswordHash(), user.getDesignerName(), user.getAddress(), user.getPhone(), user.getUserId());
+        String sql = "UPDATE fashion_user SET username = ?, email = ?, password_hash = ?, designer_name = ?, address = ?, phone = ?, role = ? WHERE user_id = ?";
+        jdbcTemplate.update(sql, user.getUsername(), user.getEmail(), user.getPasswordHash(), user.getDesignerName(), user.getAddress(), user.getPhone(), user.getRole(), user.getUserId());
         return findById(user.getUserId());
     }
 
