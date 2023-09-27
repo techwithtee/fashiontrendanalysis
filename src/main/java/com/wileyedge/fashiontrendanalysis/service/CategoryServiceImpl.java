@@ -104,4 +104,20 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getCategoriesByProduct(Long productId) {
         return categoryDao.getCategoriesByProduct(productId);
     }
+
+    @Override
+    public void setCategoryPopularityForSeason(Long categoryId, String season, int score) {
+        categoryDao.setCategoryPopularityForSeason(categoryId, season, score);
+    }
+
+    @Override
+    public Integer getCategoryPopularityForSeason(Long categoryId, String season) {
+        return categoryDao.getCategoryPopularityForSeason(categoryId, season);
+    }
+
+    @Override
+    public List<Integer> getAllCategoryPopularities(Long categoryId) {
+        return categoryDao.getAllCategoryPopularities(categoryId);
+    }
+
 }

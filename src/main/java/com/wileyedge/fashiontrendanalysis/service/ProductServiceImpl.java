@@ -119,4 +119,20 @@ public class ProductServiceImpl implements ProductService {
     public List<Designer> getDesignersForProduct(Long productId) {
         return productDao.getDesignersForProduct(productId);
     }
+
+    @Override
+    public void setProductPopularityForTrend(Long productId, Long trendId, int score) {
+        productDao.setProductPopularityForTrend(productId, trendId, score);
+    }
+
+    @Override
+    public Integer getProductPopularityForTrend(Long productId, Long trendId) {
+        return productDao.getProductPopularityForTrend(productId, trendId);
+    }
+
+    @Override
+    public List<Integer> getAllProductPopularities(Long productId) {
+        return productDao.getAllProductPopularities(productId);
+    }
+
 }
