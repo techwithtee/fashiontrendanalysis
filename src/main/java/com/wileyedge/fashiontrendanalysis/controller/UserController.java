@@ -22,9 +22,9 @@ public class UserController {
 
     /**
      * Register a new user.
-     *
      * @param user User details for registration.
      * @return Response message indicating registration status.
+     * @apiEndpoint POST http://localhost:6363/api/register
      */
     @PostMapping("/api/register")
     public ResponseEntity<String> register(@RequestBody User user) {
@@ -35,6 +35,11 @@ public class UserController {
         return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
     }
 
+    /**
+     * Login page endpoint. Intended to be handled by a frontend client.
+     * @return Authentication prompt message.
+     * @apiEndpoint GET http://localhost:6363/login
+     */
     @GetMapping("/login")
     public ResponseEntity<String> loginPage() {
         return new ResponseEntity<>("Please authenticate.", HttpStatus.UNAUTHORIZED);
@@ -42,9 +47,9 @@ public class UserController {
 
     /**
      * Authenticate a user based on provided credentials.
-     *
      * @param credentials Map containing the username and password.
      * @return Response message indicating authentication status.
+     * @apiEndpoint POST http://localhost:6363/api/login
      */
     @PostMapping("/api/login")
     public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
@@ -58,8 +63,8 @@ public class UserController {
     /**
      * Retrieve a list of all registered users.
      * This endpoint is intended for admin-only access.
-     *
      * @return List of all users.
+     * @apiEndpoint GET http://localhost:6363/api/users
      */
     @GetMapping("/api/users")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -70,9 +75,9 @@ public class UserController {
     /**
      * Retrieve details of a specific user based on their ID.
      * This endpoint is intended for admin-only access.
-     *
      * @param userId ID of the user.
      * @return User details.
+     * @apiEndpoint GET http://localhost:6363/api/users/{userId}
      */
     @GetMapping("/api/users/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable Long userId) {
@@ -86,10 +91,10 @@ public class UserController {
     /**
      * Update details of a specific user based on their ID.
      * This endpoint is intended for admin-only access.
-     *
      * @param userId ID of the user.
      * @param userUpdates Updated user details.
      * @return Response message indicating update status.
+     * @apiEndpoint PUT http://localhost:6363/api/users/{userId}
      */
     @PutMapping("/api/users/{userId}")
     public ResponseEntity<String> updateUser(@PathVariable Long userId, @RequestBody User userUpdates) {
@@ -112,9 +117,9 @@ public class UserController {
     /**
      * Delete a specific user based on their ID.
      * This endpoint is intended for admin-only access.
-     *
      * @param userId ID of the user.
      * @return Response message indicating deletion status.
+     * @apiEndpoint DELETE http://localhost:6363/api/users/{userId}
      */
     @DeleteMapping("/api/users/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
