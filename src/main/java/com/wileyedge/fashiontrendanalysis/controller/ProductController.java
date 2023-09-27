@@ -147,4 +147,22 @@ public class ProductController {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
     }
 
+    @PostMapping("/{productId}/popularity/{trendId}")
+    public ResponseEntity<?> setProductPopularityForTrend(@PathVariable Long productId, @PathVariable Long trendId, @RequestBody int score) {
+        productService.setProductPopularityForTrend(productId, trendId, score);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{productId}/popularity/{trendId}")
+    public ResponseEntity<Integer> getProductPopularityForTrend(@PathVariable Long productId, @PathVariable Long trendId) {
+        Integer score = productService.getProductPopularityForTrend(productId, trendId);
+        return new ResponseEntity<>(score, HttpStatus.OK);
+    }
+
+    @GetMapping("/{productId}/all-popularities")
+    public ResponseEntity<List<Integer>> getAllProductPopularities(@PathVariable Long productId) {
+        List<Integer> scores = productService.getAllProductPopularities(productId);
+        return new ResponseEntity<>(scores, HttpStatus.OK);
+    }
+
 }

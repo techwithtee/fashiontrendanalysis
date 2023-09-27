@@ -66,4 +66,8 @@ public interface ProductDao {
     void associateDesignerWithProduct(Long designerId, Long productId);
     void dissociateDesignerFromProduct(Long designerId, Long productId);
     List<Designer> getDesignersForProduct(Long productId);
+    void setProductPopularityForTrend(Long productId, Long trendId, int score);
+    Integer getProductPopularityForTrend(Long productId, Long trendId);
+    List<Integer> getAllProductPopularities(Long productId);
+
 }
