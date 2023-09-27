@@ -9,9 +9,6 @@ import java.util.List;
 
 /**
  * Defines the CRUD operations for the User entity.
- *
- * @author Your Name
- * @version 1.0
  */
 public interface UserDao {
 
@@ -59,10 +56,15 @@ public interface UserDao {
      * Finds a user by their unique ID.
      *
      * @param userId the ID of the user to search for
-     * @return the User if found, null otherwise
+     * @return the User object corresponding to the given ID if found; null otherwise
      */
     User findById(Long userId);
 
+    /**
+     * Retrieves a list of all users from the database.
+     *
+     * @return a list containing all User objects in the database, or an empty list if no users are found
+     */
     List<User> findAll();
 }
 
