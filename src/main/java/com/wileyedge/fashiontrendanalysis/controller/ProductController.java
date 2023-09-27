@@ -212,4 +212,9 @@ public class ProductController {
         List<Integer> scores = productService.getAllProductPopularities(productId);
         return new ResponseEntity<>(scores, HttpStatus.OK);
     }
+
+    @GetMapping("/visualisation")
+    public String showVisualisationPage() {
+        return "visualisation"; // This corresponds to the HTML file name without the extension
+    }
 }

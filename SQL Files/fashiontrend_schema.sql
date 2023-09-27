@@ -81,16 +81,6 @@ CREATE TABLE category_popularity (
     FOREIGN KEY (category_id) REFERENCES category(category_id)
 );
 
--- Create the trend_interactions table
-CREATE TABLE trend_interactions (
-    interaction_id INT PRIMARY KEY,
-    user_id INT,
-    trend_id INT,
-    interaction_type VARCHAR(50),
-    timestamp TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES fashion_user(user_id),
-    FOREIGN KEY (trend_id) REFERENCES trend(trend_id)
-);
 
 -- Create the product_popularity table
 CREATE TABLE product_popularity (

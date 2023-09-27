@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -36,8 +37,8 @@ public class TrendDaoImplTest {
     @Test
     public void testGetAllTrends() {
         List<Trend> expectedTrends = Arrays.asList(
-                new Trend(1L, "Trend 1", "Description 1", 1L, 1L, "Location 1", "Season 1"),
-                new Trend(2L, "Trend 2", "Description 2", 2L, 2L, "Location 2", "Season 2")
+                new Trend(Optional.of(1L), "Trend 1", "Description 1", 1L, 1L, "Location 1", "Season 1"),
+                new Trend(Optional.of(2L), "Trend 2", "Description 2", 2L, 2L, "Location 2", "Season 2")
         );
 
         when(jdbcTemplate.query(anyString(), any(RowMapper.class))).thenReturn(expectedTrends);
@@ -49,7 +50,7 @@ public class TrendDaoImplTest {
 
     @Test
     public void testGetTrendById() {
-        Trend expectedTrend = new Trend(1L, "Trend 1", "Description 1", 1L, 1L, "Location 1", "Season 1");
+        Trend expectedTrend = new Trend(Optional.of(1L), "Trend 1", "Description 1", 1L, 1L, "Location 1", "Season 1");
 
         when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), any(RowMapper.class))).thenReturn(expectedTrend);
 
@@ -74,7 +75,7 @@ public class TrendDaoImplTest {
 
     @Test
     public void testUpdateTrendSuccess() {
-        Trend trend = new Trend(1L, "Updated Trend", "Updated Description", 1L, 1L, "Updated Location", "Updated Season");
+        Trend trend = new Trend(Optional.of(1L), "Updated Trend", "Updated Description", 1L, 1L, "Updated Location", "Updated Season");
 
         // Stubbing the jdbcTemplate.update method
         when(jdbcTemplate.update(
@@ -112,6 +113,126 @@ public class TrendDaoImplTest {
         Trend result = trendDao.getTrendById(999L);
         assertNull(result);
     }
+
+    @Test
+    public void testGetTrendsByCategory() {
+        List<Trend> expectedTrends = Arrays.asList(
+                new Trend(Optional.of(1L), "Trend 1", "Description 1", 1L, 1L, "Location 1", "Season 1"),
+                new Trend(Optional.of(2L), "Trend 2", "Description 2", 2L, 2L, "Location 2", "Season 2")
+        );
+
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class), eq(1L))).thenReturn(expectedTrends);
+
+        List<Trend> returnedTrends = trendDao.getTrendsByCategory(1L);
+
+        assertEquals(expectedTrends, returnedTrends);
+    }
+
+    @Test
+    public void testGetTrendsByDesigner() {
+        List<Trend> expectedTrends = Arrays.asList(
+                new Trend(Optional.of(1L), "Trend 1", "Description 1", 1L, 1L, "Location 1", "Season 1"),
+                new Trend(Optional.of(2L), "Trend 2", "Description 2", 2L, 2L, "Location 2", "Season 2")
+        );
+
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class), eq(1L))).thenReturn(expectedTrends);
+
+        List<Trend> returnedTrends = trendDao.getTrendsByDesigner(1L);
+
+        assertEquals(expectedTrends, returnedTrends);
+    }
+
+    @Test
+    public void testGetTrendsByLocation() {
+        List<Trend> expectedTrends = Arrays.asList(
+                new Trend(Optional.of(1L), "Trend 1", "Description 1", 1L, 1L, "Location 1", "Season 1"),
+                new Trend(Optional.of(2L), "Trend 2", "Description 2", 2L, 2L, "Location 2", "Season 2")
+        );
+
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class), eq("Location 1"))).thenReturn(expectedTrends);
+
+        List<Trend> returnedTrends = trendDao.getTrendsByLocation("Location 1");
+
+        assertEquals(expectedTrends, returnedTrends);
+    }
+
+    @Test
+    public void testGetTrendsBySeason() {
+        List<Trend> expectedTrends = Arrays.asList(
+                new Trend(Optional.of(1L), "Trend 1", "Description 1", 1L, 1L, "Location 1", "Season 1"),
+                new Trend(Optional.of(2L), "Trend 2", "Description 2", 2L, 2L, "Location 2", "Season 2")
+        );
+
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class), eq("Season 1"))).thenReturn(expectedTrends);
+
+        List<Trend> returnedTrends = trendDao.getTrendsBySeason("Season 1");
+
+        assertEquals(expectedTrends, returnedTrends);
+    }
+
+    @Test
+    public void testAssociateTrendWithCategorySuccess() {
+        when(jdbcTemplate.update(anyString(), eq(1L), eq(2L))).thenReturn(1);
+
+        boolean result = trendDao.associateTrendWithCategory(1L, 2L);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testAssociateTrendWithCategoryFailure() {
+        when(jdbcTemplate.update(anyString(), eq(1L), eq(2L))).thenReturn(0);
+
+        boolean result = trendDao.associateTrendWithCategory(1L, 2L);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testDissociateTrendFromCategorySuccess() {
+        when(jdbcTemplate.update(anyString(), eq(1L), eq(2L))).thenReturn(1);
+
+        boolean result = trendDao.dissociateTrendFromCategory(1L, 2L);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testDissociateTrendFromCategoryFailure() {
+        when(jdbcTemplate.update(anyString(), eq(1L), eq(2L))).thenReturn(0);
+
+        boolean result = trendDao.dissociateTrendFromCategory(1L, 2L);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSetTrendPopularitySuccess() {
+        when(jdbcTemplate.update(anyString(), eq(1), eq(1L))).thenReturn(1);
+
+        boolean result = trendDao.setTrendPopularity(1L, 1);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testSetTrendPopularityFailure() {
+        when(jdbcTemplate.update(anyString(), eq(1), eq(1L))).thenReturn(0);
+
+        boolean result = trendDao.setTrendPopularity(1L, 1);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testGetTrendPopularity() {
+        when(jdbcTemplate.queryForObject(anyString(), eq(Integer.class), eq(1L))).thenReturn(5);
+
+        int popularity = trendDao.getTrendPopularity(1L);
+
+        assertEquals(5, popularity);
+    }
+
 
 
     @AfterEach

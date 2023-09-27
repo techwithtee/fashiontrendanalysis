@@ -4,6 +4,7 @@ import com.wileyedge.fashiontrendanalysis.dao.TrendDao;
 import com.wileyedge.fashiontrendanalysis.model.Trend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -63,21 +64,6 @@ public class TrendServiceImpl implements TrendService {
         return trendDao.getTrendsBySeason(season);
     }
 
-    @Override
-
-    public Integer getTrendPopularityScore(Long trendId) {
-        return trendDao.getTrendPopularityScore(trendId);
-    }
-
-    @Override
-    public void recordPopularityScore(Long trendId, int popularityScore) {
-        trendDao.recordPopularityScore(trendId, popularityScore);
-    }
-
-    @Override
-    public double calculateTrendPopularityScore(Long trendId) {
-        return trendDao.calculatePopularityScore(trendId);
-    }
 
     @Override
     public boolean associateTrendWithCategory(Long trendId, Long categoryId) {
@@ -88,5 +74,18 @@ public class TrendServiceImpl implements TrendService {
     public boolean dissociateTrendFromCategory(Long trendId, Long categoryId) {
         return trendDao.dissociateTrendFromCategory(trendId, categoryId);
     }
+
+    @Override
+    @Transactional
+    public boolean setTrendPopularity(Long trendId, int score) {
+        return trendDao.setTrendPopularity(trendId, score);
+    }
+
+    @Override
+    public int getTrendPopularity(Long trendId) {
+        return trendDao.getTrendPopularity(trendId);
+    }
+
+
 }
 
