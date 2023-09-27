@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -199,12 +200,14 @@ public class ProductDaoImplTest {
     @Test
     public void testSetProductPopularityForTrend() {
         // Mock behavior
-        when(jdbcTemplate.update(anyString(), anyLong(), anyLong(), anyInt())).thenReturn(1);
+        when(jdbcTemplate.update(eq("INSERT INTO product_popularity (product_id, trend_id, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?"), eq(1L), eq(1L), eq(80), eq(80))).thenReturn(1);
+
         productDao.setProductPopularityForTrend(1L, 1L, 80);
 
         // Verify interactions
-        verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong(), anyInt());
+        verify(jdbcTemplate, times(1)).update(eq("INSERT INTO product_popularity (product_id, trend_id, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?"), eq(1L), eq(1L), eq(80), eq(80));
     }
+
 
     @Test
     public void testSetProductPopularityForTrendFailure() {
@@ -217,13 +220,17 @@ public class ProductDaoImplTest {
 
     @Test
     public void testGetProductPopularityForTrend() {
+        // Given SQL and parameters
+        String sql = "SELECT popularity_score FROM product_popularity WHERE product_id = ? AND trend_id = ?";
+        Object[] params = new Object[]{1L, 1L};
         // Mock behavior
-        when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), eq(Integer.class))).thenReturn(80);
+        when(jdbcTemplate.queryForObject(eq("SELECT popularity_score FROM product_popularity WHERE product_id = ? AND trend_id = ?"), eq(Integer.class), eq(1L), eq(1L))).thenReturn(80);
         int score = productDao.getProductPopularityForTrend(1L, 1L);
         // Assertions and Verify interactions
         assertEquals(80, score);
-        verify(jdbcTemplate, times(1)).queryForObject(anyString(), any(Object[].class), eq(Integer.class));
+        verify(jdbcTemplate, times(1)).queryForObject(eq(sql), eq(Integer.class), eq(1L), eq(1L));
     }
+
 
     @Test
     public void testGetAllProductPopularities() {
@@ -238,20 +245,21 @@ public class ProductDaoImplTest {
     @Test
     public void testSetProductPopularityForTrendException() {
         // Mock behavior
-        doThrow(DataAccessException.class).when(jdbcTemplate).update(anyString(), anyLong(), anyLong(), anyInt(), anyInt());
-        assertThrows(DataAccessException.class, () -> productDao.setProductPopularityForTrend(1L, 1L, 80));
+        doThrow(new EmptyResultDataAccessException(1)).when(jdbcTemplate).update(anyString(), anyLong(), anyLong(), anyInt(), anyInt());
+        assertThrows(EmptyResultDataAccessException.class, () -> productDao.setProductPopularityForTrend(1L, 1L, 80));
         // Verify interactions
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong(), anyInt(), anyInt());
     }
 
+
     @Test
     public void testGetProductPopularityForTrendNoData() {
         // Mock behavior
-        when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), eq(Integer.class))).thenReturn(null);
+        when(jdbcTemplate.queryForObject("SELECT popularity_score FROM product_popularity WHERE product_id = ? AND trend_id = ?", Integer.class, 1L, 1L)).thenReturn(null);
         Integer score = productDao.getProductPopularityForTrend(1L, 1L);
         // Assertions and Verify interactions
         assertNull(score);
-        verify(jdbcTemplate, times(1)).queryForObject(anyString(), any(Object[].class), eq(Integer.class));
+        verify(jdbcTemplate, times(1)).queryForObject("SELECT popularity_score FROM product_popularity WHERE product_id = ? AND trend_id = ?", Integer.class, 1L, 1L);
     }
 
     @Test
