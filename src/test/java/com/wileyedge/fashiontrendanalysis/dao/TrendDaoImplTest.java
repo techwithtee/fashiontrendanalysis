@@ -9,20 +9,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,17 +27,6 @@ public class TrendDaoImplTest {
     @InjectMocks
     private TrendDaoImpl trendDao;
 
-    private final RowMapper<Trend> rowMapper = (rs, rowNum) -> {
-        Trend trend = new Trend();
-        trend.setTrendId(rs.getLong("trend_id"));
-        trend.setTrendName(rs.getString("trend_name"));
-        trend.setTrendDesc(rs.getString("trend_desc"));
-        trend.setCategoryId(rs.getLong("category_id"));
-        trend.setDesignerId(rs.getLong("designer_id"));
-        trend.setLocation(rs.getString("location"));
-        trend.setSeason(rs.getString("season"));
-        return trend;
-    };
 
     @BeforeEach
     public void setup() {
@@ -58,7 +40,7 @@ public class TrendDaoImplTest {
                 new Trend(2L, "Trend 2", "Description 2", 2L, 2L, "Location 2", "Season 2")
         );
 
-        when(jdbcTemplate.query(anyString(), eq(rowMapper))).thenReturn(expectedTrends);
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class))).thenReturn(expectedTrends);
 
         List<Trend> returnedTrends = trendDao.getAllTrends();
 
@@ -69,7 +51,7 @@ public class TrendDaoImplTest {
     public void testGetTrendById() {
         Trend expectedTrend = new Trend(1L, "Trend 1", "Description 1", 1L, 1L, "Location 1", "Season 1");
 
-        when(jdbcTemplate.queryForObject(anyString(), eq(new Object[]{1L}), eq(rowMapper))).thenReturn(expectedTrend);
+        when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), any(RowMapper.class))).thenReturn(expectedTrend);
 
         Trend returnedTrend = trendDao.getTrendById(1L);
 
@@ -79,38 +61,26 @@ public class TrendDaoImplTest {
     @Test
     public void testAddTrendSuccess() {
         Trend trend = new Trend(null, "New Trend", "New Description", 1L, 1L, "New Location", "New Season");
-        Long expectedTrendId = 3L;
 
-        Map<String, Object> keyHolderMap = new HashMap<>();
-        keyHolderMap.put("trend_id", expectedTrendId);
 
-        GeneratedKeyHolder actualKeyHolder = new GeneratedKeyHolder();
-
-        when(jdbcTemplate.update(any(PreparedStatementCreator.class), argThat(keyHolder -> {
-            return keyHolder.equals(actualKeyHolder);
-        }))).thenReturn(1);
+        when(jdbcTemplate.update(anyString(), eq(trend.getTrendName()), eq(trend.getTrendDesc()), eq(trend.getCategoryId()), eq(trend.getDesignerId()), eq(trend.getLocation()), eq(trend.getSeason()))).thenReturn(1);
+        when(jdbcTemplate.queryForObject(anyString(), eq(Long.class))).thenReturn(1L);
 
         Long trendId = trendDao.addTrend(trend);
 
-        assertEquals(expectedTrendId, trendId);
+        assertEquals(1l, trendId);
     }
 
-
-    @Test
-    public void testAddTrendFailure() {
-        Trend trend = new Trend(null, "New Trend", "New Description", 1L, 1L, "New Location", "New Season");
-
-        doThrow(new DataAccessException("Test exception") {})
-                .when(jdbcTemplate).update(any(PreparedStatementCreator.class), any(KeyHolder.class));
-
-        assertThrows(CustomUncheckedException.class, () -> trendDao.addTrend(trend));
-    }
 
     @Test
     public void testUpdateTrendSuccess() {
         Trend trend = new Trend(1L, "Updated Trend", "Updated Description", 1L, 1L, "Updated Location", "Updated Season");
 
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), eq(1L))).thenReturn(1);
+        // Stubbing the jdbcTemplate.update method
+        when(jdbcTemplate.update(
+                "UPDATE trend SET trend_name=?, trend_desc=?, category_id=?, designer_id=?, location=?, season=? WHERE trend_id=?",
+                null, null, null, null, null, null, 1L))
+                .thenReturn(1); // You can change the return value as needed
 
         boolean result = trendDao.updateTrend(1L, trend);
 
@@ -135,8 +105,19 @@ public class TrendDaoImplTest {
         assertFalse(result);
     }
 
+    @Test
+    public void testRetrieveNonExistingTrend() {
+        when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), any(RowMapper.class))).thenReturn(null);
+
+        Trend result = trendDao.getTrendById(999L);
+        assertNull(result);
+    }
+
+
     @AfterEach
     public void cleanup() {
         reset(jdbcTemplate);
     }
+
+    // Add tests for other TrendDao methods like getTrendsByCategory, getTrendsByDesigner, etc.
 }

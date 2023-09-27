@@ -39,20 +39,22 @@ public class TrendDaoImpl implements TrendDao {
     @Override
     public Trend getTrendById(Long trendId) {
         String query = "SELECT * FROM trend WHERE trend_id=?";
-        return jdbcTemplate.queryForObject(query, rowMapper, trendId);
+        return jdbcTemplate.queryForObject(query, new Object[]{trendId}, rowMapper);
     }
 
     @Override
     public Long addTrend(Trend trend) {
         String query = "INSERT INTO trend (trend_name, trend_desc, category_id, designer_id, location, season) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(query, trend.getTrendName(), trend.getTrendDesc(), trend.getCategoryId(), trend.getDesignerId(), trend.getLocation(), trend.getSeason());
-        return trend.getTrendId();
+        //return trend.getTrendId();
+        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Long.class);
     }
 
     @Override
     public boolean updateTrend(Long trendId, Trend trend) {
         String query = "UPDATE trend SET trend_name=?, trend_desc=?, category_id=?, designer_id=?, location=?, season=? WHERE trend_id=?";
-        return jdbcTemplate.update(query, trend.getTrendName(), trend.getTrendDesc(), trend.getCategoryId(), trend.getDesignerId(), trend.getLocation(), trend.getSeason(), trendId) > 0;
+        int updated =  jdbcTemplate.update(query, trend.getTrendName(), trend.getTrendDesc(), trend.getCategoryId(), trend.getDesignerId(), trend.getLocation(), trend.getSeason(), trendId);
+        return updated > 0;
     }
 
     @Override
