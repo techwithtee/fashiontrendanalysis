@@ -9,11 +9,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -112,4 +114,86 @@ public class CategoryDaoImplTest {
     public void cleanup() {
         reset(jdbcTemplate);
     }
+
+    @Test
+    public void testSetCategoryPopularityForSeason() {
+        // Mock behavior
+        when(jdbcTemplate.update("INSERT INTO category_popularity (category_id, season, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?", 1L, "Spring", 80, 80)).thenReturn(1);
+        categoryDao.setCategoryPopularityForSeason(1L, "Spring", 80);
+
+        // Verify interactions
+        verify(jdbcTemplate, times(1)).update("INSERT INTO category_popularity (category_id, season, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?", 1L, "Spring", 80, 80);
+    }
+
+    @Test
+    public void testSetCategoryPopularityForSeasonFailure() {
+        // Mock behavior for edge case when no rows are affected
+        when(jdbcTemplate.update(anyString(), anyLong(), anyString(), anyInt(), anyInt())).thenReturn(0);
+
+        categoryDao.setCategoryPopularityForSeason(1L, "Spring", 90);
+
+        // Verify interactions
+        verify(jdbcTemplate, times(1)).update(anyString(), eq(1L), eq("Spring"), eq(90), eq(90));
+    }
+
+    @Test
+    public void testGetCategoryPopularityForSeason() {
+        // Mock behavior
+        when(jdbcTemplate.queryForObject(anyString(), eq(Integer.class), anyLong(), anyString())).thenReturn(80);
+        int score = categoryDao.getCategoryPopularityForSeason(1L, "Spring");
+
+        // Assertions and Verify interactions
+        assertEquals(80, score);
+        verify(jdbcTemplate, times(1)).queryForObject(anyString(), eq(Integer.class), anyLong(), anyString());
+    }
+
+    @Test
+    public void testGetAllCategoryPopularities() {
+        // Mock behavior
+        when(jdbcTemplate.query(anyString(), any(Object[].class), any(RowMapper.class))).thenReturn(Arrays.asList(80, 85));
+        List<Integer> scores = categoryDao.getAllCategoryPopularities(1L);
+
+        // Assertions and Verify interactions
+        assertEquals(2, scores.size());
+        verify(jdbcTemplate, times(1)).query(anyString(), any(Object[].class), any(RowMapper.class));
+    }
+
+
+    @Test
+    public void testSetCategoryPopularityForSeasonException() {
+        // Mock behavior
+        doThrow(new EmptyResultDataAccessException(1)).when(jdbcTemplate).update(
+                anyString(), anyLong(), anyString(), anyInt(), anyInt()
+        );
+
+        // Assert and Verify interactions
+        assertThrows(EmptyResultDataAccessException.class, () -> categoryDao.setCategoryPopularityForSeason(1L, "Spring", 80));
+        verify(jdbcTemplate, times(1)).update(anyString(), any(), any(), any(), any());
+    }
+
+
+
+    @Test
+    public void testGetCategoryPopularityForSeasonNoData() {
+        // Mock behavior
+        when(jdbcTemplate.queryForObject(anyString(), eq(Integer.class), anyLong(), anyString())).thenReturn(null);
+        Integer score = categoryDao.getCategoryPopularityForSeason(1L, "Spring");
+
+        // Assertions and Verify interactions
+        assertNull(score);
+        verify(jdbcTemplate, times(1)).queryForObject(anyString(), eq(Integer.class), anyLong(), anyString());
+    }
+
+
+    @Test
+    public void testGetAllCategoryPopularitiesNoData() {
+        // Mock behavior
+        when(jdbcTemplate.query(anyString(), any(Object[].class), any(RowMapper.class))).thenReturn(new ArrayList<>());
+        List<Integer> scores = categoryDao.getAllCategoryPopularities(1L);
+
+        // Assertions and Verify interactions
+        assertTrue(scores.isEmpty());
+        verify(jdbcTemplate, times(1)).query(anyString(), any(Object[].class), any(RowMapper.class));
+    }
+
 }
