@@ -8,8 +8,9 @@ import lombok.ToString;
 import lombok.EqualsAndHashCode;
 
 /**
- * Represents a category with its associated details.
- * Each category is identified by a unique ID and has a name.
+ *Represents a category in the fashion trend analysis system.
+ *  Contains information such as the category's unique ID and name.
+ *  The class uses Lombok annotations for boilerplate code reduction.
  */
 @Getter
 @Setter

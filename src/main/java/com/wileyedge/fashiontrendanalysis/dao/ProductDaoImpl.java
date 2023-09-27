@@ -10,6 +10,10 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.util.List;
 
+/**
+ * Implementation of the ProductDao interface using JDBC.
+ * This class provides CRUD operations for the Product entity.
+ */
 @Repository
 public class ProductDaoImpl implements ProductDao {
 
@@ -142,40 +146,78 @@ public class ProductDaoImpl implements ProductDao {
         return jdbcTemplate.query(sql, new Object[]{categoryId}, productRowMapper);
     }
 
+    /**
+     * Associates a specific designer with a product in the database.
+     * This creates a link between the designer and the product, indicating that the designer has designed the product.
+     *
+     * @param designerId the unique identifier for the designer
+     * @param productId the unique identifier for the product
+     */
     @Override
     public void associateDesignerWithProduct(Long designerId, Long productId) {
         String query = "INSERT INTO product_designer_association (product_id, designer_id) VALUES (?, ?)";
         jdbcTemplate.update(query, productId, designerId);
     }
 
+    /**
+     * Removes the association between a specific designer and a product.
+     *
+     * @param designerId the unique identifier for the designer
+     * @param productId the unique identifier for the product
+     */
     @Override
     public void dissociateDesignerFromProduct(Long designerId, Long productId) {
         String query = "DELETE FROM product_designer_association WHERE product_id=? AND designer_id=?";
         jdbcTemplate.update(query, productId, designerId);
     }
 
+    /**
+     * Retrieves all designers associated with a particular product.
+     *
+     * @param productId the unique identifier for the product
+     * @return a list of designers who have designed the given product.
+     */
     @Override
     public List<Designer> getDesignersForProduct(Long productId) {
         String query = "SELECT * FROM designers WHERE designer_id IN (SELECT designer_id FROM product_designer_association WHERE product_id=?)";
         return jdbcTemplate.query(query, designerRowMapper, productId);
     }
 
+    /**
+     * Sets a popularity score for a product for a specific trend.
+     *
+     * @param productId the unique identifier for the product
+     * @param trendId the unique identifier for the trend
+     * @param score the popularity score to be set
+     */
     @Override
     public void setProductPopularityForTrend(Long productId, Long trendId, int score) {
         String sql = "INSERT INTO product_popularity (product_id, trend_id, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?";
         jdbcTemplate.update(sql, productId, trendId, score, score);
     }
 
+    /**
+     * Fetches the popularity score of a product for a particular trend.
+     *
+     * @param productId the unique identifier for the product
+     * @param trendId the unique identifier for the trend
+     * @return the popularity score of the product for the given trend.
+     */
     @Override
     public Integer getProductPopularityForTrend(Long productId, Long trendId) {
         String sql = "SELECT popularity_score FROM product_popularity WHERE product_id = ? AND trend_id = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, productId, trendId);
     }
 
+    /**
+     * Retrieves all popularity scores for a specific product.
+     *
+     * @param productId the unique identifier for the product
+     * @return a list of all popularity scores for the given product across different trends.
+     */
     @Override
     public List<Integer> getAllProductPopularities(Long productId) {
         String sql = "SELECT popularity_score FROM product_popularity WHERE product_id = ?";
         return jdbcTemplate.query(sql, new Object[]{productId}, (rs, rowNum) -> rs.getInt("popularity_score"));
     }
-
 }
