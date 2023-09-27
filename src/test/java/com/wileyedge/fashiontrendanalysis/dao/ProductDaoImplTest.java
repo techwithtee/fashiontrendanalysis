@@ -14,6 +14,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -191,8 +192,76 @@ public class ProductDaoImplTest {
         )).thenReturn(expectedDesigners);
 
 
-            List<Designer> returnedDesigners = productDao.getDesignersForProduct(1L);
+        List<Designer> returnedDesigners = productDao.getDesignersForProduct(1L);
 
-            assertEquals(expectedDesigners, returnedDesigners);
-        }
+        assertEquals(expectedDesigners, returnedDesigners);
     }
+    @Test
+    public void testSetProductPopularityForTrend() {
+        // Mock behavior
+        when(jdbcTemplate.update(anyString(), anyLong(), anyLong(), anyInt())).thenReturn(1);
+        productDao.setProductPopularityForTrend(1L, 1L, 80);
+
+        // Verify interactions
+        verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong(), anyInt());
+    }
+
+    @Test
+    public void testSetProductPopularityForTrendFailure() {
+        // Mock behavior for edge case when no rows are affected
+        when(jdbcTemplate.update(anyString(), anyLong(), anyLong(), anyInt(), anyInt())).thenReturn(0);
+        productDao.setProductPopularityForTrend(1L, 1L, 90);
+        // Verify interactions
+        verify(jdbcTemplate, times(1)).update(anyString(), eq(1L), eq(1L), eq(90), eq(90));
+    }
+
+    @Test
+    public void testGetProductPopularityForTrend() {
+        // Mock behavior
+        when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), eq(Integer.class))).thenReturn(80);
+        int score = productDao.getProductPopularityForTrend(1L, 1L);
+        // Assertions and Verify interactions
+        assertEquals(80, score);
+        verify(jdbcTemplate, times(1)).queryForObject(anyString(), any(Object[].class), eq(Integer.class));
+    }
+
+    @Test
+    public void testGetAllProductPopularities() {
+        // Mock behavior
+        when(jdbcTemplate.query(anyString(), any(Object[].class), any(RowMapper.class))).thenReturn(Arrays.asList(80, 85));
+        List<Integer> scores = productDao.getAllProductPopularities(1L);
+        // Assertions and Verify interactions
+        assertEquals(2, scores.size());
+        verify(jdbcTemplate, times(1)).query(anyString(), any(Object[].class), any(RowMapper.class));
+    }
+
+    @Test
+    public void testSetProductPopularityForTrendException() {
+        // Mock behavior
+        doThrow(DataAccessException.class).when(jdbcTemplate).update(anyString(), anyLong(), anyLong(), anyInt(), anyInt());
+        assertThrows(DataAccessException.class, () -> productDao.setProductPopularityForTrend(1L, 1L, 80));
+        // Verify interactions
+        verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong(), anyInt(), anyInt());
+    }
+
+    @Test
+    public void testGetProductPopularityForTrendNoData() {
+        // Mock behavior
+        when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), eq(Integer.class))).thenReturn(null);
+        Integer score = productDao.getProductPopularityForTrend(1L, 1L);
+        // Assertions and Verify interactions
+        assertNull(score);
+        verify(jdbcTemplate, times(1)).queryForObject(anyString(), any(Object[].class), eq(Integer.class));
+    }
+
+    @Test
+    public void testGetAllProductPopularitiesNoData() {
+        // Mock behavior
+        when(jdbcTemplate.query(anyString(), any(Object[].class), any(RowMapper.class))).thenReturn(new ArrayList<>());
+        List<Integer> scores = productDao.getAllProductPopularities(1L);
+        // Assertions and Verify interactions
+        assertTrue(scores.isEmpty());
+        verify(jdbcTemplate, times(1)).query(anyString(), any(Object[].class), any(RowMapper.class));
+    }
+
+}
