@@ -153,20 +153,4 @@ INSERT INTO category_popularity (category_popularity_id, category_id, season, po
 (14, 4, 'Summer', 70),
 (15, 5, 'Fall', 85);
 
--- Insert data into the trend_interactions table
-INSERT INTO trend_interactions (interaction_id, user_id, trend_id, interaction_type, timestamp) VALUES
-(1, 1, 1, 'like', '2023-09-25 10:00:00'),
-(2, 2, 1, 'comment', '2023-09-25 10:15:00'),
-(3, 3, 2, 'like', '2023-09-25 11:30:00'),
-(4, 4, 3, 'like', '2023-09-25 12:45:00'),
-(5, 5, 3, 'comment', '2023-09-25 13:15:00'),
-(6, 6, 4, 'like', '2023-09-25 14:30:00'),
-(7, 7, 5, 'like', '2023-09-25 15:45:00'),
-(8, 8, 5, 'comment', '2023-09-25 16:00:00'),
-(9, 9, 6, 'like', '2023-09-25 17:15:00'),
-(10, 10, 6, 'comment', '2023-09-25 18:30:00'),
-(11, 11, 7, 'like', '2023-09-25 19:45:00'),
-(12, 12, 8, 'like', '2023-09-25 20:00:00'),
-(13, 13, 9, 'comment', '2023-09-25 21:15:00'),
-(14, 14, 10, 'like', '2023-09-25 22:30:00'),
-(15, 15, 10, 'comment', '2023-09-25 23:45:00');
+

@@ -19,6 +19,7 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+
     /**
      * Constructs a new CategoryController instance and injects the associated CategoryService.
      *
@@ -27,6 +28,7 @@ public class CategoryController {
     @Autowired
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
+
     }
 
     /**

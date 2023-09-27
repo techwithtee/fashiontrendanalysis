@@ -109,4 +109,6 @@ public class DesignerDaoImpl implements DesignerDao {
         String query = "SELECT * FROM products WHERE product_id IN (SELECT product_id FROM product_designer_association WHERE designer_id=?)";
         return jdbcTemplate.query(query, productRowMapper, designerId);
     }
+
+
 }

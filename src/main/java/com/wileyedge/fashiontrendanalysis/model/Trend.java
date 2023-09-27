@@ -10,14 +10,13 @@ public class Trend {
     private Long designerId;
     private String location;
     private String season;
-    private Integer popularityScore;
 
     // Default constructor
     public Trend() {
     }
 
     // Constructor with parameters
-    public Trend(Long trendId, String trendName, String trendDesc, Long categoryId, Long designerId, String location, String season, Integer popularityScore) {
+    public Trend(Long trendId, String trendName, String trendDesc, Long categoryId, Long designerId, String location, String season) {
         this.trendId = trendId;
         this.trendName = trendName;
         this.trendDesc = trendDesc;
@@ -25,7 +24,6 @@ public class Trend {
         this.designerId = designerId;
         this.location = location;
         this.season = season;
-        this.popularityScore = popularityScore;
     }
 
     public Trend(Object o, String newTrend, String newDescription, long l, long l1, String newLocation, String newSeason) {
@@ -91,36 +89,6 @@ public class Trend {
         this.season = season;
     }
 
-    // Getter for popularityScore
-    public Integer getPopularityScore() {
-        return popularityScore;
-    }
 
-    // Setter for popularityScore
-    public void setPopularityScore(Integer popularityScore) {
-        this.popularityScore = popularityScore;
-    }
-
-    // Calculate and return the popularity score for this trend
-    public double calculatePopularityScore() {
-        // You can implement the logic to calculate the popularity score here.
-        // You may use the existing popularityScore field and other attributes of the trend.
-        // For example, a simple calculation might be based on likes, comments, and other factors.
-        return (double) popularityScore; // Change this with your logic.
-    }
-
-    // Calculate and return the average popularity score for a list of trends
-    public static double calculateAveragePopularityScore(List<Trend> trends) {
-        if (trends == null || trends.isEmpty()) {
-            return 0.0; // Return 0 if there are no trends to calculate the average.
-        }
-
-        double totalScore = 0.0;
-        for (Trend trend : trends) {
-            totalScore += trend.calculatePopularityScore();
-        }
-
-        return totalScore / trends.size();
-    }
 
 }

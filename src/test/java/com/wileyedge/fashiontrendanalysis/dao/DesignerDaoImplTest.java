@@ -2,6 +2,7 @@ package com.wileyedge.fashiontrendanalysis.dao;
 
 import com.wileyedge.fashiontrendanalysis.exceptions.CustomUncheckedException;
 import com.wileyedge.fashiontrendanalysis.model.Designer;
+import com.wileyedge.fashiontrendanalysis.model.Product;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -161,6 +162,24 @@ public class DesignerDaoImplTest {
 
         assertEquals(expectedPopularityScore, popularityScore);
     }
+
+    @Test
+    public void testGetProductsForDesigner() {
+        Long designerId = 1L; // Replace with the designer ID you want to test
+        List<Product> expectedProducts = Arrays.asList(
+                new Product(1L, "Product 1", "Description 1"),
+                new Product(2L, "Product 2", "Description 2")
+        );
+
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class), eq(designerId))).thenReturn(expectedProducts);
+
+        List<Product> returnedProducts = designerDao.getProductsForDesigner(designerId);
+
+        assertEquals(expectedProducts, returnedProducts);
+    }
+
+
+
 
     @AfterEach
     public void cleanup() {

@@ -24,4 +24,7 @@ public interface DesignerDao {
     Integer getDesignerPopularityScore(Long designerId);
 
     List<Product> getProductsForDesigner(Long designerId);
+
+
+
 }

@@ -29,4 +29,6 @@ public class Product {
     /** Description of the product. */
     private String productDescription;
 
+    public Product(long l, String s, String s1) {
+    }
 }

@@ -149,36 +149,6 @@ public class TrendController {
         return new ResponseEntity<>(trends, HttpStatus.OK);
     }
 
-    /**
-     * Retrieves the popularity score of a specific trend.
-     *
-     * @param id the ID of the trend
-     * @return the popularity score of the trend, or 404 if not found
-     * @apiEndpoint GET http://localhost:6363/api/trends/{id}/popularityScore
-     */
-    @GetMapping("/{id}/popularityScore")
-    public ResponseEntity<Integer> getTrendPopularityScore(@PathVariable Long id) {
-        Integer popularityScore = trendService.getTrendPopularityScore(id);
-        if (popularityScore != null) {
-            return new ResponseEntity<>(popularityScore, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    /**
-     * Records the popularity score for a specific trend.
-     *
-     * @param id the ID of the trend
-     * @param popularityScore the popularity score to be recorded
-     * @return a confirmation of the recording
-     * @apiEndpoint POST http://localhost:6363/api/trends/{id}/recordPopularityScore
-     */
-    @PostMapping("/{id}/recordPopularityScore")
-    public ResponseEntity<Void> recordPopularityScore(@PathVariable Long id, @RequestParam int popularityScore) {
-        trendService.recordPopularityScore(id, popularityScore);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
     /**
      * Associates a trend with a category.
@@ -215,5 +185,22 @@ public class TrendController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/{trendId}/setPopularity/{score}")
+    public ResponseEntity<Void> setTrendPopularity(@PathVariable Long trendId, @PathVariable int score) {
+        boolean updated = trendService.setTrendPopularity(trendId, score);
+        if (updated) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{trendId}/getPopularity")
+    public ResponseEntity<Integer> getTrendPopularity(@PathVariable Long trendId) {
+        int popularity = trendService.getTrendPopularity(trendId);
+        return new ResponseEntity<>(popularity, HttpStatus.OK);
+    }
+
 }
 
