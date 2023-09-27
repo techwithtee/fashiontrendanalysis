@@ -1,4 +1,4 @@
-package com.wileyedge.fashiontrendanalysis.service.impl;
+package com.wileyedge.fashiontrendanalysis.service;
 
 import com.wileyedge.fashiontrendanalysis.dao.CategoryDao;
 import com.wileyedge.fashiontrendanalysis.model.Category;
@@ -64,7 +64,7 @@ public class CategoryServiceImpl implements CategoryService {
      * Updates the details of an existing category based on its unique identifier.
      *
      * @param categoryId the unique identifier of the category to be updated.
-     * @param category the updated Category entity.
+     * @param category   the updated Category entity.
      * @return true if the update was successful, false otherwise.
      */
     @Override
@@ -105,19 +105,38 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDao.getCategoriesByProduct(productId);
     }
 
+    /**
+     * Sets the popularity score of a category for a specific season.
+     *
+     * @param categoryId the ID of the category for which the popularity score is to be set.
+     * @param season     the season for which the score is being set.
+     * @param score      the popularity score to set for the category in the specified season.
+     */
     @Override
     public void setCategoryPopularityForSeason(Long categoryId, String season, int score) {
         categoryDao.setCategoryPopularityForSeason(categoryId, season, score);
     }
 
+    /**
+     * Retrieves the popularity score of a category for a specific season.
+     *
+     * @param categoryId the ID of the category for which the popularity score is to be retrieved.
+     * @param season     the season for which the score is being retrieved.
+     * @return the popularity score of the category for the specified season, or null if not found.
+     */
     @Override
     public Integer getCategoryPopularityForSeason(Long categoryId, String season) {
         return categoryDao.getCategoryPopularityForSeason(categoryId, season);
     }
 
+    /**
+     * Retrieves all popularity scores associated with a specific category across different metrics or seasons.
+     *
+     * @param categoryId the ID of the category for which all popularity scores are to be retrieved.
+     * @return a list of popularity scores associated with the category, or an empty list if none are found.
+     */
     @Override
     public List<Integer> getAllCategoryPopularities(Long categoryId) {
         return categoryDao.getAllCategoryPopularities(categoryId);
     }
-
 }
