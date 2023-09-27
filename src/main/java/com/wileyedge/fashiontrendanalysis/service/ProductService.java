@@ -5,74 +5,116 @@ import com.wileyedge.fashiontrendanalysis.model.Product;
 import java.util.List;
 
 /**
- * Defines the service operations for managing products.
+ * This interface outlines the service operations for managing products in the system.
+ * It provides methods for retrieving, adding, updating, deleting, and associating products
+ * with designers and categories.
  */
 public interface ProductService {
 
     /**
-     * Fetches all products from the database.
+     * Retrieves all products stored in the database.
      *
-     * @return List of all products, or an empty list if none found.
+     * @return a list containing all available products; an empty list if none are found.
      */
     List<Product> getAllProducts();
 
     /**
-     * Fetches a specific product using its unique ID.
+     * Retrieves a specific product identified by its unique ID.
      *
-     * @param productId The ID of the desired product.
-     * @return The Product with the provided ID or null if not found.
+     * @param productId the unique identifier of the target product.
+     * @return the corresponding Product entity, or null if not found.
      */
     Product getProductById(Long productId);
 
     /**
-     * Adds a new product entry to the database.
+     * Persists a new product entity into the database.
      *
-     * @param product The product entity to be added.
-     * @return The ID of the newly added product or null if the operation failed.
+     * @param product the product to be stored.
+     * @return the unique identifier assigned to the newly stored product, or null if the addition failed.
      */
     Long addProduct(Product product);
 
     /**
-     * Updates details of an existing product based on its unique ID.
+     * Updates the information of a product identified by its unique ID.
      *
-     * @param productId Unique identifier of the product to be updated.
-     * @param product The updated product entity.
-     * @return true if the update was successful, false otherwise.
+     * @param productId the unique identifier of the product to be updated.
+     * @param product the modified Product entity containing the new details.
+     * @return true if the update succeeded, false otherwise.
      */
     boolean updateProduct(Long productId, Product product);
 
     /**
-     * Deletes a product from the database using its unique ID.
+     * Removes a product, identified by its unique ID, from the database.
      *
-     * @param productId The ID of the product to be deleted.
-     * @return true if the deletion was successful, false otherwise.
+     * @param productId the unique identifier of the product to be deleted.
+     * @return true if the product was successfully removed; false otherwise.
      */
     boolean deleteProduct(Long productId);
 
     /**
-     * Fetches a list of products associated with a specific designer.
+     * Retrieves products that are associated with a specific designer.
      *
-     * @param designerId The ID of the desired designer.
-     * @return List of products associated with the provided designer ID.
+     * @param designerId the unique identifier of the designer in question.
+     * @return a list of products linked to the given designer; an empty list if none are found.
      */
     List<Product> getProductsByDesigner(Long designerId);
 
     /**
-     * Fetches a list of products associated with a specific category.
+     * Retrieves products that are categorized under a specific category.
      *
-     * @param categoryId The ID of the desired category.
-     * @return List of products associated with the provided category ID.
+     * @param categoryId the unique identifier of the category in question.
+     * @return a list of products under the given category; an empty list if none are found.
      */
     List<Product> getProductsByCategory(Long categoryId);
 
+    /**
+     * Associates a product with a designer.
+     *
+     * @param designerId the unique identifier of the designer.
+     * @param productId the unique identifier of the product.
+     */
     void associateDesignerWithProduct(Long designerId, Long productId);
 
+    /**
+     * Removes the association between a product and a designer.
+     *
+     * @param designerId the unique identifier of the designer.
+     * @param productId the unique identifier of the product.
+     */
     void dissociateDesignerFromProduct(Long designerId, Long productId);
 
+    /**
+     * Retrieves a list of designers associated with a specific product.
+     *
+     * @param productId the unique identifier of the product.
+     * @return a list of designers linked to the product; an empty list if none are found.
+     */
     List<Designer> getDesignersForProduct(Long productId);
 
+    /**
+     * Sets a product's popularity score for a specific trend.
+     *
+     * @param productId the unique identifier of the product.
+     * @param trendId the unique identifier of the trend.
+     * @param score the popularity score to be set.
+     */
     void setProductPopularityForTrend(Long productId, Long trendId, int score);
+
+    /**
+     * Retrieves the popularity score of a product for a specific trend.
+     *
+     * @param productId the unique identifier of the product.
+     * @param trendId the unique identifier of the trend.
+     * @return the popularity score of the product for the given trend.
+     */
     Integer getProductPopularityForTrend(Long productId, Long trendId);
+
+    /**
+     * Retrieves all popularity scores associated with a product.
+     *
+     * @param productId the unique identifier of the product.
+     * @return a list containing all the popularity scores for the product; an empty list if none are found.
+     */
     List<Integer> getAllProductPopularities(Long productId);
 
 }

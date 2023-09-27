@@ -64,8 +64,30 @@ public interface CategoryService {
      */
     List<Category> getCategoriesByProduct(Long productId);
 
+    /**
+     * Sets the popularity score of a category for a specific season.
+     *
+     * @param categoryId the ID of the category for which the popularity score is to be set
+     * @param season the season for which the score is being set
+     * @param score the popularity score to set for the category in the specified season
+     */
     void setCategoryPopularityForSeason(Long categoryId, String season, int score);
+
+    /**
+     * Retrieves the popularity score of a category for a specific season.
+     *
+     * @param categoryId the ID of the category for which the popularity score is to be retrieved
+     * @param season the season for which the score is being retrieved
+     * @return the popularity score of the category for the specified season, or null if not found
+     */
     Integer getCategoryPopularityForSeason(Long categoryId, String season);
+
+    /**
+     * Retrieves all popularity scores associated with a specific category across different metrics or seasons.
+     *
+     * @param categoryId the ID of the category for which all popularity scores are to be retrieved
+     * @return a list of popularity scores associated with the category, or an empty list if none are found
+     */
     List<Integer> getAllCategoryPopularities(Long categoryId);
 
 }
