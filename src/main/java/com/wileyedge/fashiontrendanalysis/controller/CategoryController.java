@@ -33,7 +33,7 @@ public class CategoryController {
      * Fetches all categories.
      *
      * @return A list containing all categories.
-     * @apiEndpoint GET https://your-domain/api/categories
+     * @apiEndpoint GET http://localhost:6363/api/categories
      */
     @GetMapping
     public List<Category> getAllCategories() {
@@ -45,7 +45,7 @@ public class CategoryController {
      *
      * @param categoryId The ID of the desired category.
      * @return The category with the specified ID.
-     * @apiEndpoint GET https://your-domain/api/categories/{categoryId}
+     * @apiEndpoint GET http://localhost:6363/api/categories/{categoryId}
      */
     @GetMapping("/{categoryId}")
     public Category getCategoryById(@PathVariable Long categoryId) {
@@ -57,7 +57,7 @@ public class CategoryController {
      *
      * @param category The category to be added.
      * @return A response indicating the success of the operation.
-     * @apiEndpoint POST https://your-domain/api/categories
+     * @apiEndpoint POST http://localhost:6363/api/categories
      */
     @PostMapping
     public ResponseEntity<?> addCategory(@RequestBody Category category) {
@@ -75,7 +75,7 @@ public class CategoryController {
      * @param categoryId The ID of the category to be updated.
      * @param category The updated category details.
      * @return A response indicating the success of the operation.
-     * @apiEndpoint PUT https://your-domain/api/categories/{categoryId}
+     * @apiEndpoint PUT http://localhost:6363/api/categories/{categoryId}
      */
     @PutMapping("/{categoryId}")
     public ResponseEntity<?> updateCategory(@PathVariable Long categoryId, @RequestBody Category category) {
@@ -88,7 +88,7 @@ public class CategoryController {
      *
      * @param categoryId The ID of the category to be removed.
      * @return A response indicating the success of the operation.
-     * @apiEndpoint DELETE https://your-domain/api/categories/{categoryId}
+     * @apiEndpoint DELETE http://localhost:6363/api/categories/{categoryId}
      */
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<?> deleteCategory(@PathVariable Long categoryId) {
@@ -101,7 +101,7 @@ public class CategoryController {
      *
      * @param trendId the ID of the trend to find categories for.
      * @return a list of categories associated with the given trend.
-     * @apiEndpoint GET https://your-domain/api/categories/trend/{trendId}
+     * @apiEndpoint GET http://localhost:6363/api/categories/trend/{trendId}
      */
     @GetMapping("/trend/{trendId}")
     public List<Category> getCategoriesByTrend(@PathVariable Long trendId) {
@@ -113,29 +113,52 @@ public class CategoryController {
      *
      * @param productId the ID of the product to find categories for.
      * @return a list of categories associated with the given product.
-     * @apiEndpoint GET https://your-domain/api/categories/product/{productId}
+     * @apiEndpoint GET http://localhost:6363/api/categories/product/{productId}
      */
     @GetMapping("/product/{productId}")
     public List<Category> getCategoriesByProduct(@PathVariable Long productId) {
         return categoryService.getCategoriesByProduct(productId);
     }
 
+    /**
+     * Updates the popularity score of a category for a given season.
+     *
+     * @param categoryId The ID of the category whose popularity score is to be set.
+     * @param season The season for which the popularity score is to be set.
+     * @param score The popularity score.
+     * @return A response indicating the success of the operation.
+     * @apiEndpoint POST http://localhost:6363/api/categories/{categoryId}/popularity/{season}
+     */
     @PostMapping("/{categoryId}/popularity/{season}")
     public ResponseEntity<?> setCategoryPopularityForSeason(@PathVariable Long categoryId, @PathVariable String season, @RequestBody int score) {
         categoryService.setCategoryPopularityForSeason(categoryId, season, score);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * Retrieves the popularity score of a category for a given season.
+     *
+     * @param categoryId The ID of the category whose popularity score is to be retrieved.
+     * @param season The season for which the popularity score is to be retrieved.
+     * @return A response containing the popularity score.
+     * @apiEndpoint GET http://localhost:6363/api/categories/{categoryId}/popularity/{season}
+     */
     @GetMapping("/{categoryId}/popularity/{season}")
     public ResponseEntity<Integer> getCategoryPopularityForSeason(@PathVariable Long categoryId, @PathVariable String season) {
         Integer score = categoryService.getCategoryPopularityForSeason(categoryId, season);
         return new ResponseEntity<>(score, HttpStatus.OK);
     }
 
+    /**
+     * Retrieves all popularity scores of a category across seasons.
+     *
+     * @param categoryId The ID of the category whose popularity scores are to be retrieved.
+     * @return A response containing a list of popularity scores.
+     * @apiEndpoint GET http://localhost:6363/api/categories/{categoryId}/all-popularities
+     */
     @GetMapping("/{categoryId}/all-popularities")
     public ResponseEntity<List<Integer>> getAllCategoryPopularities(@PathVariable Long categoryId) {
         List<Integer> scores = categoryService.getAllCategoryPopularities(categoryId);
         return new ResponseEntity<>(scores, HttpStatus.OK);
     }
-
 }
