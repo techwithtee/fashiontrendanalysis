@@ -30,6 +30,9 @@ public class Trend {
 
     public Trend(Object o, String newTrend, String newDescription, long l, long l1, String newLocation, String newSeason) {
     }
+
+    public Trend(Object o, String duplicateTrend, long l, long l1, String description) {
+    }
     //Getters and setters
 
     public Long getTrendId() {
