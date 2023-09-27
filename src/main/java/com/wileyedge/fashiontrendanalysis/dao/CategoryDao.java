@@ -60,9 +60,29 @@ public interface CategoryDao {
      * @return a list of categories associated with the specified product, or an empty list if none are found
      */
     List<Category> getCategoriesByProduct(Long productId);
-
+    /**
+     * Sets the popularity score of a specific category for a given season.
+     *
+     * @param categoryId the ID of the category
+     * @param season the name of the season (e.g., "Spring", "Summer", etc.)
+     * @param score the popularity score to set for the category for the specified season
+     */
     void setCategoryPopularityForSeason(Long categoryId, String season, int score);
-    Integer getCategoryPopularityForSeason(Long categoryId, String season);
-    List<Integer> getAllCategoryPopularities(Long categoryId);
 
+    /**
+     * Retrieves the popularity score of a specific category for a given season.
+     *
+     * @param categoryId the ID of the category
+     * @param season the name of the season (e.g., "Spring", "Summer", etc.)
+     * @return the popularity score of the category for the specified season, or null if not found
+     */
+    Integer getCategoryPopularityForSeason(Long categoryId, String season);
+
+    /**
+     * Retrieves all popularity scores for a specific category across different seasons.
+     *
+     * @param categoryId the ID of the category
+     * @return a list of popularity scores for the category across different seasons, or an empty list if none are found
+     */
+    List<Integer> getAllCategoryPopularities(Long categoryId);
 }

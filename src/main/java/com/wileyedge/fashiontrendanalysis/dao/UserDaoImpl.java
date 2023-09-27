@@ -118,6 +118,12 @@ public class UserDaoImpl implements UserDao {
         return jdbcTemplate.queryForObject(sql, userRowMapper, userId);
     }
 
+    /**
+     * Retrieves all users from the 'fashion_user' table in the database.
+     *
+     * @return a list containing all User objects from the database;
+     *         returns an empty list if no users are found.
+     */
     @Override
     public List<User> findAll() {
         String sql = "SELECT * FROM fashion_user";

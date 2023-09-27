@@ -149,18 +149,40 @@ public class CategoryDaoImpl implements CategoryDao {
         return jdbcTemplate.query(sql, new Object[]{productId}, categoryRowMapper);
     }
 
+    /**
+     * Sets the popularity score of a specific category for a given season.
+     * If an entry already exists for the given category and season, it updates the score.
+     * Otherwise, it creates a new entry with the provided score.
+     *
+     * @param categoryId the ID of the category
+     * @param season the name of the season (e.g., "Spring", "Summer", etc.)
+     * @param score the popularity score to set for the category for the specified season
+     */
     @Override
     public void setCategoryPopularityForSeason(Long categoryId, String season, int score) {
         String sql = "INSERT INTO category_popularity (category_id, season, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?";
         jdbcTemplate.update(sql, categoryId, season, score, score);
     }
 
+    /**
+     * Retrieves the popularity score of a specific category for a given season.
+     *
+     * @param categoryId the ID of the category
+     * @param season the name of the season (e.g., "Spring", "Summer", etc.)
+     * @return the popularity score of the category for the specified season, or null if not found
+     */
     @Override
     public Integer getCategoryPopularityForSeason(Long categoryId, String season) {
         String sql = "SELECT popularity_score FROM category_popularity WHERE category_id = ? AND season = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, categoryId, season);
     }
 
+    /**
+     * Retrieves all popularity scores for a specific category across different seasons.
+     *
+     * @param categoryId the ID of the category
+     * @return a list of popularity scores for the category across different seasons, or an empty list if none are found
+     */
     @Override
     public List<Integer> getAllCategoryPopularities(Long categoryId) {
         String sql = "SELECT popularity_score FROM category_popularity WHERE category_id = ?";
