@@ -28,9 +28,8 @@ public interface TrendService {
 
     List<Trend> getTrendsBySeason(String season);
 
-    Integer getTrendPopularityScore(Long trendId);
+    boolean setTrendPopularity(Long trendId, int score); // Added setTrendPopularity method
 
-    void recordPopularityScore(Long trendId, int popularityScore);
+    int getTrendPopularity(Long trendId); // Added getTrendPopularity method
 
-    double calculateTrendPopularityScore(Long trendId); // Add this method
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Analytics</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div>
+    <!-- Chart container for getCategoriesByTrend -->
+    <canvas id="chartByTrend" width="400" height="200"></canvas>
+</div>
+
+<div>
+    <!-- Chart container for getCategoriesByProduct -->
+    <canvas id="chartByProduct" width="400" height="200"></canvas>
+</div>
+
+<div>
+    <!-- Chart container for getCategoryPopularityForSeason -->
+    <canvas id="chartCategoryPopularity" width="400" height="200"></canvas>
+</div>
+
+<div>
+    <!-- Chart container for getAllCategoryPopularities -->
+    <canvas id="chartAllPopularities" width="400" height="200"></canvas>
+</div>
+
+<!-- Include your JavaScript file -->
+<script src="category-analytics.js"></script>
+</body>
+</html>

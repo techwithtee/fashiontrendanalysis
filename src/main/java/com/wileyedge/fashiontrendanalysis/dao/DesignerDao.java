@@ -81,4 +81,7 @@ public interface DesignerDao {
      * @return a list of products associated with the designer, or an empty list if none are found
      */
     List<Product> getProductsForDesigner(Long designerId);
+
+
+
 }
