@@ -27,13 +27,9 @@ public interface TrendDao {
     List<Trend> getTrendsByLocation(String location);
 
     List<Trend> getTrendsBySeason(String season);
-  
-    Integer getTrendPopularityScore(Long trendId);
 
-    // Add method to calculate popularity score for a trend
-    double calculatePopularityScore(Long trendId);
+    boolean setTrendPopularity(Long trendId, int score); // Added setTrendPopularity method
 
-    // Method to record the popularity score for a trend
-    void recordPopularityScore(Long trendId, int popularityScore);
+    int getTrendPopularity(Long trendId); // Added getTrendPopularity method
 
 }
