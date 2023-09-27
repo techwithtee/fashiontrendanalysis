@@ -40,4 +40,7 @@ public class Product {
      * Detailed description of the product, potentially including materials, use-cases, design inspirations, etc.
      */
     private String productDescription;
+
+    public Product(long l, String s, String s1) {
+    }
 }
