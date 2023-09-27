@@ -159,4 +159,23 @@ public class ProductDaoImpl implements ProductDao {
         String query = "SELECT * FROM designers WHERE designer_id IN (SELECT designer_id FROM product_designer_association WHERE product_id=?)";
         return jdbcTemplate.query(query, designerRowMapper, productId);
     }
+
+    @Override
+    public void setProductPopularityForTrend(Long productId, Long trendId, int score) {
+        String sql = "INSERT INTO product_popularity (product_id, trend_id, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?";
+        jdbcTemplate.update(sql, productId, trendId, score, score);
+    }
+
+    @Override
+    public Integer getProductPopularityForTrend(Long productId, Long trendId) {
+        String sql = "SELECT popularity_score FROM product_popularity WHERE product_id = ? AND trend_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, productId, trendId);
+    }
+
+    @Override
+    public List<Integer> getAllProductPopularities(Long productId) {
+        String sql = "SELECT popularity_score FROM product_popularity WHERE product_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{productId}, (rs, rowNum) -> rs.getInt("popularity_score"));
+    }
+
 }

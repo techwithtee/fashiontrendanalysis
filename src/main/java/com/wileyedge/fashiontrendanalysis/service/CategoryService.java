@@ -63,4 +63,9 @@ public interface CategoryService {
      * @return a list of categories associated with the product or an empty list if none are found
      */
     List<Category> getCategoriesByProduct(Long productId);
+
+    void setCategoryPopularityForSeason(Long categoryId, String season, int score);
+    Integer getCategoryPopularityForSeason(Long categoryId, String season);
+    List<Integer> getAllCategoryPopularities(Long categoryId);
+
 }

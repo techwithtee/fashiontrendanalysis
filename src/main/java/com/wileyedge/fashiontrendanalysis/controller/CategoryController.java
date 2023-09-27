@@ -119,4 +119,23 @@ public class CategoryController {
     public List<Category> getCategoriesByProduct(@PathVariable Long productId) {
         return categoryService.getCategoriesByProduct(productId);
     }
+
+    @PostMapping("/{categoryId}/popularity/{season}")
+    public ResponseEntity<?> setCategoryPopularityForSeason(@PathVariable Long categoryId, @PathVariable String season, @RequestBody int score) {
+        categoryService.setCategoryPopularityForSeason(categoryId, season, score);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{categoryId}/popularity/{season}")
+    public ResponseEntity<Integer> getCategoryPopularityForSeason(@PathVariable Long categoryId, @PathVariable String season) {
+        Integer score = categoryService.getCategoryPopularityForSeason(categoryId, season);
+        return new ResponseEntity<>(score, HttpStatus.OK);
+    }
+
+    @GetMapping("/{categoryId}/all-popularities")
+    public ResponseEntity<List<Integer>> getAllCategoryPopularities(@PathVariable Long categoryId) {
+        List<Integer> scores = categoryService.getAllCategoryPopularities(categoryId);
+        return new ResponseEntity<>(scores, HttpStatus.OK);
+    }
+
 }
