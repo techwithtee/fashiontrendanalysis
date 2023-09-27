@@ -178,5 +178,4 @@ public class ProductDaoImpl implements ProductDao {
         return jdbcTemplate.query(sql, new Object[]{productId}, (rs, rowNum) -> rs.getInt("popularity_score"));
     }
 
-
 }

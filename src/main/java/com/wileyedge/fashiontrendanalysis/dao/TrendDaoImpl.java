@@ -88,6 +88,42 @@ public class TrendDaoImpl implements TrendDao {
     }
 
     @Override
+
+    public Integer getTrendPopularityScore(Long trendId) {
+        String query = "SELECT popularity_score FROM trend_popularity WHERE trend_id=?";
+        return jdbcTemplate.queryForObject(query, Integer.class, trendId);
+    }
+
+    @Override
+    public double calculatePopularityScore(Long trendId) {
+        // Query to get the popularity score for the specified trend from the trend_popularity table
+        String query = "SELECT popularity_score FROM trend_popularity WHERE trend_id = ?";
+
+        try {
+            // Execute the query and retrieve the popularity score as a Double
+            Double popularityScore = jdbcTemplate.queryForObject(query, Double.class, trendId);
+
+            if (popularityScore != null) {
+                return popularityScore; // Return the retrieved popularity score
+            } else {
+                return 0.0; // Return 0 if no popularity score is found
+            }
+        } catch (DataAccessException e) {
+            // Handle any exceptions that may occur during database query
+            // You can log the error or throw a custom exception as needed
+            e.printStackTrace();
+            return 0.0; // Return 0 in case of an error
+        }
+    }
+
+    // Method to record the popularity score for a trend
+    @Override
+    public void recordPopularityScore(Long trendId, int popularityScore) {
+        String insertQuery = "INSERT INTO trend_popularity (trend_id, popularity_score) VALUES (?, ?)";
+        jdbcTemplate.update(insertQuery, trendId, popularityScore);
+    }
+
+    @Override
     public boolean associateTrendWithCategory(Long trendId, Long categoryId) {
         String query = "INSERT INTO trend_category (trend_id, category_id) VALUES (?, ?)";
         return jdbcTemplate.update(query, trendId, categoryId) > 0;
@@ -97,18 +133,5 @@ public class TrendDaoImpl implements TrendDao {
     public boolean dissociateTrendFromCategory(Long trendId, Long categoryId) {
         String query = "DELETE FROM trend_category WHERE trend_id=? AND category_id=?";
         return jdbcTemplate.update(query, trendId, categoryId) > 0;
-    }
-
-    @Override
-    public boolean setTrendPopularity(Long trendId, int score) {
-        String sql = "UPDATE trend_popularity SET popularity_score = ? WHERE trend_id = ?";
-        int rowsAffected = jdbcTemplate.update(sql, score, trendId);
-        return rowsAffected > 0;
-    }
-
-    @Override
-    public int getTrendPopularity(Long trendId) {
-        String sql = "SELECT popularity_score FROM trend_popularity WHERE trend_id = ?";
-        return jdbcTemplate.queryForObject(sql, Integer.class, trendId);
     }
 }

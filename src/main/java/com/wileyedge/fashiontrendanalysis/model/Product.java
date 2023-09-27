@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 /**
- * Represents a fashion product with its associated details.
+ * Represents a fashion product in the fashion trend analysis system.
+ * Contains detailed attributes about a product, including its unique ID, name, associated category, designer, and a comprehensive description.
+ * The class leverages Lombok annotations for automatic generation of getter, setter, and constructor methods, reducing boilerplate code.
  */
 @Getter
 @Setter
@@ -14,21 +16,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Product {
 
-    /** Unique identifier for the product. */
+    /**
+     * Unique identifier for the product.
+     */
     private Long productId;
 
-    /** Name of the product. */
+    /**
+     * Name or title of the product, providing a brief introduction to the item.
+     */
     private String productName;
 
-    /** Identifier for the product's category. */
+    /**
+     * Identifier pointing to the category to which this product belongs.
+     */
     private Long categoryId;
 
-    /** Identifier for the product's designer. */
+    /**
+     * Identifier linking the product to its associated designer.
+     */
     private Long designerId;
 
-    /** Description of the product. */
+    /**
+     * Detailed description of the product, potentially including materials, use-cases, design inspirations, etc.
+     */
     private String productDescription;
-
-    public Product(long l, String s, String s1) {
-    }
 }
