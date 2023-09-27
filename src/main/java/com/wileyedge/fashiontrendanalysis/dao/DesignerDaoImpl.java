@@ -1,12 +1,17 @@
 package com.wileyedge.fashiontrendanalysis.dao;
 
+import com.wileyedge.fashiontrendanalysis.exceptions.CustomUncheckedException;
 import com.wileyedge.fashiontrendanalysis.model.Designer;
 import com.wileyedge.fashiontrendanalysis.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -51,10 +56,23 @@ public class DesignerDaoImpl implements DesignerDao {
 
     @Override
     public Long addDesigner(Designer designer) {
-        String query = "INSERT INTO designer (designer_name, designer_location, trend_count, popularity_score) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(query, designer.getDesignerName(), designer.getDesignerLocation(), designer.getTrendCount(), designer.getPopularityScore());
-        return designer.getDesignerId();
+        String sql = "INSERT INTO designer (designer_name, designer_location, trend_count, popularity_score) VALUES (?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        try {
+            jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection.prepareStatement(sql, new String[]{"designer_id"});
+                ps.setString(1, designer.getDesignerName());
+                ps.setString(2, designer.getDesignerLocation());
+                ps.setInt(3, designer.getTrendCount());
+                ps.setInt(4, designer.getPopularityScore());
+                return ps;
+            }, keyHolder);
+        } catch (DataAccessException e) {
+            throw new CustomUncheckedException("Failed to add designer", e);
+        }
+        return (Long) keyHolder.getKey();
     }
+
 
     @Override
     public boolean updateDesigner(Long designerId, Designer designer) {

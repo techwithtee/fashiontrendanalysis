@@ -148,4 +148,23 @@ public class CategoryDaoImpl implements CategoryDao {
                 "WHERE p.product_id = ?";
         return jdbcTemplate.query(sql, new Object[]{productId}, categoryRowMapper);
     }
+
+    @Override
+    public void setCategoryPopularityForSeason(Long categoryId, String season, int score) {
+        String sql = "INSERT INTO category_popularity (category_id, season, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?";
+        jdbcTemplate.update(sql, categoryId, season, score, score);
+    }
+
+    @Override
+    public Integer getCategoryPopularityForSeason(Long categoryId, String season) {
+        String sql = "SELECT popularity_score FROM category_popularity WHERE category_id = ? AND season = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, categoryId, season);
+    }
+
+    @Override
+    public List<Integer> getAllCategoryPopularities(Long categoryId) {
+        String sql = "SELECT popularity_score FROM category_popularity WHERE category_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{categoryId}, (rs, rowNum) -> rs.getInt("popularity_score"));
+    }
+
 }

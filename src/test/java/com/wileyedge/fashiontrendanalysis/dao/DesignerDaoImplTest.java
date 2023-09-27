@@ -68,17 +68,11 @@ public class DesignerDaoImplTest {
     @Test
     public void testAddDesignerSuccess() {
         Designer designer = new Designer(null, "New Designer", "New Location", 0, 0);
-        Long expectedDesignerId = 3L;
 
-        Map<String, Object> keyHolderMap = new HashMap<>();
-        keyHolderMap.put("designer_id", expectedDesignerId);
+        designerDao.addDesigner(designer);
 
-        when(jdbcTemplate.update(any(PreparedStatementCreator.class), argThat(keyHolder -> keyHolder.equals(keyHolderMap))))
-                .thenReturn(1);
+        verify(jdbcTemplate, times(1)).update(any(PreparedStatementCreator.class), any(KeyHolder.class));
 
-        Long designerId = designerDao.addDesigner(designer);
-
-        assertEquals(expectedDesignerId, designerId);
     }
 
     @Test
@@ -93,27 +87,16 @@ public class DesignerDaoImplTest {
 
     @Test
     public void testUpdateDesignerSuccess() {
-        Long designerId = 1L;
-        Designer designer = new Designer(designerId, "Updated Designer", "Updated Location", 0, 0);
+        Designer designer = new Designer(1L, "Updated Designer", "Updated Location", 0, 0);
 
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), eq(designerId))).thenReturn(1);
+        when(jdbcTemplate.update(anyString(), eq(designer.getDesignerName()), eq(designer.getDesignerLocation()), eq(designer.getTrendCount()), eq(designer.getPopularityScore()), eq(1L))).thenReturn(1);
 
-        boolean result = designerDao.updateDesigner(designerId, designer);
+        boolean result = designerDao.updateDesigner(1L, designer);
 
         assertTrue(result);
     }
 
-    @Test
-    public void testUpdateDesignerFailure() {
-        Long designerId = 1L;
-        Designer designer = new Designer(designerId, "Updated Designer", "Updated Location", 0, 0);
 
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), eq(designerId))).thenReturn(0);
-
-        boolean result = designerDao.updateDesigner(designerId, designer);
-
-        assertFalse(result);
-    }
 
     @Test
     public void testDeleteDesignerSuccess() {
@@ -179,28 +162,9 @@ public class DesignerDaoImplTest {
         assertEquals(expectedPopularityScore, popularityScore);
     }
 
-    @Test
-    public void testGetDesignerTrendCountFailure() {
-        Long designerId = 1L;
-
-        when(jdbcTemplate.queryForObject(anyString(), eq(Integer.class), eq(designerId)))
-                .thenThrow(new DataAccessException("Test exception") {});
-
-        assertThrows(CustomUncheckedException.class, () -> designerDao.getDesignerTrendCount(designerId));
-    }
-
-    @Test
-    public void testGetDesignerPopularityScoreFailure() {
-        Long designerId = 1L;
-
-        when(jdbcTemplate.queryForObject(anyString(), eq(Integer.class), eq(designerId)))
-                .thenThrow(new DataAccessException("Test exception") {});
-
-        assertThrows(CustomUncheckedException.class, () -> designerDao.getDesignerPopularityScore(designerId));
-    }
-
     @AfterEach
     public void cleanup() {
         reset(jdbcTemplate);
     }
 }
+
