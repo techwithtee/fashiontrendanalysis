@@ -27,36 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => {
             console.error('Error fetching data for getCategoriesByProduct:', error);
         });
-
-    // Fetch data from your Spring MVC backend for getCategoryPopularityForSeason
-    fetch('/api/categories/1/popularity/{season}') // Replace {categoryId} and {season} with actual values
-        .then(response => response.json())
-        .then(data => {
-            // Process and use the data here
-            console.log(data); // You can log it to see the retrieved data
-
-            // Create a visualization (e.g., line chart) for getCategoryPopularityForSeason
-            createLineChartForCategoryPopularity(data);
-        })
-        .catch(error => {
-            console.error('Error fetching data for getCategoryPopularityForSeason:', error);
-        });
-
-    // Fetch data from your Spring MVC backend for getAllCategoryPopularities
-    fetch('/api/categories/1/all-popularities') // Replace {categoryId} with an actual category ID
-        .then(response => response.json())
-        .then(data => {
-            // Process and use the data here
-            console.log(data); // You can log it to see the retrieved data
-
-            // Create a visualization (e.g., bar chart) for getAllCategoryPopularities
-            createBarChartForAllCategoryPopularities(data);
-        })
-        .catch(error => {
-            console.error('Error fetching data for getAllCategoryPopularities:', error);
-        });
 });
-
 
 // Function to create a bar chart for getCategoriesByTrend
 function createBarChartForCategoriesByTrend(data) {
@@ -102,54 +73,3 @@ function createPieChartForCategoriesByProduct(data) {
         }
     });
 }
-
-// Function to create a line chart for getCategoryPopularityForSeason
-function createLineChartForCategoryPopularity(data) {
-    const ctx = document.getElementById('chartCategoryPopularity').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: data.map(item => item.season), // Use appropriate property names
-            datasets: [{
-                label: 'Popularity Score',
-                data: data.map(item => item.popularityScore), // Use appropriate property names
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
-                fill: false
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
-
-// Function to create a bar chart for getAllCategoryPopularities
-function createBarChartForAllCategoryPopularities(data) {
-    const ctx = document.getElementById('chartAllPopularities').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: data.map(item => item.season), // Use appropriate property names
-            datasets: [{
-                label: 'Popularity Scores',
-                data: data.map(item => item.popularityScore), // Use appropriate property names
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
-
