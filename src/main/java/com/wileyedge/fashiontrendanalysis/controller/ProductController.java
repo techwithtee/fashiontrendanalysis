@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for managing operations related to products.
@@ -130,6 +131,13 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable Long categoryId) {
         return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
+
+    @GetMapping("/category/product-count")
+    public ResponseEntity<Map<String, Integer>> getCategoryProductCounts() {
+        Map<String, Integer> categoryProductCounts = productService.getProductCountByCategory();
+        return new ResponseEntity<>(categoryProductCounts, HttpStatus.OK);
+    }
+
 
     /**
      * Associates a designer with a product.
