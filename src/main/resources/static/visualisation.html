@@ -1,19 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category Product Distribution Chart</title>
 
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Include Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Additional styles -->
+    <style>
+        .header-footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin: 40px 0;
+        }
+
+        canvas {
+            margin-bottom: 50px;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Category Product Distribution Chart</h1>
 
-<!-- Canvas element to display the bar chart -->
-<canvas id="barChart" width="200" height="100"></canvas>
+<!-- Header -->
+<div class="header-footer">
+    Category Product Distribution Chart
+</div>
 
+<div class="container">
+    <!-- Canvas element to display the bar chart -->
+    <canvas id="barChart" width="200" height="100"></canvas>
+</div>
+
+<!-- Footer -->
+<div class="header-footer">
+    Some Footer Content Here
+</div>
 
 
 <!-- JavaScript to fetch data and create the chart -->
@@ -62,5 +100,7 @@
         });
     }
 </script>
+<!-- Include Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
