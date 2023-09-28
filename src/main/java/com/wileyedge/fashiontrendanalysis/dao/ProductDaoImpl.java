@@ -8,7 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.RowMapper;
 
 
+import java.util.AbstractMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -176,6 +179,22 @@ public class ProductDaoImpl implements ProductDao {
     public List<Integer> getAllProductPopularities(Long productId) {
         String sql = "SELECT popularity_score FROM product_popularity WHERE product_id = ?";
         return jdbcTemplate.query(sql, new Object[]{productId}, (rs, rowNum) -> rs.getInt("popularity_score"));
+    }
+
+    @Override
+    public Map<String, Integer> getProductCountByCategory() {
+        String sql = "SELECT c.category_name, COUNT(p.product_id) AS product_count " +
+                "FROM category c " +
+                "LEFT JOIN product p ON c.category_id = p.category_id " +
+                "GROUP BY c.category_id, c.category_name";
+
+        Collectors Collectors = null;
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+                    String categoryName = rs.getString("category_name");
+                    int productCount = rs.getInt("product_count");
+                    return new AbstractMap.SimpleEntry<>(categoryName, productCount);
+                }).stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
 }

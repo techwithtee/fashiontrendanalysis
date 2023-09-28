@@ -4,6 +4,7 @@ import com.wileyedge.fashiontrendanalysis.model.Designer;
 import com.wileyedge.fashiontrendanalysis.model.Product;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductDao {
 
@@ -112,5 +113,7 @@ public interface ProductDao {
      * @return a list of all popularity scores for the given product across different trends.
      */
     List<Integer> getAllProductPopularities(Long productId);
+
+    Map<String, Integer> getProductCountByCategory();
 
 }
