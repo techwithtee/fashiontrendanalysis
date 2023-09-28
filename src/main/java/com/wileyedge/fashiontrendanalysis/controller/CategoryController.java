@@ -183,7 +183,7 @@ public class CategoryController {
      * @param categoryId The unique identifier of the category for which the popularity overview is to be fetched.
      * @return A ResponseEntity containing a list of popularity data maps for the specified category and an HTTP status.
      *
-     * @apiEndpoint GET /api/{some_base_path}/{categoryId}/popularity-overview
+     * @apiEndpoint GET http://localhost:6363/api/categories/1/popularity-overview
      * @apiNote This endpoint is used to retrieve a comprehensive popularity overview for a particular category.
      *          The overview might include metrics like seasonal popularity scores, trends associated with the category, etc.
      * @apiPermission None (publicly accessible)
