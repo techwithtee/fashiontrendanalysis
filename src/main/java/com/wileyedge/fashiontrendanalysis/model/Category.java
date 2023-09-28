@@ -1,5 +1,6 @@
 package com.wileyedge.fashiontrendanalysis.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Category {
 
     /** Unique identifier for the category. */
