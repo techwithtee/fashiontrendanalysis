@@ -3,6 +3,7 @@ package com.wileyedge.fashiontrendanalysis.service;
 import com.wileyedge.fashiontrendanalysis.model.Designer;
 import com.wileyedge.fashiontrendanalysis.model.Product;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This interface outlines the service operations for managing products in the system.
@@ -116,5 +117,7 @@ public interface ProductService {
      * @return a list containing all the popularity scores for the product; an empty list if none are found.
      */
     List<Integer> getAllProductPopularities(Long productId);
+
+    Map<String, Integer> getProductCountByCategory();
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of the ProductService interface.
@@ -133,6 +134,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Integer> getAllProductPopularities(Long productId) {
         return productDao.getAllProductPopularities(productId);
+    }
+
+    @Override
+    public Map<String, Integer> getProductCountByCategory() {
+        return productDao.getProductCountByCategory();
     }
 
 }

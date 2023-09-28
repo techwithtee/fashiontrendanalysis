@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 /**
  * Represents a fashion product in the fashion trend analysis system.
  * Contains detailed attributes about a product, including its unique ID, name, associated category, designer, and a comprehensive description.
@@ -43,4 +45,5 @@ public class Product {
 
     public Product(long l, String s, String s1) {
     }
+
 }
