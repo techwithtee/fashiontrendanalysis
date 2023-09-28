@@ -38,6 +38,7 @@ public class CategoryController {
      * @apiEndpoint GET http://localhost:6363/api/categories
      */
     @GetMapping
+    @CrossOrigin
     public List<Category> getAllCategories() {
         return categoryService.getAllCategories();
     }
@@ -50,6 +51,7 @@ public class CategoryController {
      * @apiEndpoint GET http://localhost:6363/api/categories/{categoryId}
      */
     @GetMapping("/{categoryId}")
+    @CrossOrigin
     public Category getCategoryById(@PathVariable Long categoryId) {
         return categoryService.getCategoryById(categoryId);
     }
@@ -62,6 +64,7 @@ public class CategoryController {
      * @apiEndpoint POST http://localhost:6363/api/categories
      */
     @PostMapping
+    @CrossOrigin
     public ResponseEntity<?> addCategory(@RequestBody Category category) {
         Long id = categoryService.addCategory(category);
         if (id != null) {
@@ -80,6 +83,7 @@ public class CategoryController {
      * @apiEndpoint PUT http://localhost:6363/api/categories/{categoryId}
      */
     @PutMapping("/{categoryId}")
+    @CrossOrigin
     public ResponseEntity<?> updateCategory(@PathVariable Long categoryId, @RequestBody Category category) {
         boolean isUpdated = categoryService.updateCategory(categoryId, category);
         return isUpdated ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -93,6 +97,7 @@ public class CategoryController {
      * @apiEndpoint DELETE http://localhost:6363/api/categories/{categoryId}
      */
     @DeleteMapping("/{categoryId}")
+    @CrossOrigin
     public ResponseEntity<?> deleteCategory(@PathVariable Long categoryId) {
         boolean isDeleted = categoryService.deleteCategory(categoryId);
         return isDeleted ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -106,6 +111,7 @@ public class CategoryController {
      * @apiEndpoint GET http://localhost:6363/api/categories/trend/{trendId}
      */
     @GetMapping("/trend/{trendId}")
+    @CrossOrigin
     public List<Category> getCategoriesByTrend(@PathVariable Long trendId) {
         return categoryService.getCategoriesByTrend(trendId);
     }
@@ -118,6 +124,7 @@ public class CategoryController {
      * @apiEndpoint GET http://localhost:6363/api/categories/product/{productId}
      */
     @GetMapping("/product/{productId}")
+    @CrossOrigin
     public List<Category> getCategoriesByProduct(@PathVariable Long productId) {
         return categoryService.getCategoriesByProduct(productId);
     }
@@ -132,6 +139,7 @@ public class CategoryController {
      * @apiEndpoint POST http://localhost:6363/api/categories/{categoryId}/popularity/{season}
      */
     @PostMapping("/{categoryId}/popularity/{season}")
+    @CrossOrigin
     public ResponseEntity<?> setCategoryPopularityForSeason(@PathVariable Long categoryId, @PathVariable String season, @RequestBody int score) {
         categoryService.setCategoryPopularityForSeason(categoryId, season, score);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -146,6 +154,7 @@ public class CategoryController {
      * @apiEndpoint GET http://localhost:6363/api/categories/{categoryId}/popularity/{season}
      */
     @GetMapping("/{categoryId}/popularity/{season}")
+    @CrossOrigin
     public ResponseEntity<Integer> getCategoryPopularityForSeason(@PathVariable Long categoryId, @PathVariable String season) {
         Integer score = categoryService.getCategoryPopularityForSeason(categoryId, season);
         return new ResponseEntity<>(score, HttpStatus.OK);
@@ -159,6 +168,7 @@ public class CategoryController {
      * @apiEndpoint GET http://localhost:6363/api/categories/{categoryId}/all-popularities
      */
     @GetMapping("/{categoryId}/all-popularities")
+    @CrossOrigin
     public ResponseEntity<List<Integer>> getAllCategoryPopularities(@PathVariable Long categoryId) {
         List<Integer> scores = categoryService.getAllCategoryPopularities(categoryId);
         return new ResponseEntity<>(scores, HttpStatus.OK);
