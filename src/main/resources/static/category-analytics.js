@@ -1,8 +1,13 @@
 // Wait for the DOM to be ready
 document.addEventListener("DOMContentLoaded", function () {
     // Fetch data from your Spring MVC backend for getCategoriesByTrend
-    fetch('/api/categories/trend/1 ') // Replace {trendId} with an actual trend ID
-        .then(response => response.json())
+    fetch('/api/categories/trend/1')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
             // Process and use the data here
             console.log(data); // You can log it to see the retrieved data
@@ -29,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     // Fetch data from your Spring MVC backend for getCategoryPopularityForSeason
-    fetch('/api/categories/1/popularity/{season}') // Replace {categoryId} and {season} with actual values
+    fetch('/api/categories/1/popularity/Fall') // Replace {categoryId} and {season} with actual values
         .then(response => response.json())
         .then(data => {
             // Process and use the data here
