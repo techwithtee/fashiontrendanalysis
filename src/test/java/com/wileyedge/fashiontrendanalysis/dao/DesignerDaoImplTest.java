@@ -25,6 +25,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for the DesignerDaoImpl.
+ * It tests various CRUD operations related to the Designer entity.
+ */
 @ExtendWith(MockitoExtension.class)
 public class DesignerDaoImplTest {
 
@@ -34,25 +38,38 @@ public class DesignerDaoImplTest {
     @InjectMocks
     private DesignerDaoImpl designerDao;
 
+    /**
+     * Setup method for initializing any necessary data or configurations before the tests run.
+     */
     @BeforeEach
     public void setup() {
         // Any setup required before tests
     }
 
+    /**
+     * Test if all designers can be fetched successfully.
+     */
     @Test
     public void testGetAllDesigners() {
+        // Expected designer list
         List<Designer> expectedDesigners = Arrays.asList(
                 new Designer(1L, "Designer 1", "Location 1", 5, 90),
                 new Designer(2L, "Designer 2", "Location 2", 10, 85)
         );
 
+        // Mock the behavior of the jdbcTemplate
         when(jdbcTemplate.query(anyString(), any(RowMapper.class))).thenReturn(expectedDesigners);
 
+        // Test the method
         List<Designer> returnedDesigners = designerDao.getAllDesigners();
 
+        // Assert that the expected list matches the returned list
         assertEquals(expectedDesigners, returnedDesigners);
     }
 
+    /**
+     * Test to check if a designer can be fetched successfully by their ID.
+     */
     @Test
     public void testGetDesignerById() {
         Long designerId = 1L;
@@ -66,6 +83,9 @@ public class DesignerDaoImplTest {
         assertEquals(expectedDesigner, returnedDesigner);
     }
 
+    /**
+     * Test to check if a designer can be added successfully.
+     */
     @Test
     public void testAddDesignerSuccess() {
         Designer designer = new Designer(null, "New Designer", "New Location", 0, 0);
@@ -76,6 +96,9 @@ public class DesignerDaoImplTest {
 
     }
 
+    /**
+     * Test to check if adding a designer throws an exception upon failure.
+     */
     @Test
     public void testAddDesignerFailure() {
         Designer designer = new Designer(null, "New Designer", "New Location", 0, 0);
@@ -86,6 +109,9 @@ public class DesignerDaoImplTest {
         assertThrows(CustomUncheckedException.class, () -> designerDao.addDesigner(designer));
     }
 
+    /**
+     * Test to check if updating a designer's details works as expected.
+     */
     @Test
     public void testUpdateDesignerSuccess() {
         Designer designer = new Designer(1L, "Updated Designer", "Updated Location", 0, 0);
@@ -98,7 +124,9 @@ public class DesignerDaoImplTest {
     }
 
 
-
+    /**
+     * Test to check if a designer can be deleted successfully.
+     */
     @Test
     public void testDeleteDesignerSuccess() {
         Long designerId = 1L;
@@ -110,6 +138,9 @@ public class DesignerDaoImplTest {
         assertTrue(result);
     }
 
+    /**
+     * Test to check if deleting a designer returns false when the designer doesn't exist.
+     */
     @Test
     public void testDeleteDesignerFailure() {
         Long designerId = 1L;
@@ -121,6 +152,9 @@ public class DesignerDaoImplTest {
         assertFalse(result);
     }
 
+    /**
+     * Test to check if designers from a specific location can be fetched correctly.
+     */
     @Test
     public void testGetDesignersByLocation() {
         String location = "Location 1";
@@ -137,6 +171,9 @@ public class DesignerDaoImplTest {
         assertEquals(expectedDesigners, returnedDesigners);
     }
 
+    /**
+     * Test to check if the trend count for a specific designer can be fetched correctly.
+     */
     @Test
     public void testGetDesignerTrendCount() {
         Long designerId = 1L;
@@ -150,6 +187,9 @@ public class DesignerDaoImplTest {
         assertEquals(expectedTrendCount, trendCount);
     }
 
+    /**
+     * Test to check if the popularity score for a specific designer can be fetched correctly.
+     */
     @Test
     public void testGetDesignerPopularityScore() {
         Long designerId = 1L;
@@ -163,6 +203,9 @@ public class DesignerDaoImplTest {
         assertEquals(expectedPopularityScore, popularityScore);
     }
 
+    /**
+     * Test to check if products associated with a specific designer can be fetched correctly.
+     */
     @Test
     public void testGetProductsForDesigner() {
         Long designerId = 1L; // Replace with the designer ID you want to test
@@ -178,9 +221,9 @@ public class DesignerDaoImplTest {
         assertEquals(expectedProducts, returnedProducts);
     }
 
-
-
-
+    /**
+     * Cleanup method to reset any mock behavior after each test runs.
+     */
     @AfterEach
     public void cleanup() {
         reset(jdbcTemplate);

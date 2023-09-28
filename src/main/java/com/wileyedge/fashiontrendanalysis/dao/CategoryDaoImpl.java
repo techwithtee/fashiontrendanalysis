@@ -11,8 +11,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of the CategoryDAO interface, providing CRUD operations
@@ -187,6 +188,25 @@ public class CategoryDaoImpl implements CategoryDao {
     public List<Integer> getAllCategoryPopularities(Long categoryId) {
         String sql = "SELECT popularity_score FROM category_popularity WHERE category_id = ?";
         return jdbcTemplate.query(sql, new Object[]{categoryId}, (rs, rowNum) -> rs.getInt("popularity_score"));
+    }
+
+    /**
+     * Fetches the popularity scores for a given category across various seasons.
+     *
+     * The results are ordered based on the sequence of seasons: Spring, Summer, Fall, and Winter.
+     *
+     * @param categoryId The ID of the category.
+     * @return A list of maps, where each map contains a season and its corresponding popularity score.
+     */
+    @Override
+    public List<Map<String, Object>> getCategoryPopularityOverview(Long categoryId) {
+        String sql = "SELECT season, popularity_score as score FROM category_popularity WHERE category_id = ? ORDER BY FIELD(season, 'Spring', 'Summer', 'Fall', 'Winter')";
+        return jdbcTemplate.query(sql, new Object[]{categoryId}, (rs, rowNum) -> {
+            Map<String, Object> data = new HashMap<>();
+            data.put("season", rs.getString("season"));
+            data.put("score", rs.getInt("score"));
+            return data;
+        });
     }
 
 }

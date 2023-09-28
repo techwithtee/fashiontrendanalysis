@@ -3,6 +3,7 @@ package com.wileyedge.fashiontrendanalysis.dao;
 import com.wileyedge.fashiontrendanalysis.model.Category;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CategoryDao {
 
@@ -85,4 +86,12 @@ public interface CategoryDao {
      * @return a list of popularity scores for the category across different seasons, or an empty list if none are found
      */
     List<Integer> getAllCategoryPopularities(Long categoryId);
+
+    /**
+     * Retrieves the popularity overview of a given category across different seasons.
+     *
+     * @param categoryId The ID of the category whose popularity overview to fetch.
+     * @return A list of maps, each containing the season and its corresponding popularity score.
+     */
+    List<Map<String, Object>> getCategoryPopularityOverview(Long categoryId);
 }

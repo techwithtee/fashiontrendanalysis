@@ -155,4 +155,11 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    /**
+     * Default constructor for the User class.
+     * Initializes a new instance of the User with no properties set.
+     */
+    public User() {
+    }
 }

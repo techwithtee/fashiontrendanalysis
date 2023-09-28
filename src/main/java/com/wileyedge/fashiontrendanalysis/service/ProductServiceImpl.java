@@ -1,4 +1,4 @@
-package com.wileyedge.fashiontrendanalysis.service.impl;
+package com.wileyedge.fashiontrendanalysis.service;
 
 import com.wileyedge.fashiontrendanalysis.dao.ProductDao;
 import com.wileyedge.fashiontrendanalysis.model.Designer;
@@ -106,39 +106,85 @@ public class ProductServiceImpl implements ProductService {
         return productDao.getProductsByCategory(categoryId);
     }
 
+    /**
+     * Associates a designer with a product in the database.
+     *
+     * @param designerId The unique identifier of the designer.
+     * @param productId The unique identifier of the product.
+     */
     @Override
     public void associateDesignerWithProduct(Long designerId, Long productId) {
         productDao.associateDesignerWithProduct(designerId, productId);
     }
 
+    /**
+     * Dissociates a designer from a product in the database.
+     *
+     * @param designerId The unique identifier of the designer.
+     * @param productId The unique identifier of the product.
+     */
     @Override
     public void dissociateDesignerFromProduct(Long designerId, Long productId) {
         productDao.dissociateDesignerFromProduct(designerId, productId);
     }
 
+    /**
+     * Retrieves all designers associated with a specific product from the database.
+     *
+     * @param productId The unique identifier of the product.
+     * @return A list of designers associated with the given product.
+     */
     @Override
     public List<Designer> getDesignersForProduct(Long productId) {
         return productDao.getDesignersForProduct(productId);
     }
 
+    /**
+     * Sets the popularity score of a product for a specific trend in the database.
+     *
+     * @param productId The unique identifier of the product.
+     * @param trendId The unique identifier of the trend.
+     * @param score The popularity score to be set.
+     */
     @Override
     public void setProductPopularityForTrend(Long productId, Long trendId, int score) {
         productDao.setProductPopularityForTrend(productId, trendId, score);
     }
 
+    /**
+     * Retrieves the popularity score of a product for a specific trend from the database.
+     *
+     * @param productId The unique identifier of the product.
+     * @param trendId The unique identifier of the trend.
+     * @return The popularity score of the product for the given trend, or null if not found.
+     */
     @Override
     public Integer getProductPopularityForTrend(Long productId, Long trendId) {
         return productDao.getProductPopularityForTrend(productId, trendId);
     }
 
+    /**
+     * Retrieves all popularity scores of a specific product from the database.
+     *
+     * @param productId The unique identifier of the product.
+     * @return A list of popularity scores for the given product across all trends.
+     */
     @Override
     public List<Integer> getAllProductPopularities(Long productId) {
         return productDao.getAllProductPopularities(productId);
     }
 
+    /**
+     * Fetches the count of products grouped by their respective categories.
+     *
+     * @return A map where the keys are category names and the values are counts of products
+     *         associated with each category.
+     *
+     * @apiNote This method interfaces with the underlying DAO (Data Access Object) to retrieve
+     *          the product count data from the database.
+     */
     @Override
     public Map<String, Integer> getProductCountByCategory() {
         return productDao.getProductCountByCategory();
     }
-
 }

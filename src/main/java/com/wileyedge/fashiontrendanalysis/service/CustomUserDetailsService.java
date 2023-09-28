@@ -9,7 +9,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Implements the UserDetailsService interface to provide custom user authentication for the application.
@@ -43,8 +45,13 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
-        // Convert the user's role to a list of GrantedAuthority
-        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole());
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPasswordHash(), Collections.singletonList(authority));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (user.getRole() != null) {
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole());
+            authorities.add(authority);
+        }
+
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPasswordHash(), authorities);
     }
+
 }

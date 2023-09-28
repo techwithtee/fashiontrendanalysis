@@ -2,6 +2,7 @@ package com.wileyedge.fashiontrendanalysis.service;
 
 import com.wileyedge.fashiontrendanalysis.model.Category;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Defines the service operations for managing categories.
@@ -90,4 +91,11 @@ public interface CategoryService {
      */
     List<Integer> getAllCategoryPopularities(Long categoryId);
 
+    /**
+     * Retrieves the popularity overview of a given category across different seasons.
+     *
+     * @param categoryId The ID of the category whose popularity overview to fetch.
+     * @return A list of maps, each containing the season and its corresponding popularity score.
+     */
+    List<Map<String, Object>> getCategoryPopularityOverview(Long categoryId);
 }

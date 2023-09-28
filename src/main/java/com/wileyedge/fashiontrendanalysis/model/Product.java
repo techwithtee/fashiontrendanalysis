@@ -43,6 +43,13 @@ public class Product {
      */
     private String productDescription;
 
+    /**
+     * Constructs a Product instance with the specified parameters.
+     *
+     * @param l  The product ID.
+     * @param s  The product name.
+     * @param s1 The product description.
+     */
     public Product(long l, String s, String s1) {
     }
 
