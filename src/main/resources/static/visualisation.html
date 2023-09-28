@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category Product Distribution Chart</title>
+    <title>Fashion Trend Analysis</title>
 
     <!-- Include Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +18,16 @@
             background-color: #343a40;
             color: white;
             padding: 20px 0;
-            text-align: center;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
         }
 
         body {
@@ -26,12 +35,21 @@
             font-family: Arial, sans-serif;
         }
 
-        h1 {
-            margin: 40px 0;
+        .chart-title {
+            text-align: right;
+            margin-right: 30px;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
-        canvas {
-            margin-bottom: 50px;
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-content img {
+            margin-right: 15px;
         }
     </style>
 </head>
@@ -39,9 +57,12 @@
 <body>
 
 <!-- Header -->
-<div class="header-footer">
-    Category Product Distribution Chart
+<div class="header-footer header-content">
+    <img src="/mnt/data/mtee.png" alt="M.Tee Logo" width="50">
+    Fashion Trend Analysis
 </div>
+
+<h3 class="chart-title">Category Product Distribution Chart</h3>
 
 <div class="container">
     <!-- Canvas element to display the bar chart -->
@@ -49,8 +70,11 @@
 </div>
 
 <!-- Footer -->
-<div class="header-footer">
-    Some Footer Content Here
+<div class="header-footer footer-links">
+    <a href="#">About Us</a>
+    <a href="#">Contact</a>
+    <a href="#">Terms of Service</a>
+    <div>© 2023 M.Tee</div>
 </div>
 
 
