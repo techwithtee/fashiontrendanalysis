@@ -17,30 +17,44 @@
 <!-- JavaScript to fetch data and create the chart -->
 <script>
     // Fetch data from your Spring MVC backend for getCategoriesByProduct
-    fetch('http://localhost:6363/api/categories/product/1') // Replace '1' with the actual productId
+    fetch('http://localhost:6363/api/products/category/4') // Replace '4' with the actual categoryId
         .then(response => response.json())
         .then(data => {
             // Process and use the data here
             console.log(data); // You can log it to see the retrieved data
 
-            // Create a bar chart for getCategoriesByProduct
-            createBarChartForCategoriesByProduct(data);
+            // Create a map to count products per category
+            const productCounts = {};
+            data.forEach(item => {
+                if (productCounts[item.categoryId]) {
+                    productCounts[item.categoryId]++;
+                } else {
+                    productCounts[item.categoryId] = 1;
+                }
+            });
+
+            // Extract labels and data points from the map
+            const labels = Object.keys(productCounts);
+            const dataPoints = Object.values(productCounts);
+
+            // Create a bar chart
+            createBarChartForCategoriesByProduct(labels, dataPoints);
         })
         .catch(error => {
             console.error('Error fetching data for getCategoriesByProduct:', error);
         });
 
     // Function to create a bar chart for getCategoriesByProduct
-    function createBarChartForCategoriesByProduct(data) {
+    function createBarChartForCategoriesByProduct(labels, dataPoints) {
         const ctx = document.getElementById('barChart').getContext('2d');
 
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: data.map(item => item.categoryName),
+                labels: labels,
                 datasets: [{
                     label: 'Product Count',
-                    data: data.map(item => item.productCount),
+                    data: dataPoints,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
@@ -56,6 +70,5 @@
         });
     }
 </script>
-
 </body>
 </html>
