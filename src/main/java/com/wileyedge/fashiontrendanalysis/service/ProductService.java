@@ -118,6 +118,11 @@ public interface ProductService {
      */
     List<Integer> getAllProductPopularities(Long productId);
 
+    /**
+     * Implementation of the method to get a count of products by category.
+     *
+     * @return A map where the key is the category name and the value is the count of products in that category.
+     */
     Map<String, Integer> getProductCountByCategory();
 
 }

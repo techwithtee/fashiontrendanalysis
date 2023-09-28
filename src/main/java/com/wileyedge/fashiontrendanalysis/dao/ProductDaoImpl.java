@@ -145,42 +145,85 @@ public class ProductDaoImpl implements ProductDao {
         return jdbcTemplate.query(sql, new Object[]{categoryId}, productRowMapper);
     }
 
+    /**
+     * Associates a designer with a specific product.
+     *
+     * @param designerId the ID of the designer
+     * @param productId  the ID of the product
+     */
     @Override
     public void associateDesignerWithProduct(Long designerId, Long productId) {
         String query = "INSERT INTO product_designer_association (product_id, designer_id) VALUES (?, ?)";
         jdbcTemplate.update(query, productId, designerId);
     }
 
+    /**
+     * Removes the association of a designer from a specific product.
+     *
+     * @param designerId the ID of the designer
+     * @param productId  the ID of the product
+     */
     @Override
     public void dissociateDesignerFromProduct(Long designerId, Long productId) {
         String query = "DELETE FROM product_designer_association WHERE product_id=? AND designer_id=?";
         jdbcTemplate.update(query, productId, designerId);
     }
 
+    /**
+     * Retrieves all designers associated with a specific product.
+     *
+     * @param productId the ID of the product
+     * @return a list of designers associated with the product
+     */
     @Override
     public List<Designer> getDesignersForProduct(Long productId) {
         String query = "SELECT * FROM designers WHERE designer_id IN (SELECT designer_id FROM product_designer_association WHERE product_id=?)";
         return jdbcTemplate.query(query, designerRowMapper, productId);
     }
 
+    /**
+     * Sets the popularity score of a product for a specific trend.
+     *
+     * @param productId the ID of the product
+     * @param trendId   the ID of the trend
+     * @param score     the popularity score to set
+     */
     @Override
     public void setProductPopularityForTrend(Long productId, Long trendId, int score) {
         String sql = "INSERT INTO product_popularity (product_id, trend_id, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?";
         jdbcTemplate.update(sql, productId, trendId, score, score);
     }
 
+    /**
+     * Retrieves the popularity score of a product for a specific trend.
+     *
+     * @param productId the ID of the product
+     * @param trendId   the ID of the trend
+     * @return the popularity score of the product for the trend
+     */
     @Override
     public Integer getProductPopularityForTrend(Long productId, Long trendId) {
         String sql = "SELECT popularity_score FROM product_popularity WHERE product_id = ? AND trend_id = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, productId, trendId);
     }
 
+    /**
+     * Retrieves all popularity scores of a product.
+     *
+     * @param productId the ID of the product
+     * @return a list of popularity scores for the product
+     */
     @Override
     public List<Integer> getAllProductPopularities(Long productId) {
         String sql = "SELECT popularity_score FROM product_popularity WHERE product_id = ?";
         return jdbcTemplate.query(sql, new Object[]{productId}, (rs, rowNum) -> rs.getInt("popularity_score"));
     }
 
+    /**
+     * Retrieves a map representing the count of products for each category.
+     *
+     * @return A map where the keys are category names and the values are counts of products within that category.
+     */
     @Override
     public Map<String, Integer> getProductCountByCategory() {
         String sql = "SELECT c.category_name, COUNT(p.product_id) AS product_count " +
