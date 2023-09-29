@@ -222,6 +222,17 @@ public class ProductController {
         return new ResponseEntity<>(scores, HttpStatus.OK);
     }
 
+    /**
+     * Serves the visualisation page to the client.
+     *
+     * @return A string representing the name of the HTML template (without the ".html" extension)
+     *         that should be rendered and returned to the client.
+     *
+     * @apiEndpoint GET /api/{some_base_path}/visualisation
+     * @apiNote This endpoint is used to retrieve the visualisation page which might display various
+     *          charts, graphs, or other visual data representations.
+     * @apiPermission None (publicly accessible, or specify permissions if any)
+     */
     @GetMapping("/visualisation")
     public String showVisualisationPage() {
         return "visualisation"; // This corresponds to the HTML file name without the extension

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller responsible for handling web requests related to the Category entity.
@@ -174,4 +175,24 @@ public class CategoryController {
         List<Integer> scores = categoryService.getAllCategoryPopularities(categoryId);
         return new ResponseEntity<>(scores, HttpStatus.OK);
     }
+
+    /**
+     * Fetches the popularity overview for a specific category.
+     * This overview provides detailed popularity metrics associated with the given category ID.
+     *
+     * @param categoryId The unique identifier of the category for which the popularity overview is to be fetched.
+     * @return A ResponseEntity containing a list of popularity data maps for the specified category and an HTTP status.
+     *
+     * @apiEndpoint GET http://localhost:6363/api/categories/1/popularity-overview
+     * @apiNote This endpoint is used to retrieve a comprehensive popularity overview for a particular category.
+     *          The overview might include metrics like seasonal popularity scores, trends associated with the category, etc.
+     * @apiPermission None (publicly accessible)
+     */
+    @GetMapping("/{categoryId}/popularity-overview")
+    @CrossOrigin
+    public ResponseEntity<List<Map<String, Object>>> getCategoryPopularityOverview(@PathVariable Long categoryId) {
+        List<Map<String, Object>> popularityData = categoryService.getCategoryPopularityOverview(categoryId);
+        return new ResponseEntity<>(popularityData, HttpStatus.OK);
+    }
+
 }

@@ -22,6 +22,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for the ProductDaoImpl.
+ * It tests various CRUD operations related to the Product entity.
+ */
 @ExtendWith(MockitoExtension.class)
 public class ProductDaoImplTest {
 
@@ -31,11 +35,17 @@ public class ProductDaoImplTest {
     @InjectMocks
     private ProductDaoImpl productDao;
 
+    /**
+     * Setup method for initializing any necessary data or configurations before the tests run.
+     */
     @BeforeEach
     public void setup() {
         // Any setup required before tests
     }
 
+    /**
+     * Test to ensure all products can be fetched correctly.
+     */
     @Test
     public void testGetAllProducts() {
         List<Product> expectedProducts = Arrays.asList(
@@ -50,6 +60,9 @@ public class ProductDaoImplTest {
         assertEquals(expectedProducts, returnedProducts);
     }
 
+    /**
+     * Test to ensure that a product can be fetched by its ID.
+     */
     @Test
     public void testGetProductById() {
         Product expectedProduct = new Product(1L, "Shirt", 1L, 1L, "Cotton shirt");
@@ -60,7 +73,9 @@ public class ProductDaoImplTest {
 
         assertEquals(expectedProduct, returnedProduct);
     }
-
+    /**
+     * Test to ensure a new product can be added correctly.
+     */
     @Test
     public void testAddProduct() {
         Product product = new Product(null, "Shirt", 1L, 1L, "Cotton shirt");
@@ -73,6 +88,9 @@ public class ProductDaoImplTest {
         assertEquals(1L, returnedId);
     }
 
+    /**
+     * Test to ensure that a product's details can be updated.
+     */
     @Test
     public void testUpdateProduct() {
         Product product = new Product(1L, "Shirt", 1L, 1L, "Updated Cotton shirt");
@@ -84,6 +102,9 @@ public class ProductDaoImplTest {
         assertTrue(result);
     }
 
+    /**
+     * Test to ensure a product can be deleted successfully.
+     */
     @Test
     public void testDeleteProduct() {
         when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
@@ -93,6 +114,9 @@ public class ProductDaoImplTest {
         assertTrue(result);
     }
 
+    /**
+     * Test to fetch all products associated with a specific designer.
+     */
     @Test
     public void testGetProductsByDesigner() {
         List<Product> expectedProducts = Arrays.asList(
@@ -106,6 +130,9 @@ public class ProductDaoImplTest {
         assertEquals(expectedProducts, returnedProducts);
     }
 
+    /**
+     * Test to fetch all products under a specific category.
+     */
     @Test
     public void testGetProductsByCategory() {
         List<Product> expectedProducts = Arrays.asList(
@@ -119,11 +146,9 @@ public class ProductDaoImplTest {
         assertEquals(expectedProducts, returnedProducts);
     }
 
-    @AfterEach
-    public void cleanup() {
-        reset(jdbcTemplate);
-    }
-
+    /**
+     * Test to handle scenarios where the requested product doesn't exist.
+     */
     @Test
     public void testRetrieveNonExistingProduct() {
         when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), any(RowMapper.class))).thenReturn(null);
@@ -132,6 +157,9 @@ public class ProductDaoImplTest {
         assertNull(result);
     }
 
+    /**
+     * Test to handle scenarios where an attempt is made to update a non-existent product.
+     */
     @Test
     public void testUpdateNonExistingProduct() {
         Product product = new Product(999L, "NonExistent", 1L, 1L, "Description");
@@ -141,6 +169,9 @@ public class ProductDaoImplTest {
         assertFalse(result);
     }
 
+    /**
+     * Test to handle scenarios where an attempt is made to delete a non-existent product.
+     */
     @Test
     public void testDeleteNonExistingProduct() {
         when(jdbcTemplate.update(anyString(), eq(999L))).thenReturn(0);
@@ -149,6 +180,9 @@ public class ProductDaoImplTest {
         assertFalse(result);
     }
 
+    /**
+     * Test to handle database connection errors.
+     */
     @Test
     public void testDatabaseConnectionError() {
         when(jdbcTemplate.queryForObject(anyString(), any(Object[].class), any(RowMapper.class))).thenThrow(new DataAccessException("DB Connection Error") {});
@@ -156,6 +190,9 @@ public class ProductDaoImplTest {
         assertThrows(DataAccessException.class, () -> productDao.getProductById(1L));
     }
 
+    /**
+     * Test to handle scenarios where there's an attempt to add a product that already exists.
+     */
     @Test
     public void testAddDuplicateProduct() {
         Product product = new Product(null, "DuplicateProduct", 1L, 1L, "Description");
@@ -164,6 +201,10 @@ public class ProductDaoImplTest {
                 .update(anyString(), eq(product.getProductName()), eq(product.getCategoryId()), eq(product.getDesignerId()), eq(product.getProductDescription()));
         assertThrows(DuplicateKeyException.class, () -> productDao.addProduct(product));
     }
+
+    /**
+     * Test to ensure a designer can be associated with a product.
+     */
     @Test
     public void testAssociateDesignerWithProduct() {
         when(jdbcTemplate.update(anyString(), eq(1L), eq(1L))).thenReturn(1);
@@ -171,7 +212,9 @@ public class ProductDaoImplTest {
         verify(jdbcTemplate, times(1)).update(anyString(), eq(1L), eq(1L));
     }
 
-
+    /**
+     * Test to ensure a designer can be dissociated from a product.
+     */
     @Test
     public void testDissociateDesignerFromProduct() {
         when(jdbcTemplate.update(anyString(), eq(1L), eq(1L))).thenReturn(1);
@@ -179,7 +222,9 @@ public class ProductDaoImplTest {
         verify(jdbcTemplate, times(1)).update(anyString(), eq(1L), eq(1L));
     }
 
-
+    /**
+     * Test to fetch all designers associated with a specific product.
+     */
     @Test
     public void testGetDesignersForProduct() {
         List<Designer> expectedDesigners = Arrays.asList(
@@ -197,6 +242,10 @@ public class ProductDaoImplTest {
 
         assertEquals(expectedDesigners, returnedDesigners);
     }
+
+    /**
+     * Test to set the popularity score for a product with respect to a trend.
+     */
     @Test
     public void testSetProductPopularityForTrend() {
         // Mock behavior
@@ -208,7 +257,9 @@ public class ProductDaoImplTest {
         verify(jdbcTemplate, times(1)).update(eq("INSERT INTO product_popularity (product_id, trend_id, popularity_score) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE popularity_score = ?"), eq(1L), eq(1L), eq(80), eq(80));
     }
 
-
+    /**
+     * Test to handle scenarios where there's a failure in setting the popularity score for a product.
+     */
     @Test
     public void testSetProductPopularityForTrendFailure() {
         // Mock behavior for edge case when no rows are affected
@@ -218,6 +269,9 @@ public class ProductDaoImplTest {
         verify(jdbcTemplate, times(1)).update(anyString(), eq(1L), eq(1L), eq(90), eq(90));
     }
 
+    /**
+     * Test to fetch the popularity score for a product based on a trend.
+     */
     @Test
     public void testGetProductPopularityForTrend() {
         // Given SQL and parameters
@@ -231,7 +285,9 @@ public class ProductDaoImplTest {
         verify(jdbcTemplate, times(1)).queryForObject(eq(sql), eq(Integer.class), eq(1L), eq(1L));
     }
 
-
+    /**
+     * Test to fetch all popularity scores for a product.
+     */
     @Test
     public void testGetAllProductPopularities() {
         // Mock behavior
@@ -242,6 +298,9 @@ public class ProductDaoImplTest {
         verify(jdbcTemplate, times(1)).query(anyString(), any(Object[].class), any(RowMapper.class));
     }
 
+    /**
+     * Test to handle exception scenarios while setting the popularity score for a product.
+     */
     @Test
     public void testSetProductPopularityForTrendException() {
         // Mock behavior
@@ -251,6 +310,9 @@ public class ProductDaoImplTest {
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong(), anyInt(), anyInt());
     }
 
+    /**
+     * Test to handle scenarios where there's no data for a product's popularity score.
+     */
 
     @Test
     public void testGetProductPopularityForTrendNoData() {
@@ -262,6 +324,9 @@ public class ProductDaoImplTest {
         verify(jdbcTemplate, times(1)).queryForObject("SELECT popularity_score FROM product_popularity WHERE product_id = ? AND trend_id = ?", Integer.class, 1L, 1L);
     }
 
+    /**
+     * Test to handle scenarios where there are no popularity scores available for a product.
+     */
     @Test
     public void testGetAllProductPopularitiesNoData() {
         // Mock behavior

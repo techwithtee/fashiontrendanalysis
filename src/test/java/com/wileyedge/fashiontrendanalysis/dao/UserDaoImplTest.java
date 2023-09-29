@@ -70,6 +70,9 @@ public class UserDaoImplTest {
         assertEquals(true, result);
     }
 
+    /**
+     * Test to handle scenarios where the requested user doesn't exist based on their username.
+     */
     @Test
     public void testFindByNonExistentUsername() {
         when(jdbcTemplate.queryForObject(anyString(), any(RowMapper.class), anyString())).thenThrow(new EmptyResultDataAccessException(1));
@@ -79,6 +82,9 @@ public class UserDaoImplTest {
         });
     }
 
+    /**
+     * Test to handle scenarios where the requested user doesn't exist based on their ID.
+     */
     @Test
     public void testDeleteNonExistentUser() {
         when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(0);
@@ -87,6 +93,9 @@ public class UserDaoImplTest {
         assertEquals(false, result);
     }
 
+    /**
+     * Test to ensure a user can be fetched based on their email.
+     */
     @Test
     public void testFindByEmail() {
         User user = new User(1L, "Alice", "alice@example.com", "hashed_password", "DesignerAlice", "123 Street", "1234567890");
@@ -98,6 +107,9 @@ public class UserDaoImplTest {
         assertEquals(user, result);
     }
 
+    /**
+     * Test to handle scenarios where the requested user doesn't exist based on their email.
+     */
     @Test
     public void testFindByNonExistentEmail() {
         when(jdbcTemplate.queryForObject(anyString(), any(RowMapper.class), anyString())).thenThrow(new EmptyResultDataAccessException(1));
@@ -107,6 +119,9 @@ public class UserDaoImplTest {
         });
     }
 
+    /**
+     * Test to ensure a user can be fetched based on their ID.
+     */
     @Test
     public void testFindById() {
         User user = new User(1L, "Alice", "alice@example.com", "hashed_password", "DesignerAlice", "123 Street", "1234567890");
@@ -118,6 +133,9 @@ public class UserDaoImplTest {
         assertEquals(user, result);
     }
 
+    /**
+     * Test to handle scenarios where the requested user doesn't exist based on their ID.
+     */
     @Test
     public void testFindByNonExistentId() {
         when(jdbcTemplate.queryForObject(anyString(), any(RowMapper.class), anyLong())).thenThrow(new EmptyResultDataAccessException(1));
@@ -127,6 +145,9 @@ public class UserDaoImplTest {
         });
     }
 
+    /**
+     * Test to fetch all users from the database.
+     */
     @Test
     public void testFindAll() {
         User user1 = new User(1L, "Alice", "alice@example.com", "hashed_password", "DesignerAlice", "123 Street", "1234567890");

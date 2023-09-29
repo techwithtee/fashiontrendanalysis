@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+/**
+ * REST Controller for managing trends.
+ * Provides endpoints for CRUD operations and other utility functions related to trends.
+ */
 @RestController
 @RequestMapping("/api/trends")
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
@@ -16,6 +21,11 @@ public class TrendController {
 
     private final TrendService trendService;
 
+    /**
+     * Constructor to initialize the TrendService dependency.
+     *
+     * @param trendService Service that provides CRUD operations for the Trend entity.
+     */
     @Autowired
     public TrendController(TrendService trendService) {
         this.trendService = trendService;
@@ -186,7 +196,14 @@ public class TrendController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
+    /**
+     * Associates a trend with a popularity score.
+     *
+     * @param trendId the ID of the trend to associate with the score
+     * @param score the popularity score to set for the trend
+     * @return a confirmation of the association
+     * @apiEndpoint POST http://localhost:6363/api/trends/{trendId}/setPopularity/{score}
+     */
     @PostMapping("/{trendId}/setPopularity/{score}")
     public ResponseEntity<Void> setTrendPopularity(@PathVariable Long trendId, @PathVariable int score) {
         boolean updated = trendService.setTrendPopularity(trendId, score);
@@ -197,6 +214,13 @@ public class TrendController {
         }
     }
 
+    /**
+     * Retrieves the popularity score of a specified trend.
+     *
+     * @param trendId the ID of the trend whose popularity score to retrieve
+     * @return the popularity score of the specified trend
+     * @apiEndpoint GET http://localhost:6363/api/trends/{trendId}/getPopularity
+     */
     @GetMapping("/{trendId}/getPopularity")
     public ResponseEntity<Integer> getTrendPopularity(@PathVariable Long trendId) {
         int popularity = trendService.getTrendPopularity(trendId);

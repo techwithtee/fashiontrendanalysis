@@ -82,6 +82,4 @@ public interface DesignerDao {
      */
     List<Product> getProductsForDesigner(Long designerId);
 
-
-
 }

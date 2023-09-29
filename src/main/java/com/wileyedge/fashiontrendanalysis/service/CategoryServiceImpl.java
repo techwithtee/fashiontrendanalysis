@@ -5,7 +5,10 @@ import com.wileyedge.fashiontrendanalysis.model.Category;
 import com.wileyedge.fashiontrendanalysis.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides the implementation of the CategoryService interface,
@@ -139,4 +142,26 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Integer> getAllCategoryPopularities(Long categoryId) {
         return categoryDao.getAllCategoryPopularities(categoryId);
     }
+
+    /**
+     * Retrieves an overview of the popularity of a given category, segmented by season.
+     *
+     * Note: This implementation returns dummy data.
+     *
+     * @param categoryId The ID of the category for which the popularity overview is required.
+     * @return A list of maps, each representing the popularity score for the category in a specific season.
+     */
+    @Override
+    public List<Map<String, Object>> getCategoryPopularityOverview(Long categoryId) {
+        List<Map<String, Object>> dummyData = new ArrayList<>();
+        dummyData.add(Map.of("season", "Spring", "score", 85));
+        dummyData.add(Map.of("season", "Summer", "score", 90));
+        dummyData.add(Map.of("season", "Fall", "score", 75));
+        dummyData.add(Map.of("season", "Winter", "score", 80));
+        return dummyData;
+    }
+
 }
+
+
+

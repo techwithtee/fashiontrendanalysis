@@ -9,15 +9,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of the AnalysisService interface.
+ * Provides methods to calculate various popularity metrics in the domain of fashion trends.
+ */
 @Service
 public class AnalysisServiceImpl implements AnalysisService {
+
     private final JdbcTemplate jdbcTemplate;
 
+    /**
+     * Constructor to autowire and initialize the JdbcTemplate.
+     *
+     * @param jdbcTemplate The JdbcTemplate to be used for database operations.
+     */
     @Autowired
     public AnalysisServiceImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    /**
+     * Calculates the average popularity score of categories for a given season.
+     *
+     * @param season The season for which the popularity should be calculated.
+     * @return A map containing category names as keys and their average popularity scores as values.
+     */
     @Override
     public Map<String, Double> calculateCategoryPopularityBySeason(String season) {
         String sql = "SELECT c.category_name, AVG(cp.popularity_score) AS avg_score " +
@@ -34,6 +50,11 @@ public class AnalysisServiceImpl implements AnalysisService {
                 ));
     }
 
+    /**
+     * Calculates the average popularity score of designers.
+     *
+     * @return A map containing designer names as keys and their average popularity scores as values.
+     */
     @Override
     public Map<String, Double> calculateDesignerPopularity() {
         String sql = "SELECT d.designer_name, AVG(d.popularity_score) AS avg_score " +
@@ -48,6 +69,11 @@ public class AnalysisServiceImpl implements AnalysisService {
                 ));
     }
 
+    /**
+     * Calculates the average popularity score of products.
+     *
+     * @return A map containing product names as keys and their average popularity scores as values.
+     */
     @Override
     public Map<String, Double> calculateProductPopularity() {
         String sql = "SELECT p.product_name, AVG(pp.popularity_score) AS avg_score " +
@@ -63,6 +89,11 @@ public class AnalysisServiceImpl implements AnalysisService {
                 ));
     }
 
+    /**
+     * Calculates the average popularity score of trends.
+     *
+     * @return A map containing trend names as keys and their average popularity scores as values.
+     */
     @Override
     public Map<String, Double> calculateTrendPopularity() {
         String sql = "SELECT t.trend_name, AVG(tp.popularity_score) AS avg_score " +
@@ -78,6 +109,11 @@ public class AnalysisServiceImpl implements AnalysisService {
                 ));
     }
 
+    /**
+     * Calculates the average popularity score of products per category.
+     *
+     * @return A map containing category names as keys and average product popularity scores for those categories as values.
+     */
     @Override
     public Map<String, Double> calculateProductPopularityByCategory() {
         String sql = "SELECT c.category_name, AVG(pp.popularity_score) AS avg_score " +
@@ -99,6 +135,11 @@ public class AnalysisServiceImpl implements AnalysisService {
         return productPopularityByCategoryMap;
     }
 
+    /**
+     * Calculates the average popularity score of trends per category.
+     *
+     * @return A map containing category names as keys and average trend popularity scores for those categories as values.
+     */
     @Override
     public Map<String, Double> calculateTrendPopularityByCategory() {
         String sql = "SELECT c.category_name, AVG(tp.popularity_score) AS avg_score " +
@@ -120,6 +161,12 @@ public class AnalysisServiceImpl implements AnalysisService {
         return trendPopularityByCategoryMap;
     }
 
+    /**
+     * Calculates the average popularity score of trends for a given season.
+     *
+     * @param season The season for which the trend popularity should be calculated.
+     * @return A map containing trend names as keys and their average popularity scores for the given season as values.
+     */
     @Override
     public Map<String, Double> calculateTrendPopularityBySeason(String season) {
         String sql = "SELECT t.trend_name, AVG(tp.popularity_score) AS avg_score " +

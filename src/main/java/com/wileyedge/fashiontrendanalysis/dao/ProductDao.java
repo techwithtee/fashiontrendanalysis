@@ -35,7 +35,7 @@ public interface ProductDao {
      * Updates details of an existing product in the database.
      *
      * @param productId the unique identifier for the product to be updated
-     * @param product the product object containing updated details
+     * @param product   the product object containing updated details
      * @return true if the operation succeeds, false otherwise.
      */
     boolean updateProduct(Long productId, Product product);
@@ -68,7 +68,7 @@ public interface ProductDao {
      * Associates a designer with a product, indicating that the designer has designed the product.
      *
      * @param designerId the unique identifier for the designer
-     * @param productId the unique identifier for the product
+     * @param productId  the unique identifier for the product
      */
     void associateDesignerWithProduct(Long designerId, Long productId);
 
@@ -76,7 +76,7 @@ public interface ProductDao {
      * Removes the association between a designer and a product.
      *
      * @param designerId the unique identifier for the designer
-     * @param productId the unique identifier for the product
+     * @param productId  the unique identifier for the product
      */
     void dissociateDesignerFromProduct(Long designerId, Long productId);
 
@@ -92,8 +92,8 @@ public interface ProductDao {
      * Sets a popularity score for a product for a specific trend.
      *
      * @param productId the unique identifier for the product
-     * @param trendId the unique identifier for the trend
-     * @param score the popularity score to be set
+     * @param trendId   the unique identifier for the trend
+     * @param score     the popularity score to be set
      */
     void setProductPopularityForTrend(Long productId, Long trendId, int score);
 
@@ -101,7 +101,7 @@ public interface ProductDao {
      * Fetches the popularity score of a product for a particular trend.
      *
      * @param productId the unique identifier for the product
-     * @param trendId the unique identifier for the trend
+     * @param trendId   the unique identifier for the trend
      * @return the popularity score of the product for the given trend.
      */
     Integer getProductPopularityForTrend(Long productId, Long trendId);
@@ -114,6 +114,11 @@ public interface ProductDao {
      */
     List<Integer> getAllProductPopularities(Long productId);
 
+    /**
+     * Retrieves a map representing the count of products for each category.
+     *
+     * @return A map where the keys are category names (or identifiers)
+     * and the values are counts of products within that category.
+     */
     Map<String, Integer> getProductCountByCategory();
-
 }

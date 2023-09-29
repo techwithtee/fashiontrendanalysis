@@ -1,22 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Meta information for character set and viewport responsiveness -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category Product Distribution Chart</title>
+    <!-- Title of the page -->
+    <title>Fashion Trend Analysis</title>
 
-    <!-- Include Chart.js library -->
+    <!-- Include Bootstrap CSS for responsive design and predefined styles -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Include Chart.js library for rendering charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom styles -->
+    <style>
+        .header-footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .chart-title {
+            text-align: right;
+            margin-right: 30px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .header-content img {
+            margin-right: 15px;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Styling for the title "Fashion Trend Analysis" */
+        .title-text {
+            font-size: 26px;  /* Adjust this value as needed */
+            /*font-weight: bold;*/
+        }
+
+        .title-link {
+            color: white;
+            text-decoration: none;
+        }
+
+        .title-link:hover,
+        .title-link:active,
+        .title-link:focus {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Styling for the navigation links */
+        .nav-link-text {
+            font-size: 20px;  /* Adjust this value as needed */
+        }
+
+        /* Ensure full height layout with Flex */
+        html, body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Main content style */
+        .main-content {
+            flex: 1 0 auto;  /* This makes sure the main content takes up all available space pushing the footer down */
+            padding: 50px 0; /* Add some padding for spacing */
+        }
+
+        /* Footer style */
+        .header-footer.footer-links {
+            flex-shrink: 0;  /* Ensure footer doesn't shrink */
+        }
+
+        /* Dropdown styling on hover */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            color: black !important;  /* Override Bootstrap's color */
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #343a40 !important;  /* Override Bootstrap's hover color */
+            color: white !important;
+        }
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+
+        /* Search bar styles */
+        .nav-search {
+            margin-right: 20px;
+        }
+
+        .search-input {
+            border-radius: 5px 0 0 5px;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+        }
+
+        .search-btn {
+            border-radius: 0 5px 5px 0;
+            border: 1px solid #ccc;
+            border-left: none;
+            background-color: #343a40;
+            padding: 5px 10px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-icon {
+            font-size: 16px;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Category Product Distribution Chart</h1>
 
-<!-- Canvas element to display the bar chart -->
-<canvas id="barChart" width="200" height="100"></canvas>
+<!-- Start of Header -->
+<div class="header-footer header-content">
+    <!-- Logo and Main title section -->
+    <div class="float-left logo">
+        <!-- Logo Image -->
+        <img src="/static/mtee.png" alt="M.Tee Logo" style="height: 100px; margin-right: 30px;">
+        <!-- Main title with a link to homepage -->
+        <a href="/" class="title-link title-text">Fashion Trend Analysis</a>
+    </div>
+    <!-- Navigation Links including search bar -->
+    <ul class="nav-links">
+        <!-- Search bar for user queries -->
+        <li class="nav-search">
+            <form action="/search" method="GET" class="d-flex">
+                <!-- Search input field -->
+                <input type="text" name="query" placeholder="Search..." class="search-input">
+                <!-- Search button -->
+                <button type="submit" class="search-btn">
+                    <!-- Icon for search button -->
+                    <span class="search-icon">🔍</span>
+                </button>
+            </form>
+        </li>
+        <!-- End of Search Form -->
 
+        <!-- Regular navigation links -->
+        <li><a href="#" class="nav-link-text">Category</a></li>
+        <li><a href="#" class="nav-link-text">Trends</a></li>
+        <li><a href="#" class="nav-link-text">Products</a></li>
+        <li><a href="#" class="nav-link-text">Designer</a></li>
+        <!-- User Dropdown menu for Register and Login options -->
+        <li class="dropdown drop">
+            <!-- Dropdown toggle -->
+            <a href="#" class="nav-link-text dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                User
+            </a>
+            <!-- Dropdown content with Register and Login links -->
+            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">Register</a>
+                <a class="dropdown-item" href="#">Login</a>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- End of Header -->
 
+<!-- Title for the chart section -->
+<h5 class="chart-title">Category Product Distribution Chart</h5>
 
-<!-- JavaScript to fetch data and create the chart -->
+<!-- Main content of the page -->
+<div class="main-content">
+    <!-- Chart container -->
+    <div class="container">
+        <!-- Canvas for rendering the bar chart -->
+        <canvas id="barChart" width="200" height="100"></canvas>
+    </div>
+</div>
+
+<!-- Start of Footer -->
+<div class="header-footer footer-links text-center">
+    <!-- Footer links -->
+    <a href="#">About Us</a>
+    <a href="#">Contact</a>
+    <a href="#">Terms of Service</a>
+    <!-- Copyright information -->
+    <div>© 2023 M.Tee</div>
+</div>
+<!-- End of Footer -->
+
+<!-- JavaScript for fetching data and creating the bar chart -->
 <script>
     // Fetch data from your Spring MVC backend for getCategoryProductCounts
     fetch('http://localhost:6363/api/products/category/product-count')
@@ -62,5 +274,8 @@
         });
     }
 </script>
+
+<!-- Include Bootstrap JS for responsive design and interactivity -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
