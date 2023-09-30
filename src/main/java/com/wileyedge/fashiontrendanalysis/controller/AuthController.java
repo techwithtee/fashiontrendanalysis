@@ -24,10 +24,7 @@ public class AuthController {
      * @return The login page view.
      * @apiEndpoint GET http://localhost:6363/auth/login
      */
-//    @GetMapping("/login")
-//    public String login() {
-//        return "login"; // Return the login page view name
-//    }
+
     @GetMapping("/login")
     public ResponseEntity<String> login() {
         return ResponseEntity.ok("Login endpoint hit. Frontend not implemented yet.");
@@ -38,10 +35,7 @@ public class AuthController {
      * @return The registration form view.
      * @apiEndpoint GET http://localhost:6363/auth/register
      */
-//    @GetMapping("/register")
-//    public String registerForm() {
-//        return "register"; // Return the registration page view name
-//    }
+
     @GetMapping("/register")
     public ResponseEntity<String> registerForm() {
         return ResponseEntity.ok("Registration endpoint hit. Frontend not implemented yet.");
@@ -53,12 +47,7 @@ public class AuthController {
      * @return Redirect to the login page upon successful registration.
      * @apiEndpoint POST http://localhost:6363/auth/register
      */
-//    @PostMapping("/register")
-//    public String register(User user) {
-//        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
-//        userDao.createUser(user);
-//        return "redirect:/login"; // Redirect to login page after successful registration
-//    }
+
     @PostMapping("/register")
     public ResponseEntity<String> register(User user) {
         user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));

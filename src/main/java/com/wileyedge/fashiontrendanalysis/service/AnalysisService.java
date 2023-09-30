@@ -55,6 +55,4 @@ public interface AnalysisService {
      * @return A map where the key is the trend name and the value is the calculated popularity score.
      */
     Map<String, Double> calculateTrendPopularityBySeason(String season);
-
-    // More analysis methods can be added here as needed
 }
