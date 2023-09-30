@@ -1,0 +1,7 @@
+com.wileyedge.fashiontrendanalysis
+com.wileyedge.fashiontrendanalysis.controller
+com.wileyedge.fashiontrendanalysis.dao
+com.wileyedge.fashiontrendanalysis.exceptions
+com.wileyedge.fashiontrendanalysis.model
+com.wileyedge.fashiontrendanalysis.service
+com.wileyedge.fashiontrendanalysis.UserSecurity
