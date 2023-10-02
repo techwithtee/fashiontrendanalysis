@@ -301,5 +301,4 @@ public class TrendDaoImplTest {
         reset(jdbcTemplate);
     }
 
-    // Add tests for other TrendDao methods like getTrendsByCategory, getTrendsByDesigner, etc.
 }

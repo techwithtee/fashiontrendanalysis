@@ -104,7 +104,6 @@ public class UserController {
             return new ResponseEntity<>("User not found!", HttpStatus.NOT_FOUND);
         }
 
-        // Update fields as necessary
         existingUser.setUsername(userUpdates.getUsername());
         existingUser.setEmail(userUpdates.getEmail());
         existingUser.setDesignerName(userUpdates.getDesignerName());
